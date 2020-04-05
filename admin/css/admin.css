@@ -1,4 +1,179 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+
+.form-group {
+	margin-top: 1em;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.form-group + .form-group {
+	border-top: 1px solid #ccd0d4;
+	padding-top: 1em;
+}
+
+.form-group .form-label {
+	flex-shrink: 0;
+	font-weight: bold;
+	margin-right: .5em;
+	width: 30%;
+	font-size: 85%;
+}
+
+.form-group .form-control {
+	flex-grow: 1;
+	width: 100%;
+}
+
+
+/**/
+
+
+.list-of-templates {
+	width: 100%;
+}
+
+.list-of-templates .list {
+	counter-reset: templatescount;
+}
+
+.list-of-templates .list-item {
+	counter-increment: templatescount;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: .2em
+}
+
+.list-of-templates .list-item::before {
+	content: counter( templatescount );
+	font-weight: bold;
+	min-width: 2em;
+	text-align: center;
+}
+
+.list-of-templates .add-button {
+	margin-top: .5em;
+}
+
+.list-of-templates .template {
+	flex-grow: 2;
+	padding-left: .2em;
+	padding-right: .2em;
+}
+
+.list-of-templates .wp-picker-holder {
+	position: absolute;
+}
+
+.list-of-templates .wp-picker-container .wp-color-result.button {
+	margin: 0;
+}
+
+.list-of-templates .wp-picker-container .wp-picker-clear {
+	padding: 2px 8px;
+}
+
+/**/
+
+
+.file-choice-field {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+}
+
+.file-choice-field .file-choice-button {
+	flex-shrink: 0;
+}
+
+.file-choice-field .file-choice-control {
+	flex-grow: 2;
+	margin-right: .2em;
+}
+
+
+/**/
+
+
+.composite-field {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.composite-field > * {
+	flex-grow: 1;
+	width: auto;
+}
+
+
+
+/**/
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+/**/
+
+
+.bulk-action-table {
+	width: 100%;
+	border-spacing: 0;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.bulk-action-table .check-column {
+	width: 5%;
+	text-align: center;
+}
+
+.bulk-action-table .name {
+	text-align: left;
+}
+
+.bulk-action-table .cipher {
+	width: 20%;
+	text-align: center;
+}
+
+
+.bulk-action-table .work-status {
+	width: 20%;
+	text-align: center;
+}
+
+.bulk-action-table .show-authors-status {
+	width: 10%;
+	text-align: center;
+}
+
+.bulk-action-table th {
+	padding: .5em;
+}
+
+.bulk-action-table td {
+	margin: 0;
+	border-top: 1px solid #aaa;
+	border-left: none;
+	border-right: none;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	transition: .2s background-color;
+}
+
+.bulk-action-table tr:hover td {
+	background-color: rgba( 255, 255, 255, .5 );
+}

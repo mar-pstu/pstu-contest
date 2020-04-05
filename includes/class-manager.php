@@ -58,7 +58,7 @@ class Manager {
 	 */
 	public function __construct() {
 		$this->version = ( defined( 'PSTU_CONTEST_VERSION' ) ) ? PSTU_CONTEST_VERSION : '2.0.0';
-		$this->version = ( defined( 'PSTU_CONTEST_NAME' ) ) ? PSTU_CONTEST_NAME : 'pstu_contest';
+		$this->plugin_name = ( defined( 'PSTU_CONTEST_NAME' ) ) ? PSTU_CONTEST_NAME : 'pstu_contest';
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->init();
@@ -77,10 +77,22 @@ class Manager {
 	 */
 	private function load_dependencies() {
 
+
+		/**
+		 * Методы для работы с полями формы
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/trait-controls.php';
+
+
 		/**
 		 * Абстракный класс с общими свойствами и методами для файлов плагина
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/abstract-part.php';
+
+		/**
+		 * Класс для создания метаполя
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-field.php';
 
 		/**
 		 * Класс, отвечающий за регистрацию хуков, фильтров и шорткодов.
@@ -98,9 +110,37 @@ class Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-init.php';
 
 		/**
+		 * Класс, отвечающий за страницу настроек плагина
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-settings.php';
+
+		/**
+		 * Класс, отвечающий за групповые действия
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/abstract-admin-bulk-action.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-manager.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-show-authors.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-status-change.php';
+
+		/**
 		 * Класс, отвечающий за хуки, фильтры админки для "Конкурсных работ"
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-competitive_work.php';
+
+		/**
+		 * Класс, отвечающий за хуки, фильтры админки для таксономии "Год проведения"
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-cw_year.php';
+
+		/**
+		 * Класс, отвечающий за хуки, фильтры админки для таксономии "Статус работы"
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-work_status.php';
+
+		/**
+		 * Класс, отвечающий за хуки, фильтры админки для таксономии "Секция работы"
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-contest_section.php';
 
 		/**
 		 * Класс, отвечающий за хуки, фильтры публичной для "Конкурсных работ"
@@ -133,6 +173,7 @@ class Manager {
 		$plugin_register_objects = new Init( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_register_objects, 'register_post_types' );
 		$this->loader->add_action( 'init', $plugin_register_objects, 'register_taxonomies' );
+		$this->loader->add_filter( $this->get_plugin_name() . '_get_fields', $plugin_register_objects, 'get_fields', 10, 1 );
 	}
 
 
@@ -143,11 +184,38 @@ class Manager {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
+		$settings = new AdminSettings( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'admin_menu', $settings, 'add_page' );
+		$this->loader->add_action( 'admin_init', $settings, 'register_settings' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $settings, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $settings, 'enqueue_scripts' );
+		$bulk_action = new AdminBulkActionManager( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'admin_menu', $bulk_action, 'add_page' );
+		$this->loader->add_action( 'current_screen', $bulk_action, 'run_action' );
+		$bulk_action_show_author_class = new AdminBulkActionShowAuthors( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_show_author_class, 'add_action', 5, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_show_author_class->get_action_name(), $bulk_action_show_author_class, 'run_action' );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_show_author_class->get_action_name(), $bulk_action_show_author_class, 'render_subscreen' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_show_author_class, 'enqueue_styles' );
+		$bulk_action_status_change_class = new AdminBulkActionStatusChange( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_status_change_class, 'add_action', 5, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_status_change_class->get_action_name(), $bulk_action_status_change_class, 'run_action' );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_status_change_class->get_action_name(), $bulk_action_status_change_class, 'render_subscreen' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_status_change_class, 'enqueue_styles' );
 		$competitive_work = new AdminCompetitiveWork( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'add_meta_boxes', $competitive_work, 'add_meta_box' );
+		$this->loader->add_action( 'save_post', $competitive_work, 'save_post' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work, 'enqueue_scripts' );
-
+		$cw_year = new AdminCWYear( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'add_meta_boxes', $cw_year, 'add_meta_box' );
+		$this->loader->add_action( 'save_post', $cw_year, 'save_post' );
+		$work_status = new AdminWorkStatus( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'add_meta_boxes', $work_status, 'add_meta_box' );
+		$this->loader->add_action( 'save_post', $work_status, 'save_post' );
+		$contest_section = new AdminContestSection( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'add_meta_boxes', $contest_section, 'add_meta_box' );
+		$this->loader->add_action( 'save_post', $contest_section, 'save_post' );
 	}
 
 	/**

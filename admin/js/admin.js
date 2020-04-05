@@ -1,32 +1,89 @@
-(function( $ ) {
+( function( $ ) {
 	'use strict';
+	jQuery( document ).ready( function () {
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+		jQuery( '[data-list-of-templates]' ).each( function( index, container ) {
 
-})( jQuery );
+			var $container = jQuery( container ),
+				$list = $container.find( '.list' ).empty(),
+				template = wp.template( $container.find( '[id^=tmpl]' ).eq( 0 ).attr( 'id' ).slice( 5 ) ),
+				data = eval(  $container.attr( 'data-list-of-templates' ) + '_data' ),
+				count = data.length;
+
+			function getRowNumber( element ) {
+				return $list.find( '.list-item' ).index( jQuery( element ).closest( '.list-item' ) );
+			}
+
+			function getListLength() {
+				return $list.find( '.list-item' ).length;
+			}
+
+			function add() {
+				count = count + 1;
+				var item = new Object();
+				Object.assign( item, { value: '' }, { i: count } );
+				$list.append( template( item ) );
+			}
+
+			function remove() {
+				$list.find( '.list-item' ).eq( getRowNumber( this ) ).remove();
+				if ( getListLength() == 0 ) {
+					add();
+				}
+			}
+
+			function build() {
+				if ( count == 0 ) {
+					add();
+				} else {
+					jQuery.each( data, function( index, value ) {
+						var item = new Object();
+						Object.assign( item, value, { i: getListLength() + 1 } );
+						$list.append( template( item ) );
+					} );
+				}
+			}
+
+			build();
+			$container.on( 'click', 'button.add-button', add );
+			$container.on( 'click', 'button.remove-button', remove )
+
+		} );
+	} );
+} )( jQuery );
+
+
+
+
+
+( function( $ ) {
+	'use strict';
+	jQuery( document ).ready( function () {
+		jQuery( 'body' ).on( 'click', '.file-choice-field .file-choice-button', function () {
+			var $control = jQuery( this ).closest( '.file-choice-field' ).find( '.file-choice-control' ),
+				file = wp.media( { 
+				multiple: false,
+				library: {},
+			} ).open()
+			.on( 'select', function( e ) {
+				var uploaded_file = file.state().get( 'selection' ).first();
+				var file_url = uploaded_file.toJSON().url;
+				console.log( file_url );
+				$control.val( file_url );
+			} );
+		} )
+	} );
+} )( jQuery );
+
+
+
+
+( function( $ ) {
+	'use strict';
+	jQuery( document ).ready( function () {
+		jQuery( '.data-picker-control' ).wpColorPicker();
+		jQuery( 'body' ).on( 'click', '.data-picker-control', function () {
+			jQuery( this ).wpColorPicker();
+		} );
+	} );
+} )( jQuery );

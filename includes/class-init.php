@@ -197,17 +197,17 @@ class Init {
 			'label'                 => 'work_status',
 			'labels'                => [
 				'name'                => __( 'Статус работы', $this->plugin_name ),
-				'singular_name'       => __( 'Статус роботи', $this->plugin_name ),
-				'search_items'        => __( 'Знайти статус роботи', $this->plugin_name ),
-				'all_items'           => __( 'Всі записи', $this->plugin_name ),
-				'view_item '          => __( 'Перегляд списку записів', $this->plugin_name ),
-				'parent_item'         => __( 'Батьківський запис', $this->plugin_name ),
-				'parent_item_colon'   => __( 'Батьківський запис:', $this->plugin_name ),
-				'edit_item'           => __( 'Редагувати запис', $this->plugin_name ),
-				'update_item'         => __( 'Оновити запис', $this->plugin_name ),
-				'add_new_item'        => __( 'Додати новий запис', $this->plugin_name ),
-				'new_item_name'       => __( 'Додати запис', $this->plugin_name ),
-				'menu_name'           => __( 'Статус роботи', $this->plugin_name ),
+				'singular_name'       => __( 'Статус работы', $this->plugin_name ),
+				'search_items'        => __( 'Найти статус работы', $this->plugin_name ),
+				'all_items'           => __( 'Все записи', $this->plugin_name ),
+				'view_item '          => __( 'Просмотр списка записей', $this->plugin_name ),
+				'parent_item'         => __( 'Родительская запись', $this->plugin_name ),
+				'parent_item_colon'   => __( 'Родительская запись:', $this->plugin_name ),
+				'edit_item'           => __( 'Редактировать запись', $this->plugin_name ),
+				'update_item'         => __( 'Обновить запись', $this->plugin_name ),
+				'add_new_item'        => __( 'Добавить новую запись', $this->plugin_name ),
+				'new_item_name'       => __( 'Добавить статус', $this->plugin_name ),
+				'menu_name'           => __( 'Статусы работ', $this->plugin_name ),
 			],
 			'description'           => '',
 			'public'                => true,
@@ -227,6 +227,44 @@ class Init {
 			'_builtin'              => false,
 			'show_in_quick_edit'    => null,
 		] );
+	}
+
+
+
+	/**
+	 * Возвращает список метаполей конкурсной работы
+	 *
+	 * @since    2.0.0
+	 * @access   protected
+	 */
+	protected function get_competitive_work_fields() {
+		return [
+			new Field( 'rating', __( 'Рейтинг', $this->plugin_name ) ),
+			new Field( 'cipher', __( 'Шифр', $this->plugin_name ) ),
+			new Field( 'work_files', __( 'Конкурсные работы', $this->plugin_name ) ),
+			new Field( 'show_authors', __( 'Показывать авторов', $this->plugin_name ) ),
+			new Field( 'authors', __( 'Авторы', $this->plugin_name ) ),
+			new Field( 'reviews', __( 'Рецензии', $this->plugin_name ) ),
+			new Field( 'invite_files', __( 'Приглашение к участию в конференции', $this->plugin_name ) ),
+		];
+	}
+
+
+
+	/**
+	 * Возвращает список метаполей подразделения
+	 *
+	 * @since    2.0.0
+	 * @access   public
+	 */
+	public function get_fields( $key ) {
+		$result = array();
+		switch ( $key ) {
+			case 'competitive_work':
+				$result = $this->get_competitive_work_fields();
+				break;
+		}
+		return $result;
 	}
 
 

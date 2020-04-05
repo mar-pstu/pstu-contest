@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
  * @subpackage pstu_contest/admin
  * @author     chomovva <chomovva@gmail.com>
  */
-class AdminCompetitiveWork extends Part {
+class PublicCompetitiveWork extends Part {
 
 
 
