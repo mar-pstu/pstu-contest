@@ -144,15 +144,26 @@
 	text-align: left;
 }
 
+.bulk-action-table .rating {
+	width: 20%;
+	text-align: center;
+}
+
 .bulk-action-table .cipher {
 	width: 20%;
 	text-align: center;
+	font-family: monospace;
 }
 
 
 .bulk-action-table .work-status {
 	width: 20%;
 	text-align: center;
+}
+
+.bulk-action-table .work-status .list-inline {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .bulk-action-table .show-authors-status {
@@ -176,4 +187,12 @@
 
 .bulk-action-table tr:hover td {
 	background-color: rgba( 255, 255, 255, .5 );
+}
+
+
+
+/* таблица списка записей */
+
+.wp-list-table .cipher {
+	font-family: monospace;
 }

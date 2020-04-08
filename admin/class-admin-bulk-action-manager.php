@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
  * @subpackage pstu_contest/admin
  * @author     chomovva <chomovva@gmail.com>
  */
-class AdminBulkActionManager extends Part {
+class AdminBulkActionManager extends AdminPart {
 
 
 	use Controls;
@@ -24,18 +24,10 @@ class AdminBulkActionManager extends Part {
 	protected $actions;
 
 
-	function __construct( $plugin_name, $version ) {
-		parent::__construct( $plugin_name, $version );
-		// $this->actions = [
-		// 	'set_status'       => __( 'Установка статуса', $this->plugin_name ),
-		// 	'set_invite_files' => __( 'Загрузка приглашений', $this->plugin_name ),
-		// 	'set_reviews'      => __( 'Загрузка рецензий', $this->plugin_name ),
-		// 	'set_authors'      => __( 'Добавление авторов', $this->plugin_name ),
-		// 	'set_work_files'   => __( 'Загрузка конкурсных работ', $this->plugin_name ),
-		// ];
-	}
-
-
+	/**
+	 * Возвращает список групповых действий
+	 * @return   array   список групповых действий
+	 */
 	protected function get_actions() {
 		if ( null == $this->actions ) {
 			$this->actions = apply_filters( "{$this->plugin_name}_bulk_action_list", [] );
@@ -77,6 +69,9 @@ class AdminBulkActionManager extends Part {
 	}
 
 
+	/**
+	 * Выполняет зарегистрированные действия
+	 */
 	public function run_action() {
 		$action = ( isset( $_POST[ 'action' ] ) ) ? $_POST[ 'action' ] : '';
 		if ( array_key_exists( $action, $this->get_actions() ) ) {
@@ -85,6 +80,11 @@ class AdminBulkActionManager extends Part {
 	}
 
 
+	/**
+	 * Формирует html-код экрана с формой группового действия.
+	 * @param     string    $subscreen    идентификатор текущего "экрана"
+	 * @return    string                  html-код экрана
+	 */
 	protected function render_subscreen_choices( $subscreen = '' ) {
 		$html = '';
 		if ( ! empty( $this->get_actions() ) ) {
@@ -107,6 +107,16 @@ class AdminBulkActionManager extends Part {
 			);
 		}
 		return $html;
+	}
+
+
+	/**
+	 * Регистрирует необходимые скрипты
+	 */
+	public function enqueue_scripts() {
+		parent::enqueue_scripts();
+		wp_enqueue_media();
+		wp_enqueue_script( 'wp-color-picker' );
 	}
 
 

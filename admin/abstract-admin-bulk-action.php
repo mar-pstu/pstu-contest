@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
  * @subpackage pstu_contest/includes
  * @author     chomovva <chomovva@gmail.com>
  */
-abstract class BulkAction extends Part {
+abstract class BulkAction extends AdminPart {
 
 
 	use Controls;
@@ -248,22 +248,6 @@ abstract class BulkAction extends Part {
 		$competitive_works = get_posts( $competitive_works_args );
 		return ( is_array( $competitive_works ) ) ? $competitive_works : [];
 	}
-
-
-
-	protected function add_admin_notice( $result_text, $result_status = 'default' ) {
-		if ( ! in_array( $result_status, [ 'default', 'success', 'error', 'warning', 'info' ] ) ) {
-			$result_status = 'default';
-		}
-		add_action( 'admin_notices', function () use ( $result_text, $result_status ) {
-			?>
-				<div id="message" class="notice notice-<?php echo $result_status; ?> is-dismissible">
-					<p><?php echo $result_text; ?></p>
-				</div>
-			<?php
-		} );
-	}
-
 
 
 }

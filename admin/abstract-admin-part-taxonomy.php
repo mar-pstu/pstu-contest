@@ -8,40 +8,45 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
 
 
 /**
- * Класс отвечающий за функциональность админки для
- * таксономии "Статус работы"
+ * Абстрактный класс отвечающий за функциональность админки для
+ * таксономий конкурсных работ
  *
  * @package    pstu_contest
  * @subpackage pstu_contest/admin
  * @author     chomovva <chomovva@gmail.com>
  */
-class AdminWorkStatus extends Part {
-
-
-	use Controls;
-
-
-	protected $taxonomy_name;
-
-
-	function __construct( $plugin_name, $version ) {
-		parent::__construct( $plugin_name, $version );
-		$this->taxonomy_name = 'work_status';
-	}
-
+abstract class AdminPartTaxonomy extends AdminPart {
 
 
 	/**
-	 *	Регистрация метабокса
-	 *
+	 * Идентификатор пользовательской таксономии
+	 * @since    2.0.0
+	 * @var      string
+	 */
+	protected $taxonomy_name;
+
+
+	/**
+	 * Возвращает идентификатор пользовательской таксономии
+	 * @return   string   идентификатор пользовательской таксономии
+	 */
+	public function get_taxonomy_name() {
+		return $this->taxonomy_name;
+	}
+
+
+	/**
+	 *	Регистрация метабокса для добавления
+	 *	пользовательской таксономии к посту
 	 * @since    2.0.0
 	 * @var      string       $post_type
 	 */
 	public function add_meta_box( $post_type ) {
-		if ( 'competitive_work' == $post_type ) {
+		global $wp_taxonomies;
+		if ( 'competitive_work' == $post_type && isset( $wp_taxonomies[ $this->taxonomy_name ] ) ) {
 			add_meta_box(
 				$this->taxonomy_name . '_relationship',
-				__( 'Статус работы', $this->plugin_name ),
+				$wp_taxonomies[ $this->taxonomy_name ]->labels->singular_name,
 				array( $this, 'render_metabox_content' ),
 				$post_type,
 				'side',
@@ -54,8 +59,7 @@ class AdminWorkStatus extends Part {
 
 
 	/**
-	 * Сохранение поста
-	 *
+	 * Прикрепляет / удаляет выбраные термин к посту
 	 * @since    2.0.0
 	 * @var      int          $post_id
 	 */
@@ -79,8 +83,8 @@ class AdminWorkStatus extends Part {
 
 
 	/**
-	 * Регистрирует стили для админки
-	 *
+	 * Выводит html-код контента метабокса таксономии при
+	 * редактировании поста.
 	 * @since    2.0.0
 	 * @var      WP_Post       $post
 	 */
@@ -100,7 +104,7 @@ class AdminWorkStatus extends Part {
 				'selected' => wp_get_object_terms( $post->ID, $this->taxonomy_name, array( 'fields' => 'ids' ) ),
 			) );
 		} else {
-			$control = __( 'Заполните статусы работ или обратитесь к администратору сайта.', $this->plugin_name );
+			$control = __( 'Заполните таксономию или обратитесь к администратору сайта.', $this->plugin_name );
 		}
 		include dirname( __FILE__ ) . '\partials\post_type-section-field.php';
 	}

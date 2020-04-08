@@ -15,33 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
  * @subpackage pstu_contest/includes
  * @author     chomovva <chomovva@gmail.com>
  */
-class Init {
-
-
-	/**
-	 * Уникальный идентификатор для получения строки перевода.
-	 *
-	 * @since    2.0.0
-	 * @access   protected
-	 * @var      string    $version    Уникальный идентификатор для получения строки перевода.
-	 */
-	protected $plugin_name;
-
-
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    2.0.0
-	 * @param    string    $plugin_name        Уникальный идентификатор для получения строки перевода.
-	 */
-	function __construct( $plugin_name ) {
-		$this->plugin_name = $plugin_name;
-	}
+class Init extends Part {
 
 
 	/**
 	 * Регистрирует типы записей
-	 *
 	 * @since    2.0.0
 	 */
 	public function register_post_types() {
@@ -51,7 +29,6 @@ class Init {
 
 	/**
 	 * Регистрирует таксономии
-	 *
 	 * @since    2.0.0
 	 */
 	public function register_taxonomies() {
@@ -63,7 +40,6 @@ class Init {
 
 	/**
 	 * Регистрирует тип записи "Конкурсная работа"
-	 *
 	 * @since    2.0.0
 	 */
 	protected function type_competitive_work() {
@@ -107,7 +83,6 @@ class Init {
 
 	/**
 	 * Регистрирует таксономию "Секция конкурса"
-	 *
 	 * @since    2.0.0
 	 */
 	protected function taxonomy_contest_section() {
@@ -150,8 +125,7 @@ class Init {
 
 
 	/**
-	 * Регистрирует таксономию "Секция конкурса"
-	 *
+	 * Регистрирует таксономию "Год проведения"
 	 * @since    2.0.0
 	 */
 	protected function taxonomy_cw_year() {
@@ -192,11 +166,15 @@ class Init {
 	}
 
 
+	/**
+	 * Регистрирует таксономию "Статус конкурсной работы"
+	 * @since    2.0.0
+	 */
 	protected function taxonomy_work_status() {
 		register_taxonomy( 'work_status', [ 'competitive_work' ], [
 			'label'                 => 'work_status',
 			'labels'                => [
-				'name'                => __( 'Статус работы', $this->plugin_name ),
+				'name'                => __( 'Статусы работ', $this->plugin_name ),
 				'singular_name'       => __( 'Статус работы', $this->plugin_name ),
 				'search_items'        => __( 'Найти статус работы', $this->plugin_name ),
 				'all_items'           => __( 'Все записи', $this->plugin_name ),
@@ -210,15 +188,15 @@ class Init {
 				'menu_name'           => __( 'Статусы работ', $this->plugin_name ),
 			],
 			'description'           => '',
-			'public'                => true,
-			'publicly_queryable'    => true,
-			'query_var'             => true,
-			'show_in_nav_menus'     => true,
+			'public'                => false,
+			'publicly_queryable'    => false,
+			'query_var'             => false,
+			'show_in_nav_menus'     => false,
 			'show_ui'               => true,
-			'show_tagcloud'         => true,
-			'show_in_rest'          => true,
+			'show_tagcloud'         => false,
+			'show_in_rest'          => false,
 			'rest_base'             => null,
-			'hierarchical'          => true,
+			'hierarchical'          => false,
 			'update_count_callback' => '',
 			'rewrite'               => true,
 			'capabilities'          => array(),
@@ -233,7 +211,6 @@ class Init {
 
 	/**
 	 * Возвращает список метаполей конкурсной работы
-	 *
 	 * @since    2.0.0
 	 * @access   protected
 	 */
@@ -252,8 +229,20 @@ class Init {
 
 
 	/**
+	 * Возвращает список метаполей таксономии "Статус конкусной работы"
+	 * @since    2.0.0
+	 * @access   protected
+	 */
+	protected function get_work_status_fields() {
+		return [
+			new Field( 'status_type', __( 'Тип статуса', $this->plugin_name ) ),
+		];
+	}
+
+
+
+	/**
 	 * Возвращает список метаполей подразделения
-	 *
 	 * @since    2.0.0
 	 * @access   public
 	 */
@@ -262,6 +251,9 @@ class Init {
 		switch ( $key ) {
 			case 'competitive_work':
 				$result = $this->get_competitive_work_fields();
+				break;
+			case 'work_status':
+				$result = $this->get_work_status_fields();
 				break;
 		}
 		return $result;

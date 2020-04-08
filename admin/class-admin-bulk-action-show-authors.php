@@ -107,14 +107,4 @@ class AdminBulkActionShowAuthors extends BulkAction {
 	}
 
 
-	/**
-	 * Регистрирует стили для админки
-	 *
-	 * @since    2.0.0
-	 */
-	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/admin.css', array(), $this->version, 'all' );
-	}
-
-
 }

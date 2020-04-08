@@ -237,4 +237,83 @@ trait Controls {
 	}
 
 
+	/**
+	 * Очищает массив со строками ссылками
+	 *
+	 * @since    2.0.0
+	 * @var      array   Ожидает неочищенный массив
+	 * @return   array   Возвращает очищенный массив url
+	 */
+	public function sanitize_url_list( $value ) {
+		$result = array();
+		if ( is_array( $value ) ) {
+			foreach ( $value as $url ) {
+				if ( ( bool ) preg_match( '~^(?:https?://)?[^.]+\.\S{2,4}$~iu', $url ) ) {
+					$result[] = trim( $url );
+				}
+			}
+		}
+		return $result;
+	}
+
+
+
+	public function sanitize_person_data( $value ) {
+		$result = array();
+		if ( is_array( $value ) && ! empty( $value ) ) {
+			foreach ( $value as &$author ) {
+				if ( is_array( $author ) && ! empty( $author ) ) {
+					$author = $this->parse_only_allowed_args( [
+						'last_name'   => '',
+						'first_name'  => '',
+						'middle_name' => '',
+					], $author, [
+						'sanitize_text_field',
+						'sanitize_text_field',
+						'sanitize_text_field',
+					], [
+						'last_name', 'first_name'
+					] );
+					if ( $author && ! empty( $author[ 'last_name' ] ) && ! empty( $author[ 'first_name' ] ) ) {
+						$result[] = $author;
+					}
+				}
+			}
+		}
+		return $result;
+	}
+
+
+
+	/**
+	 * Функция для очистки массива параметров
+	 * @param  array $default           расзерённые парметры и стандартные значения
+	 * @param  array $args              неочищенные параметры
+	 * @param  array $sanitize_callback одномерный массив с именами функция, с помощью поторых нужно очистить параметры
+	 * @param  array $required          обязательные параметры
+	 * @return array                    возвращает ощиченный массив разрешённых параметров
+	 */
+	public function parse_only_allowed_args( $default, $args, $sanitize_callback = [], $required = [] ) {
+		$args = ( array ) $args;
+		$result = [];
+		$count = 0;
+		while ( ( $value = current( $default ) ) !== false ) {
+			$key = key( $default );
+			if ( array_key_exists( $key, $args ) ) {
+				$result[ $key ] = $args[ $key ];
+				if ( isset( $sanitize_callback[ $count ] ) && ! empty( $sanitize_callback[ $count ] ) ) {
+					$result[ $key ] = $sanitize_callback[ $count ]( $result[ $key ] );
+				}
+			} elseif ( in_array( $key, $required ) ) {
+				return null;
+			} else {
+				$result[ $key ] = $value;
+			}
+			$count = $count + 1;
+			next( $default );
+		}
+		return $result;
+	}
+
+
 }
