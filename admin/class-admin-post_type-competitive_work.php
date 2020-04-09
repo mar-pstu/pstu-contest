@@ -18,9 +18,21 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
 class AdminCompetitiveWork extends AdminPartPostType {
 
 
+	protected $fields;
+
+
 	function __construct( $plugin_name, $version ) {
 		parent::__construct( $plugin_name, $version );
 		$this->post_type_name = 'competitive_work';
+		$this->fields = [
+			new Field( 'rating', __( 'Рейтинг', $this->plugin_name ) ),
+			new Field( 'cipher', __( 'Шифр', $this->plugin_name ) ),
+			new Field( 'work_files', __( 'Конкурсные работы', $this->plugin_name ) ),
+			new Field( 'show_authors', __( 'Показывать авторов', $this->plugin_name ) ),
+			new Field( 'authors', __( 'Авторы', $this->plugin_name ) ),
+			new Field( 'reviews', __( 'Рецензии', $this->plugin_name ) ),
+			new Field( 'invite_files', __( 'Приглашение к участию в конференции', $this->plugin_name ) ),
+		];
 	}
 
 
@@ -61,7 +73,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 			wp_nonce_ays();
 			return;
 		}
-		foreach ( apply_filters( "{$this->plugin_name}_get_fields", $this->post_type_name ) as $field ) {
+		foreach ( $this->fields as $field ) {
 			$new_value = ( isset( $_REQUEST[ $field->get_name() ] ) ) ? $this->sanitize_meta_field( $field->get_name(), $_REQUEST[ $field->get_name() ] ) : '';
 			if ( empty( $new_value ) ) {
 				delete_post_meta( $post_id, $field->get_name() );
@@ -109,7 +121,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	public function render_metabox_content( $post ) {
 		wp_nonce_field( $this->post_type_name, "{$this->post_type_name}_nonce" );
 		wp_enqueue_media();
-		foreach ( apply_filters( "{$this->plugin_name}_get_fields", $this->post_type_name ) as $field ) {
+		foreach ( $this->fields as $field ) {
 			$label = $field->get_label();
 			$name = $field->get_name();
 			$id = $field->get_name();
@@ -230,6 +242,47 @@ class AdminCompetitiveWork extends AdminPartPostType {
 			$object->set( 'meta_key', 'cipher' );
 			$object->set( 'orderby', 'meta_value_num' );
 		}
+	}
+
+
+	/**
+	 * Добавляем поле для поиска по метаполю "Шифр"
+	 * на страницу списка постов
+	 * @param  string               $post_type  типо поста
+	 * @param  WP_Media_List_Table  $which      расположение дополнительной табличной навигационной разметки
+	 */
+	public function add_search_field_by_meta( $post_type, $which ) {
+		if ( $this->post_type_name == $post_type ) {
+			echo $this->render_input( 'ciphe', 'text', [
+				'placeholder' => __( 'Поиск по шифру', $this->plugin_name ),
+				'value'       => ( isset( $_GET[ 'ciphe' ] ) ) ? esc_attr( $_GET[ 'ciphe' ] ) : '',
+			] );
+		}
+	}
+
+
+	/**
+	 * Фильтр, который изменяем параметры запроса и добавляет поиск по метаполю "Шифр"
+	 * @param    array  $query_vars  параметры запроса, которые нужно изменить 
+	 * @return   array  $query_vars  параметры запроса, которые нужно изменить 
+	 */
+	public function search_request_by_meta( $query_vars ) {
+		global $pagenow;
+		global $post_type;
+		if ( 'edit.php' == $pagenow && $this->post_type_name == $post_type ) {
+			if ( isset( $_GET[ 'ciphe' ] ) && ! empty( $_GET[ 'ciphe' ] ) ) {
+				$query_vars[ 'meta_query' ] = [
+					'relation' => 'OR',
+					[
+						'key'     => 'cipher',
+						'value'   => ( string ) sanitize_text_field( $_GET[ 'ciphe' ] ),
+						'type'    => 'char',
+						'compare' => 'LIKE'
+					],
+				];
+			}
+		}
+		return $query_vars;
 	}
 
 

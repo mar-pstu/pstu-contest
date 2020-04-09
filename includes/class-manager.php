@@ -83,6 +83,8 @@ class Manager {
 		 * Абстракные классы с общими свойствами и методами для файлов плагина
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/abstract-part.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/abstract-admin-part.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/abstract-public-part.php';
 
 		/**
 		 * Класс для создания метаполя
@@ -107,8 +109,6 @@ class Manager {
 		/**
 		 * Класс, отвечающий за дополнительные страницы админки плагина
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/abstract-admin-part.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/abstract-admin-bulk-action.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-settings-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-import.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-export.php';
@@ -116,6 +116,7 @@ class Manager {
 		/**
 		 * Класс, отвечающий за групповые действия
 		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/abstract-admin-part-bulk-action.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-show-authors.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-status-change.php';
@@ -125,12 +126,13 @@ class Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-edit-authors.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-edit-rating.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-edit-cipher.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-university-change.php';
 
 		/**
 		 * Классы, отвечающие за хуки, фильтры админки для пользовательских типов записи плагина
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/abstract-admin-part-post_type.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-competitive_work.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-post_type-competitive_work.php';
 		
 		/**
 		 * Классы, отвечающие за хуки, фильтры админки для пользовательских таксономий плагина
@@ -139,11 +141,19 @@ class Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-taxonomy-cw_year.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-taxonomy-work_status.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-taxonomy-contest_section.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-taxonomy-university.php';
 
 		/**
-		 * Класс, отвечающий за хуки, фильтры публичной части сайта для "обїектов" плагина
+		 * Классы, отвечающие за хуки, фильтры публичной части сайта для пользовательских типов записи плагина
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-competitive_work.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/abstract-public-part-post_type.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-post_type-competitive_work.php';
+
+		/**
+		 * Классы, отвечающие за хуки, фильтры публичной части сайта для пользовательских таксономий плагина
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/abstract-public-part-taxonomy.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-taxonomy-work_status.php';
 
 		$this->loader = new Loader();
 
@@ -169,7 +179,6 @@ class Manager {
 		$plugin_register_objects = new Init( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_register_objects, 'register_post_types' );
 		$this->loader->add_action( 'init', $plugin_register_objects, 'register_taxonomies' );
-		$this->loader->add_filter( $this->get_plugin_name() . '_get_fields', $plugin_register_objects, 'get_fields', 10, 1 );
 	}
 
 
@@ -247,23 +256,33 @@ class Manager {
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_edit_cipher_class->get_action_name(), $bulk_action_edit_cipher_class, 'run_action' );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_edit_cipher_class->get_action_name(), $bulk_action_edit_cipher_class, 'render_subscreen' );
 
-		// админ-часть типа записи "Конкурсная работа"
-		$competitive_work = new AdminCompetitiveWork( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'add_meta_boxes', $competitive_work, 'add_meta_box', 10, 1 );
-		$this->loader->add_action( 'save_post', $competitive_work, 'save_post', 10, 1 );
-		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work, 'enqueue_styles', 10, 0 );
-		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work, 'enqueue_scripts', 10, 0 );
-		$this->loader->add_action( 'manage_edit-' . $competitive_work->get_post_type_name() . '_columns', $competitive_work, 'add_custom_columns', 10, 1 );
-		$this->loader->add_action( 'manage_posts_custom_column', $competitive_work, 'render_custom_columns', 10, 1 );
-		$this->loader->add_action( 'manage_edit-' . $competitive_work->get_post_type_name() . '_sortable_columns', $competitive_work, 'add_custom_sortable_columns', 10, 1 );
-		$this->loader->add_action( 'pre_get_posts', $competitive_work, 'request_custom_sortable_columns', 10, 1 );
-		// $this->loader->add_action( '', $competitive_work, '', 10, 1 );
+		// групповое действие - редактирвание университета
+		$bulk_action_university_change_class = new AdminBulkActionUniversityChange( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_university_change_class, 'add_action', 5, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_university_change_class->get_action_name(), $bulk_action_university_change_class, 'run_action' );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_university_change_class->get_action_name(), $bulk_action_university_change_class, 'render_subscreen' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_university_change_class, 'enqueue_styles', 10, 0 );
+		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_university_change_class, 'enqueue_scripts', 10, 0 );
 
+		// админ-часть типа записи "Конкурсная работа"
+		$competitive_work_post_type_class = new AdminCompetitiveWork( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'add_meta_boxes', $competitive_work_post_type_class, 'add_meta_box', 10, 1 );
+		$this->loader->add_action( 'save_post', $competitive_work_post_type_class, 'save_post', 10, 1 );
+		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_styles', 10, 0 );
+		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_scripts', 10, 0 );
+		$this->loader->add_action( 'manage_edit-' . $competitive_work_post_type_class->get_post_type_name() . '_columns', $competitive_work_post_type_class, 'add_custom_columns', 10, 1 );
+		$this->loader->add_action( 'manage_posts_custom_column', $competitive_work_post_type_class, 'render_custom_columns', 10, 1 );
+		$this->loader->add_action( 'manage_edit-' . $competitive_work_post_type_class->get_post_type_name() . '_sortable_columns', $competitive_work_post_type_class, 'add_custom_sortable_columns', 10, 1 );
+		$this->loader->add_action( 'pre_get_posts', $competitive_work_post_type_class, 'request_custom_sortable_columns', 10, 1 );
+		$this->loader->add_action( 'restrict_manage_posts', $competitive_work_post_type_class, 'add_search_field_by_meta', 10, 2 );
+		$this->loader->add_filter( 'request', $competitive_work_post_type_class, 'search_request_by_meta', 10, 1 );
 		
 		// админ-часть таксономии "Год проведения"
 		$cw_year_taxonomy_class = new AdminTaxonomyCWYear( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'add_meta_boxes', $cw_year_taxonomy_class, 'add_meta_box', 10, 1 );
 		$this->loader->add_action( 'save_post', $cw_year_taxonomy_class, 'save_post', 10, 1 );
+		// $this->loader->add_action( $this->get_plugin_name() . '_register_settings', $cw_year_taxonomy_class, 'register_settings', 10, 1 );
+		// $this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $cw_year_taxonomy_class, 'add_settings_tab', 10, 1 );
 		
 		// админ-часть таксономии "Статус конкурсной работы" 
 		$work_status_taxonomy_class = new AdminTaxonomyWorkStatus( $this->get_plugin_name(), $this->get_version() );
@@ -283,6 +302,13 @@ class Manager {
 		$this->loader->add_action( 'add_meta_boxes', $contest_section_taxonomy_class, 'add_meta_box', 10, 1 );
 		$this->loader->add_action( 'save_post', $contest_section_taxonomy_class, 'save_post', 10, 1 );
 
+		// админ-часть таксономии "Университеты"
+		$university_taxonomy_class = new AdminTaxonomyUniversity( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'add_meta_boxes', $university_taxonomy_class, 'add_meta_box', 10, 1 );
+		$this->loader->add_action( 'save_post', $university_taxonomy_class, 'save_post', 10, 1 );
+		$this->loader->add_action( 'admin_enqueue_scripts', $university_taxonomy_class, 'enqueue_styles', 10, 0 );
+		$this->loader->add_action( 'admin_enqueue_scripts', $university_taxonomy_class, 'enqueue_scripts', 10, 0 );
+
 	}
 
 	/**
@@ -292,10 +318,16 @@ class Manager {
 	 */
 	private function define_public_hooks() {
 
-		$competitive_work = new PublicCompetitiveWork( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'wp_enqueue_scripts', $competitive_work, 'enqueue_styles', 10, 0 );
-		$this->loader->add_action( 'wp_enqueue_scripts', $competitive_work, 'enqueue_scripts', 10, 0 );
+		// классы отвечающие за хуки и фильтры пользовательских типов записей плагина в публичной части сайта
+		$competitive_work_post_type_class = new PublicCompetitiveWork( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'wp_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_styles', 10, 0 );
+		$this->loader->add_action( 'wp_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_scripts', 10, 0 );
+		$this->loader->add_action( 'the_content', $competitive_work_post_type_class, 'filter_single_content', 10, 1 );
 
+		// классы отвечающие за хуки и фильтры пользовательских таксономий плагина в публичной части сайта
+		$work_status_taxonomy_class = new PublicTaxonomyWorkStatus( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( 'the_title', $work_status_taxonomy_class, 'filter_post_type_title', 99, 2 );
+		$this->loader->add_action( 'wp_enqueue_scripts', $work_status_taxonomy_class, 'enqueue_styles', 10, 0 );
 	}
 
 	/**

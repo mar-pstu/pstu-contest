@@ -161,6 +161,11 @@
 	text-align: center;
 }
 
+.bulk-action-table .university {
+	width: 20%;
+	text-align: center;
+}
+
 .bulk-action-table .work-status .list-inline {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -187,6 +192,11 @@
 
 .bulk-action-table tr:hover td {
 	background-color: rgba( 255, 255, 255, .5 );
+}
+
+
+select.new-university {
+	min-width: 20em;
 }
 
 

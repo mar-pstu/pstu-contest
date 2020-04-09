@@ -42,7 +42,6 @@ abstract class AdminPart extends Part {
 
 	/**
 	 * Регистрирует стили для админки
-	 *
 	 * @since    2.0.0
 	 */
 	public function enqueue_styles() {
@@ -52,7 +51,6 @@ abstract class AdminPart extends Part {
 
 	/**
 	 * Регистрирует скрипты для админки
-	 *
 	 * @since    2.0.0
 	 */
 	public function enqueue_scripts() {

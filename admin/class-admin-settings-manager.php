@@ -52,6 +52,9 @@ class AdminSettingsManager extends AdminPart {
 			$page_title = get_admin_page_title();
 			$page_content = $this->render_nav_tab_wrapper( $tabs, $current_tab );
 			ob_start();
+			// if ( ! empty( $current_tab ) ) {
+			// 	do_action( $this->plugin_name . '-do_settings_sections-' . $current_tab, $this->page_slug );
+			// }
 			?>
 				<form action="options.php" method="POST">
 					<?php

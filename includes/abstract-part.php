@@ -48,7 +48,7 @@ abstract class Part {
 	}
 
 
-	protected function var_dump( $var ) {
+	public function var_dump( $var ) {
 		echo "<pre>";
 		var_dump( $var );
 		echo "</pre>";

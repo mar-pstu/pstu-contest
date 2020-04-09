@@ -1,0 +1,29 @@
+/**
+ * Стили для таксономии "Статус работы"
+ */
+
+
+.status-type-indicator {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	border-radius: 50%;
+}
+
+
+
+/**
+ * Стили для типа записи "Конкурсная работа"
+ */
+.competitive-work-single-meta-table {
+	width: 100%;
+}
+
+.competitive-work-single-meta-table th {
+	font-weight: bold;
+	width: 40%;
+}
+
+.competitive-work-single-meta-table tr:nth-of-type( odd ) {
+	background-color: rgba( 0, 0, 0, .05 );
+}

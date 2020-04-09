@@ -19,16 +19,19 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 
 
 	/**
-	 * Идентификатор таксономии "Статус конкурсной работы",
+	 * Метаполя таксономии
 	 * @since    2.0.0
 	 * @var      string
 	 */
-	protected $taxonomy_name;
+	protected $fields;
 
 
 	function __construct( $plugin_name, $version ) {
 		parent::__construct( $plugin_name, $version );
 		$this->taxonomy_name = 'work_status';
+		$this->fields = [
+			new Field( 'status_type', __( 'Тип статуса', $this->plugin_name ) ),
+		];
 	}
 
 
@@ -39,7 +42,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 	 */
 	public function edit_custom_fields( $term ) {
 		$options = get_option( $this->taxonomy_name );
-		foreach ( apply_filters( "{$this->plugin_name}_get_fields", $this->taxonomy_name ) as $field ) {
+		foreach ( $this->fields as $field ) {
 			$id = $field->get_name();
 			$label = $field->get_label();
 			$control = '';
@@ -61,7 +64,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 	 */
 	public function add_custom_fields( $taxonomy_name ) {
 		$options = get_option( $this->taxonomy_name );
-		foreach ( apply_filters( "{$this->plugin_name}_get_fields", $this->taxonomy_name ) as $field ) {
+		foreach ( $this->fields as $field ) {
 			$id = $field->get_name();
 			$label = $field->get_label();
 			$control = '';
@@ -85,7 +88,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 			( isset( $_POST[ '_wpnonce' ] ) && ! wp_verify_nonce( $_POST[ '_wpnonce' ], "update-tag_$term_id" ) ) ||
 			( isset( $_POST[ '_wpnonce_add-tag' ] ) && ! wp_verify_nonce( $_POST[ '_wpnonce_add-tag' ], "add-tag" ) )
 		) return;
-		foreach ( apply_filters( "{$this->plugin_name}_get_fields", $this->taxonomy_name ) as $field ) {
+		foreach ( $this->fields as $field ) {
 			$new_value = ( isset( $_REQUEST[ $field->get_name() ] ) ) ? $this->sanitize_meta_field( $field->get_name(), $_REQUEST[ $field->get_name() ] ) : '';
 			if ( empty( $new_value ) ) {
 				delete_term_meta( $term_id, $field->get_name() );
@@ -135,12 +138,17 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 	 */
 	public function register_settings( $page_slug ) {
 		register_setting( $this->plugin_name, $this->taxonomy_name, [ $this, 'sanitize_setting_callback' ] );
-		add_settings_section( 'types', 'Типы', function ( $args ) {
-			// echo "<pre>";
-			// var_dump( $args );
-			// echo "</pre>";
-		}, $page_slug ); 
+		add_settings_section( 'types', 'Типы', [ $this, 'render_section_info' ], $page_slug ); 
 		add_settings_field( 'types', __( 'Типы статутов', $this->plugin_name ), [ $this, 'render_setting_field'], $page_slug, 'types', 'types' );
+	}
+
+
+	/**
+	 * Описание секции настроек
+	 * @param  [type] $section [description]
+	 */
+	public function render_section_info( $section ) {
+		// описание настройки
 	}
 
 
@@ -170,17 +178,11 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 							'id'       => '',
 							'placeholder' => __( 'Название', $this->plugin_name ),
 						] ),
-						$this->render_input( "{$this->taxonomy_name}[{$id}][{{data.i}}][text_color]", 'text', [
+						$this->render_input( "{$this->taxonomy_name}[{$id}][{{data.i}}][color]", 'text', [
 							'value'    => '{{data.value.color}}',
 							'class'    => 'form-control data-picker-control',
 							'id'       => '',
 							'placeholder' => __( 'Цвет текста', $this->plugin_name ),
-						] ),
-						$this->render_input( "{$this->taxonomy_name}[{$id}][{{data.i}}][bg_color]", 'text', [
-							'value'    => '{{data.value.color}}',
-							'class'    => 'form-control data-picker-control',
-							'id'       => '',
-							'placeholder' => __( 'Цвет фона', $this->plugin_name ),
 						] )
 					),
 				] );
@@ -204,10 +206,10 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 						$new_value = [];
 						foreach ( $value as &$item ) {
 							$item = $this->parse_only_allowed_args(
-								[ 'slug'  => '', 'label' => '', 'text_color' => '#000', 'bg_color' => '#fff' ],
+								[ 'slug'  => '', 'label' => '', 'color' => '#fff' ],
 								$item,
-								[ function ( $slug ) { return preg_replace( '/[^a-z\d]/ui', '', $slug ); }, 'sanitize_text_field', 'sanitize_hex_color', 'sanitize_hex_color' ],
-								[ 'slug', 'label', 'text_color', 'bg_color' ]
+								[ function ( $slug ) { return preg_replace( '/[^a-z\d]/ui', '', $slug ); }, 'sanitize_text_field', 'sanitize_hex_color' ],
+								[ 'slug', 'label', 'color' ]
 							);
 							if ( null !== $item ) {
 								$new_value[] = $item;

@@ -35,6 +35,7 @@ class Init extends Part {
 		$this->taxonomy_contest_section();
 		$this->taxonomy_cw_year();
 		$this->taxonomy_work_status();
+		$this->taxonomy_university();
 	}
 
 
@@ -208,55 +209,45 @@ class Init extends Part {
 	}
 
 
-
 	/**
-	 * Возвращает список метаполей конкурсной работы
+	 * Регистрирует таксономию "Университет"
 	 * @since    2.0.0
-	 * @access   protected
 	 */
-	protected function get_competitive_work_fields() {
-		return [
-			new Field( 'rating', __( 'Рейтинг', $this->plugin_name ) ),
-			new Field( 'cipher', __( 'Шифр', $this->plugin_name ) ),
-			new Field( 'work_files', __( 'Конкурсные работы', $this->plugin_name ) ),
-			new Field( 'show_authors', __( 'Показывать авторов', $this->plugin_name ) ),
-			new Field( 'authors', __( 'Авторы', $this->plugin_name ) ),
-			new Field( 'reviews', __( 'Рецензии', $this->plugin_name ) ),
-			new Field( 'invite_files', __( 'Приглашение к участию в конференции', $this->plugin_name ) ),
-		];
-	}
-
-
-
-	/**
-	 * Возвращает список метаполей таксономии "Статус конкусной работы"
-	 * @since    2.0.0
-	 * @access   protected
-	 */
-	protected function get_work_status_fields() {
-		return [
-			new Field( 'status_type', __( 'Тип статуса', $this->plugin_name ) ),
-		];
-	}
-
-
-
-	/**
-	 * Возвращает список метаполей подразделения
-	 * @since    2.0.0
-	 * @access   public
-	 */
-	public function get_fields( $key ) {
-		$result = array();
-		switch ( $key ) {
-			case 'competitive_work':
-				$result = $this->get_competitive_work_fields();
-				break;
-			case 'work_status':
-				$result = $this->get_work_status_fields();
-				break;
-		}
-		return $result;
+	protected function taxonomy_university() {
+		register_taxonomy( 'university', [ 'competitive_work' ], [ 
+			'label'                 => '',
+			'labels'                => [
+				'name'              => __( 'Университеты', $this->plugin_name ),
+				'singular_name'     => __( 'Университет' , $this->plugin_name),
+				'search_items'      => __( 'Найти запись' , $this->plugin_name),
+				'all_items'         => __( 'Смотреть все запии' , $this->plugin_name),
+				'view_item '        => __( 'Смотреть запись' , $this->plugin_name),
+				'parent_item'       => __( 'Родительская запись', $this->plugin_name ),
+				'parent_item_colon' => __( 'Родительская запись' , $this->plugin_name),
+				'edit_item'         => __( 'Редактировать запись' , $this->plugin_name),
+				'update_item'       => __( 'Обновить запись', $this->plugin_name ),
+				'add_new_item'      => __( 'Добавить новую секцию', $this->plugin_name ),
+				'new_item_name'     => __( 'Новая секция' , $this->plugin_name),
+				'menu_name'         => __( 'Университеты', $this->plugin_name ),
+			],
+			'description'           => '',
+			'public'                => false,
+			'publicly_queryable'    => false,
+			'query_var'             => false,
+			'show_in_nav_menus'     => true,
+			'show_ui'               => true,
+			'show_tagcloud'         => false,
+			'show_in_rest'          => false,
+			'rest_base'             => null,
+			'hierarchical'          => true,
+			'update_count_callback' => '',
+			'rewrite'               => true,
+			'capabilities'          => array(),
+			'meta_box_cb'           => false,
+			'show_admin_column'     => true,
+			'_builtin'              => false,
+			'show_in_quick_edit'    => null,
+		] );
 	}
 
 

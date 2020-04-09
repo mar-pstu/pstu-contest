@@ -54,7 +54,7 @@ trait Controls {
 		$args = array_merge( [
 			'selected'          => '',
 			'echo'              => false,
-			'show_option_none'  => ' ',
+			'show_option_none'  => '-',
 			'option_none_value' => '',
 			'atts'              => [
 				'id'                => $name,
