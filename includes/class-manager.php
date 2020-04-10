@@ -281,8 +281,9 @@ class Manager {
 		$cw_year_taxonomy_class = new AdminTaxonomyCWYear( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'add_meta_boxes', $cw_year_taxonomy_class, 'add_meta_box', 10, 1 );
 		$this->loader->add_action( 'save_post', $cw_year_taxonomy_class, 'save_post', 10, 1 );
-		// $this->loader->add_action( $this->get_plugin_name() . '_register_settings', $cw_year_taxonomy_class, 'register_settings', 10, 1 );
-		// $this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $cw_year_taxonomy_class, 'add_settings_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_register_settings', $cw_year_taxonomy_class, 'register_settings', 10, 1 );
+		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $cw_year_taxonomy_class, 'add_settings_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $cw_year_taxonomy_class->get_taxonomy_name(), $cw_year_taxonomy_class, 'render_settings_form', 10, 1 );
 		
 		// админ-часть таксономии "Статус конкурсной работы" 
 		$work_status_taxonomy_class = new AdminTaxonomyWorkStatus( $this->get_plugin_name(), $this->get_version() );
@@ -296,6 +297,7 @@ class Manager {
 		$this->loader->add_action( 'edited_' . $work_status_taxonomy_class->get_taxonomy_name(), $work_status_taxonomy_class, 'save_custom_fields', 10, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_register_settings', $work_status_taxonomy_class, 'register_settings', 10, 1 );
 		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $work_status_taxonomy_class, 'add_settings_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $work_status_taxonomy_class->get_taxonomy_name(), $work_status_taxonomy_class, 'render_settings_form', 10, 1 );
 		
 		// админ-часть таксономии "Секция конкурсной работы"
 		$contest_section_taxonomy_class = new AdminTaxonomyContestSection( $this->get_plugin_name(), $this->get_version() );
@@ -368,3 +370,9 @@ class Manager {
 	}
 
 }
+
+
+
+// http://wp/contest/wp-admin/edit.php?post_type=competitive_work&page=pstu_contest_setting
+// http://wp/contest/wp-admin/edit.php?post_type=competitive_work&page=pstu_contest_settings&tab=cw_year
+// http://wp/contest/wp-admin/edit.php?post_type=competitive_work&page=pstu_contest_settings&tab=work_status

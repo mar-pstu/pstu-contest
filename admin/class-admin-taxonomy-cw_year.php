@@ -25,30 +25,15 @@ class AdminTaxonomyCWYear extends AdminPartTaxonomy {
 
 
 	/**
-	 * Фильтр вкладок на странице настроек
-	 * @since    2.0.0
-	 * @param    array     $tabs     исходный массив вкладок идентификатор вкладки=>название
-	 * @return   array     $tabs     отфильтрованный массив вкладок идентификатор вкладки=>название
-	 */
-	public function add_settings_tab( $tabs ) {
-		global $wp_taxonomies;
-		if ( isset( $wp_taxonomies[ $this->taxonomy_name ] ) ) {
-			$tabs[ $this->taxonomy_name ] = $wp_taxonomies[ $this->taxonomy_name ]->labels->name;
-		}
-		return $tabs;
-	}
-
-
-	/**
 	 * Регистрирует настройки для таксономии
 	 * "Год проведения"
 	 * @since    2.0.0
 	 * @param    string    $page_slug    идентификатор страницы настроек
 	 */
 	public function register_settings( $page_slug ) {
-		register_setting( $this->plugin_name, $this->taxonomy_name, [ $this, 'sanitize_setting_callback' ] );
-		add_settings_section( 'current', 'Текущий период', [ $this, 'render_section_info' ], $page_slug ); 
-		add_settings_field( 'current_year', __( 'Текущий год', $this->plugin_name ), [ $this, 'render_setting_field'], $page_slug, 'current_year', 'current_year' );
+		register_setting( $this->taxonomy_name, $this->taxonomy_name, [ $this, 'sanitize_setting_callback' ] );
+		add_settings_section( 'current', __( 'Текущий год', $this->plugin_name ), [ $this, 'render_section_info' ], $this->taxonomy_name ); 
+		add_settings_field( 'current_year', __( 'Текущий год', $this->plugin_name ), [ $this, 'render_setting_field'], $this->taxonomy_name, 'current', 'current_year' );
 	}
 
 
@@ -57,7 +42,7 @@ class AdminTaxonomyCWYear extends AdminPartTaxonomy {
 	 * @param  [type] $section [description]
 	 */
 	public function render_section_info( $section ) {
-		// описание настройки
+		// справка
 	}
 
 
@@ -74,7 +59,16 @@ class AdminTaxonomyCWYear extends AdminPartTaxonomy {
 			// Текущий год
 			case 'current_year':
 				$value = ( isset( $options[ $id ] ) ) ? $options[ $id ] : [];
-				// 
+				$choices = get_terms( [
+					'taxonomy'   => $this->taxonomy_name,
+					'hide_empty' => false,
+					'fields'     => 'id=>name',
+				] );
+				if ( is_array( $choices ) && ! empty( $choices ) ) {
+					echo $this->render_dropdown( "{$this->taxonomy_name}[{$id}]", $choices, [ 'selected' => $value, 'id' => '' ] );
+				} else {
+					_e( 'Таксономия не заполнена', $this->plugin_name );
+				}
 				break;
 		}
 	}
@@ -91,7 +85,10 @@ class AdminTaxonomyCWYear extends AdminPartTaxonomy {
 			$new_value = null;
 			switch ( $name ) {
 				case 'current_year':
-					//
+					$value = sanitize_key( $value );
+					if ( ! empty( $value ) ) {
+						$new_value = $value;
+					}
 					break;
 			}
 			if ( null != $new_value ) {

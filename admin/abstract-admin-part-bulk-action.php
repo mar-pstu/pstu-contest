@@ -209,7 +209,7 @@ abstract class BulkAction extends AdminPart {
 						} else {
 							$control = __( sprintf( 'Заполните таксономию "%s" или обратитесь к администратору сайта.', $label ), $this->plugin_name );
 						}
-						include dirname( __FILE__ ) . '\partials\post_type-section-field.php';
+						include dirname( __FILE__ ) . '/partials/post_type-section-field.php';
 					}
 				?>
 			<p class="text-right">

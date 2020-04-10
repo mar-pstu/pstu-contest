@@ -42,7 +42,7 @@ class AdminImport extends AdminPart {
 	public function render_page() {
 		$page_title = get_admin_page_title();
 		$page_content = '';
-		include dirname( __FILE__ ) . '\partials\admin-page.php';
+		include dirname( __FILE__ ) . '/partials/admin-page.php';
 	}
 
 

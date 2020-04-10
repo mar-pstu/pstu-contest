@@ -51,22 +51,13 @@ class AdminSettingsManager extends AdminPart {
 			$current_tab = ( isset( $_GET[ 'tab' ] ) && array_key_exists( $_GET[ 'tab' ], $tabs ) ) ? $_GET[ 'tab' ] : array_keys( $tabs )[ 0 ];
 			$page_title = get_admin_page_title();
 			$page_content = $this->render_nav_tab_wrapper( $tabs, $current_tab );
-			ob_start();
-			// if ( ! empty( $current_tab ) ) {
-			// 	do_action( $this->plugin_name . '-do_settings_sections-' . $current_tab, $this->page_slug );
-			// }
-			?>
-				<form action="options.php" method="POST">
-					<?php
-						settings_fields( $this->plugin_name );
-						do_settings_sections( $this->page_slug );
-						submit_button();
-					?>
-				</form>
-			<?php
-			$page_content .= ob_get_contents();
+			if ( ! empty( $current_tab ) ) {
+				ob_start();
+				do_action( $this->plugin_name . '_settings-form_' . $current_tab, $this->page_slug );
+				$page_content .= ob_get_contents();
+			}
 			ob_end_clean();
-			include dirname( __FILE__ ) . '\partials\admin-page.php';
+			include dirname( __FILE__ ) . '/partials/admin-page.php';
 		}
 	}
 
@@ -91,9 +82,8 @@ class AdminSettingsManager extends AdminPart {
 		if ( ! empty( $tabs ) ) {
 			foreach ( $tabs as $slug => $label ) {
 				$result[] = sprintf(
-					'<a href="edit.php?post_type=competitive_work&page=%1$s_settings&tab=%2$s" class="nav-tab %3$s">%4$s</a>',
-					$this->plugin_name,
-					$slug,
+					'<a href="%1$s" class="nav-tab %2$s">%3$s</a>',
+					add_query_arg( [ 'tab' => $slug ] ),
 					( $slug == $current_tab ) ? 'nav-tab-active' : '',
 					$label
 				);

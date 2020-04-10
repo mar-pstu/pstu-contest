@@ -47,7 +47,7 @@ class PublicCompetitiveWork extends PublicPartPostType {
 				'fields'     => 'names',
 				'object_ids' => get_the_ID(),
 			] );
-			include dirname( __FILE__ ) . '\partials\single-content.php';
+			include dirname( __FILE__ ) . '/partials/single-content.php';
 			$content = ob_get_contents();
 			ob_end_clean();
 		}

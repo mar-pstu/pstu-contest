@@ -52,7 +52,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 					$control = $this->render_dropdown( $id, wp_list_pluck( ( isset( $options[ 'types' ] ) ) ? $options[ 'types' ] : [], 'label', 'slug' ), [ 'selected' => $value ] );
 					break;
 			}
-			include dirname( __FILE__ ) . '\partials\taxonomy-edit-section-field.php';
+			include dirname( __FILE__ ) . '/partials/taxonomy-edit-section-field.php';
 		}
 	}
 
@@ -73,7 +73,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 					$control = $this->render_dropdown( $id, wp_list_pluck( ( isset( $options[ 'types' ] ) ) ? $options[ 'types' ] : [], 'label', 'slug' ) );
 					break;
 			}
-			include dirname( __FILE__ ) . '\partials\taxonomy-add-section-field.php';
+			include dirname( __FILE__ ) . '/partials/taxonomy-add-section-field.php';
 		}
 	}
 
@@ -116,30 +116,19 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 
 
 	/**
-	 * Фильтр вкладок на странице настроек
-	 * @since    2.0.0
-	 * @param    array     $tabs     исходный массив вкладок идентификатор вкладки=>название
-	 * @return   array     $tabs     отфильтрованный массив вкладок идентификатор вкладки=>название
-	 */
-	public function add_settings_tab( $tabs ) {
-		global $wp_taxonomies;
-		if ( isset( $wp_taxonomies[ $this->taxonomy_name ] ) ) {
-			$tabs[ $this->taxonomy_name ] = $wp_taxonomies[ $this->taxonomy_name ]->labels->name;
-		}
-		return $tabs;
-	}
-
-
-	/**
 	 * Регистрирует настройки для таксономии
 	 * "Статус конкурсной работы"
 	 * @since    2.0.0
 	 * @param    string    $page_slug    идентификатор страницы настроек
 	 */
 	public function register_settings( $page_slug ) {
-		register_setting( $this->plugin_name, $this->taxonomy_name, [ $this, 'sanitize_setting_callback' ] );
-		add_settings_section( 'types', 'Типы', [ $this, 'render_section_info' ], $page_slug ); 
-		add_settings_field( 'types', __( 'Типы статутов', $this->plugin_name ), [ $this, 'render_setting_field'], $page_slug, 'types', 'types' );
+		register_setting( $this->taxonomy_name, $this->taxonomy_name, [ $this, 'sanitize_setting_callback' ] );
+		// статус по умолчанию
+		add_settings_section( 'defaults', 'Стандартные', [ $this, 'render_section_info' ], $this->taxonomy_name ); 
+		add_settings_field( 'default_status', __( 'Статус по умолчанию', $this->plugin_name ), [ $this, 'render_setting_field'], $this->taxonomy_name, 'defaults', 'default_status' );
+		// типы статусов
+		add_settings_section( 'types', 'Типы', [ $this, 'render_section_info' ], $this->taxonomy_name ); 
+		add_settings_field( 'types', __( 'Типы статутов', $this->plugin_name ), [ $this, 'render_setting_field'], $this->taxonomy_name, 'types', 'types' );
 	}
 
 
@@ -161,6 +150,20 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 	public function render_setting_field( $id ) {
 		$options = get_option( $this->taxonomy_name );
 		switch ( $id ) {
+			// статус по умолчанию
+			case 'default_status':
+				$value = ( isset( $options[ $id ] ) ) ? $options[ $id ] : [];
+				$choices = get_terms( [
+					'taxonomy'   => $this->taxonomy_name,
+					'hide_empty' => false,
+					'fields'     => 'id=>name',
+				] );
+				if ( is_array( $choices ) && ! empty( $choices ) ) {
+					echo $this->render_dropdown( "{$this->taxonomy_name}[{$id}]", $choices, [ 'selected' => $value, 'id' => '' ] );
+				} else {
+					_e( 'Таксономия не заполнена', $this->plugin_name );
+				}
+				break;
 			// статусы работ
 			case 'types':
 				$value = ( isset( $options[ $id ] ) ) ? $options[ $id ] : [];
@@ -201,6 +204,14 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 		foreach ( $options as $name => &$value ) {
 			$new_value = null;
 			switch ( $name ) {
+				// статус по умолчанию
+				case 'default_status':
+					$value = sanitize_key( $value );
+					if ( ! empty( $value ) ) {
+						$new_value = $value;
+					}
+					break;
+				// типы (разновидности) статусов
 				case 'types':
 					if ( is_array( $value ) ) {
 						$new_value = [];

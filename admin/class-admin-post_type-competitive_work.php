@@ -177,7 +177,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 					] );
 					break;
 			}
-			include dirname( __FILE__ ) . '\partials\post_type-section-field.php';
+			include dirname( __FILE__ ) . '/partials/post_type-section-field.php';
 		}
 	}
 

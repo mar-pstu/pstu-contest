@@ -65,7 +65,7 @@ class AdminBulkActionManager extends AdminPart {
 			$page_content .= ob_get_contents();
 			ob_end_clean();
 		}
-		include dirname( __FILE__ ) . '\partials\admin-page.php';
+		include dirname( __FILE__ ) . '/partials/admin-page.php';
 	}
 
 

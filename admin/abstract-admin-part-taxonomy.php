@@ -106,7 +106,40 @@ abstract class AdminPartTaxonomy extends AdminPart {
 		} else {
 			$control = __( 'Заполните таксономию или обратитесь к администратору сайта.', $this->plugin_name );
 		}
-		include dirname( __FILE__ ) . '\partials\post_type-section-field.php';
+		include dirname( __FILE__ ) . '/partials/post_type-section-field.php';
+	}
+
+
+	/**
+	 * Фильтр, который добавляет вкладку с опциями для текущей таксономии
+	 * на страницу настроектплагина
+	 * @since    2.0.0
+	 * @param    array     $tabs     исходный массив вкладок идентификатор вкладки=>название
+	 * @return   array     $tabs     отфильтрованный массив вкладок идентификатор вкладки=>название
+	 */
+	public function add_settings_tab( $tabs ) {
+		global $wp_taxonomies;
+		if ( isset( $wp_taxonomies[ $this->taxonomy_name ] ) ) {
+			$tabs[ $this->taxonomy_name ] = $wp_taxonomies[ $this->taxonomy_name ]->labels->name;
+		}
+		return $tabs;
+	}
+
+
+	/**
+	 * Выводит html-код формы ввода настроек для таксономии
+	 * @param    string    $page_slug    идентификатор страницы настроек
+	 */
+	public function render_settings_form( string $page_slug ) {
+		?>
+			<form action="options.php" method="POST">
+				<?php
+					settings_fields( $this->taxonomy_name );
+					do_settings_sections( $this->taxonomy_name );
+					submit_button();
+				?>
+			</form>
+		<?php
 	}
 
 
