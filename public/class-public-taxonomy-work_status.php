@@ -59,7 +59,7 @@ class PublicTaxonomyWorkStatus extends PublicPartTaxonomy {
 
 
 	/**
-	 * Регистрирует стили для админки
+	 * Регистрирует стили для публичной части сайта
 	 * @since  2.0.0
 	 */
 	public function enqueue_styles() {

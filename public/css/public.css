@@ -1,4 +1,42 @@
 /**
+ * Основные стили
+ */
+
+.contest-plugin-container {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.contest-plugin-container::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+@media (min-width: 768px) {
+	.contest-plugin-container {
+		width: 750px;
+	}
+}
+
+@media (min-width: 992px) {
+	.contest-plugin-container {
+		width: 970px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.contest-plugin-container {
+		width: 1170px;
+	}
+}
+
+
+
+
+/**
  * Стили для таксономии "Статус работы"
  */
 

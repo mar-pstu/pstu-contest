@@ -34,4 +34,18 @@ abstract class PublicPartTaxonomy extends PublicPart {
 	}
 
 
+	/**
+	 * Выбирает шиблон для вывода контента
+	 * @param  string $original_template шаблон для подключения
+	 * @return string                    шаблон для подключения
+	 */
+	function select_template_include( string $original_template  ) {
+		$template = $original_template;
+		if ( is_tax( $this->taxonomy_name ) ) {
+			$template = dirname( __FILE__ ) . '/partials/archive-template.php';
+		}
+		return $template;
+	}
+
+
 }

@@ -41,10 +41,10 @@ define( 'PSTU_CONTEST_NAME', 'pstu_contest' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-plugin-name-activator.php
  */
-// function activate() {
-// 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-activator.php';
-// 	pstu_contest_Activator::activate();
-// }
+function activate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-activator.php';
+	Activator::activate();
+}
 
 /**
  * The code that runs during plugin deactivation.
@@ -52,7 +52,7 @@ define( 'PSTU_CONTEST_NAME', 'pstu_contest' );
  */
 function deactivate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-deactivator.php';
-	pstu_contest_Deactivator::deactivate();
+	Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'pstu_contest\activate' );

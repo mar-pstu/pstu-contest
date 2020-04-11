@@ -110,6 +110,7 @@ class Manager {
 		 * Класс, отвечающий за дополнительные страницы админки плагина
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-settings-manager.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-update.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-import.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-export.php';
 
@@ -154,6 +155,7 @@ class Manager {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/abstract-public-part-taxonomy.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-taxonomy-work_status.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-taxonomy-cw_year.php';
 
 		$this->loader = new Loader();
 
@@ -192,7 +194,14 @@ class Manager {
 		// страница настроек плагина
 		$settings_manager_class = new AdminSettingsManager( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'admin_menu', $settings_manager_class, 'add_page' );
+		$this->loader->add_action( 'current_screen', $settings_manager_class, 'run_action' );
 		$this->loader->add_action( 'admin_init', $settings_manager_class, 'register_settings', 10, 0 );
+
+		// класс обновления плагина
+		$update_tab_class = new AdminUpdateTab( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $update_tab_class, 'add_settings_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $update_tab_class->get_tab_name(), $update_tab_class, 'render_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-run_' . $update_tab_class->get_tab_name(), $update_tab_class, 'run_action' );
 
 		// страница импорта
 		$import_class = new AdminImport( $this->get_plugin_name(), $this->get_version() );
@@ -320,16 +329,23 @@ class Manager {
 	 */
 	private function define_public_hooks() {
 
-		// классы отвечающие за хуки и фильтры пользовательских типов записей плагина в публичной части сайта
+		// классы отвечающие за хуки и фильтры пользовательского типа записи Конкурсная работа
 		$competitive_work_post_type_class = new PublicCompetitiveWork( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wp_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_styles', 10, 0 );
 		$this->loader->add_action( 'wp_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_scripts', 10, 0 );
-		$this->loader->add_action( 'the_content', $competitive_work_post_type_class, 'filter_single_content', 10, 1 );
+		$this->loader->add_filter( 'the_content', $competitive_work_post_type_class, 'filter_single_content', 10, 1 );
+		$this->loader->add_filter( 'template_include', $competitive_work_post_type_class, 'select_template_include', 10, 1 );
 
-		// классы отвечающие за хуки и фильтры пользовательских таксономий плагина в публичной части сайта
+		// классы отвечающие за хуки и фильтры пользовательской таксономии Статус работы
 		$work_status_taxonomy_class = new PublicTaxonomyWorkStatus( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_filter( 'the_title', $work_status_taxonomy_class, 'filter_post_type_title', 99, 2 );
 		$this->loader->add_action( 'wp_enqueue_scripts', $work_status_taxonomy_class, 'enqueue_styles', 10, 0 );
+		$this->loader->add_filter( 'the_title', $work_status_taxonomy_class, 'filter_post_type_title', 99, 2 );
+
+		// классы отвечающие за хуки и фильтры пользовательской таксономии Год проведения
+		$cw_year_taxonomy_class = new PublicTaxonomyCWYear( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( 'template_include', $cw_year_taxonomy_class, 'select_template_include', 10, 1 );
+		$this->loader->add_filter( 'pre_get_posts', $cw_year_taxonomy_class, 'set_term_query', 10, 1 );
+	
 	}
 
 	/**
@@ -370,9 +386,3 @@ class Manager {
 	}
 
 }
-
-
-
-// http://wp/contest/wp-admin/edit.php?post_type=competitive_work&page=pstu_contest_setting
-// http://wp/contest/wp-admin/edit.php?post_type=competitive_work&page=pstu_contest_settings&tab=cw_year
-// http://wp/contest/wp-admin/edit.php?post_type=competitive_work&page=pstu_contest_settings&tab=work_status

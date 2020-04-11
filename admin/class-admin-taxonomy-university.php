@@ -30,7 +30,7 @@ class AdminTaxonomyUniversity extends AdminPartTaxonomy {
 	 */
 	public function enqueue_styles() {
 		parent::enqueue_styles();
-		wp_enqueue_style( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css', array(), '4.0.12', 'all' );
+		wp_enqueue_style( 'select2', plugin_dir_url( __FILE__ ) . 'css/select2.min.css', array(), '4.0.12', 'all' );
 	}
 
 
@@ -40,7 +40,7 @@ class AdminTaxonomyUniversity extends AdminPartTaxonomy {
 	 */
 	public function enqueue_scripts() {
 		parent::enqueue_scripts();
-		wp_enqueue_script( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.full.min.js',  array( 'jquery' ), '4.0.12', false );
+		wp_enqueue_script( 'select2', plugin_dir_url( __FILE__ ) . 'js/select2.full.min.js',  array( 'jquery' ), '4.0.12', false );
 		wp_add_inline_script( 'select2', "jQuery(document).ready(function() { jQuery('select#{$this->taxonomy_name}').select2();});", 'after' );
 	}
 

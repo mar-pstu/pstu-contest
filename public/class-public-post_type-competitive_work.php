@@ -55,4 +55,38 @@ class PublicCompetitiveWork extends PublicPartPostType {
 	}
 
 
+	/**
+	 * Выбирает шиблон для вывода контента
+	 * @param  string $original_template шаблон для подключения
+	 * @return string                    шаблон для подключения
+	 */
+	function select_template_include( string $original_template  ) {
+		$template = $original_template;
+		if ( is_post_type_archive( $this->post_type_name ) ) {
+			$template = dirname( __FILE__ ) . '/partials/archive-template.php';
+		}
+		return $template;
+	}
+
+
+	/**
+	 * Регистрирует стили для админки
+	 * @since    2.0.0
+	 */
+	public function enqueue_styles() {
+		parent::enqueue_styles();
+		wp_enqueue_style( 'tablesorter', plugin_dir_url( __FILE__ ) . 'css/theme.blue.css', array(), '2.31.3', 'all' );
+	}
+
+
+	/**
+	 * Регистрирует скрипты для админки
+	 * @since    2.0.0
+	 */
+	public function enqueue_scripts() {
+		parent::enqueue_scripts();
+		wp_enqueue_script( 'tablesorter', plugin_dir_url( __FILE__ ) . 'js/jquery.tablesorter.js',  array( 'jquery' ), '2.31.3', false );
+		wp_add_inline_script( 'tablesorter', 'jQuery( document ).ready( function() { jQuery( ".tablesorter" ).tablesorter(); } );', 'after' );
+	}
+
 }
