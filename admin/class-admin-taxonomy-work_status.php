@@ -152,7 +152,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 		switch ( $id ) {
 			// статус по умолчанию
 			case 'default_status':
-				$value = ( isset( $options[ $id ] ) ) ? $options[ $id ] : [];
+				$value = get_option( "default_{$this->taxonomy_name}" );
 				$choices = get_terms( [
 					'taxonomy'   => $this->taxonomy_name,
 					'hide_empty' => false,
@@ -207,7 +207,10 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 				// статус по умолчанию
 				case 'default_status':
 					$value = sanitize_key( $value );
-					if ( ! empty( $value ) ) {
+					if ( empty( $value ) ) {
+						$new_value = $this->create_default_term();
+					} else {
+						update_option( "default_{$this->taxonomy_name}", $value );
 						$new_value = $value;
 					}
 					break;
@@ -234,6 +237,50 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 			}
 		}
 		return $result;
+	}
+
+
+
+	/**
+	 * Создаёт термин по умолчанию
+	 * @return   int       идентификатор созданного термина
+	 */
+	public function create_default_term() {
+		$term_id = get_option( "default_{$this->taxonomy_name}" );
+		if ( ! isset( $term_id ) || empty( $term_id ) ) {
+			$term = get_term_by( 'name', __( 'Без статуса', $this->plugin_name ), $this->taxonomy_name, OBJECT, 'raw' );
+			$term_id = 0;
+			if ( is_wp_error( $term ) || ! $term ) {
+				$insert_data  = wp_insert_term( __( 'Без статуса', $this->plugin_name ), $this->taxonomy_name, [] );
+				if ( ! is_wp_error( $insert_data  ) ) {
+					$term_id = $insert_data[ 'term_id' ];
+				}
+			} else {
+				$term_id = $term->term_id;
+			}
+			update_option( "default_{$this->taxonomy_name}", $term_id );
+		}
+		return $term_id;
+	}
+
+
+
+	/**
+	 * Добавляем статус по умолчанию при сохранении записи
+	 * @param    int       $post_id  идентификатор поста
+	 * @param    WP_Post   $post     объект поста
+	 */
+	public function set_default_term( $post_id, $post ) {
+		if ( is_object_in_taxonomy( $post->post_type, $this->taxonomy_name ) ) {
+			$default_term_id = get_option( "default_{$this->taxonomy_name}" );
+			if ( $default_term_id ) {
+				if ( ! has_term( '', $this->taxonomy_name, $post ) ) {
+					if ( $default_term = get_term( $default_term_id ) ){
+						wp_set_object_terms( $post->ID, intval( $default_term_id ), $this->taxonomy_name );
+					}
+				}
+			}
+		}
 	}
 
 

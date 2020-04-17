@@ -20,6 +20,14 @@ if ( have_posts() ) {
 
 	$current_cw_year_slug = get_query_var( 'cw_year' );
 
+	$options = get_option( 'competitive_work', [] );
+	if ( ! is_array( $options ) ) {
+		$options = [];
+	}
+	if ( ! isset( $options[ 'table_style' ] ) || empty( $options[ 'table_style' ] ) ) {
+		$options[ 'table_style' ] = 'default';
+	}
+
 	if ( is_post_type_archive() ) {
 
 		$cw_years = get_terms( [
@@ -49,7 +57,7 @@ if ( have_posts() ) {
 
 	?>
 
-		<table class="tablesorter">
+		<table class="tablesorter tablesorter-<?php echo esc_attr( $options[ 'table_style' ] ); ?>">
 
 			<thead>
 				<tr>

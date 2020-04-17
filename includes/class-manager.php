@@ -194,14 +194,14 @@ class Manager {
 		// страница настроек плагина
 		$settings_manager_class = new AdminSettingsManager( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'admin_menu', $settings_manager_class, 'add_page' );
-		$this->loader->add_action( 'current_screen', $settings_manager_class, 'run_action' );
+		$this->loader->add_action( 'current_screen', $settings_manager_class, 'run_tab' );
 		$this->loader->add_action( 'admin_init', $settings_manager_class, 'register_settings', 10, 0 );
 
 		// класс обновления плагина
 		$update_tab_class = new AdminUpdateTab( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $update_tab_class, 'add_settings_tab', 10, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $update_tab_class->get_tab_name(), $update_tab_class, 'render_tab', 10, 1 );
-		$this->loader->add_action( $this->get_plugin_name() . '_settings-run_' . $update_tab_class->get_tab_name(), $update_tab_class, 'run_action' );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-run_' . $update_tab_class->get_tab_name(), $update_tab_class, 'run_tab' );
 
 		// страница импорта
 		$import_class = new AdminImport( $this->get_plugin_name(), $this->get_version() );
@@ -276,7 +276,7 @@ class Manager {
 		// админ-часть типа записи "Конкурсная работа"
 		$competitive_work_post_type_class = new AdminCompetitiveWork( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'add_meta_boxes', $competitive_work_post_type_class, 'add_meta_box', 10, 1 );
-		$this->loader->add_action( 'save_post', $competitive_work_post_type_class, 'save_post', 10, 1 );
+		$this->loader->add_action( 'save_post', $competitive_work_post_type_class, 'save_post', 10, 2 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_styles', 10, 0 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_scripts', 10, 0 );
 		$this->loader->add_action( 'manage_edit-' . $competitive_work_post_type_class->get_post_type_name() . '_columns', $competitive_work_post_type_class, 'add_custom_columns', 10, 1 );
@@ -285,11 +285,14 @@ class Manager {
 		$this->loader->add_action( 'pre_get_posts', $competitive_work_post_type_class, 'request_custom_sortable_columns', 10, 1 );
 		$this->loader->add_action( 'restrict_manage_posts', $competitive_work_post_type_class, 'add_search_field_by_meta', 10, 2 );
 		$this->loader->add_filter( 'request', $competitive_work_post_type_class, 'search_request_by_meta', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_register_settings', $competitive_work_post_type_class, 'register_settings', 10, 1 );
+		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $competitive_work_post_type_class, 'add_settings_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $competitive_work_post_type_class->get_post_type_name(), $competitive_work_post_type_class, 'render_settings_form', 10, 1 );
 		
 		// админ-часть таксономии "Год проведения"
 		$cw_year_taxonomy_class = new AdminTaxonomyCWYear( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'add_meta_boxes', $cw_year_taxonomy_class, 'add_meta_box', 10, 1 );
-		$this->loader->add_action( 'save_post', $cw_year_taxonomy_class, 'save_post', 10, 1 );
+		$this->loader->add_action( 'save_post', $cw_year_taxonomy_class, 'save_post', 10, 2 );
 		$this->loader->add_action( $this->get_plugin_name() . '_register_settings', $cw_year_taxonomy_class, 'register_settings', 10, 1 );
 		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $cw_year_taxonomy_class, 'add_settings_tab', 10, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $cw_year_taxonomy_class->get_taxonomy_name(), $cw_year_taxonomy_class, 'render_settings_form', 10, 1 );
@@ -297,7 +300,9 @@ class Manager {
 		// админ-часть таксономии "Статус конкурсной работы" 
 		$work_status_taxonomy_class = new AdminTaxonomyWorkStatus( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'add_meta_boxes', $work_status_taxonomy_class, 'add_meta_box', 10, 1 );
-		$this->loader->add_action( 'save_post', $work_status_taxonomy_class, 'save_post', 10, 1 );
+		$this->loader->add_action( 'save_post', $work_status_taxonomy_class, 'save_post', 10, 2 );
+		$this->loader->add_action( 'save_post', $work_status_taxonomy_class, 'set_default_term', 10, 2 );
+		$this->loader->add_action( 'wp_loaded', $work_status_taxonomy_class, 'create_default_term', 10, 0 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $work_status_taxonomy_class, 'enqueue_styles', 10, 0 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $work_status_taxonomy_class, 'enqueue_scripts', 10, 0 );
 		$this->loader->add_action( $work_status_taxonomy_class->get_taxonomy_name() . '_add_form_fields', $work_status_taxonomy_class, 'add_custom_fields', 10, 1 );
@@ -311,12 +316,12 @@ class Manager {
 		// админ-часть таксономии "Секция конкурсной работы"
 		$contest_section_taxonomy_class = new AdminTaxonomyContestSection( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'add_meta_boxes', $contest_section_taxonomy_class, 'add_meta_box', 10, 1 );
-		$this->loader->add_action( 'save_post', $contest_section_taxonomy_class, 'save_post', 10, 1 );
+		$this->loader->add_action( 'save_post', $contest_section_taxonomy_class, 'save_post', 10, 2 );
 
 		// админ-часть таксономии "Университеты"
 		$university_taxonomy_class = new AdminTaxonomyUniversity( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'add_meta_boxes', $university_taxonomy_class, 'add_meta_box', 10, 1 );
-		$this->loader->add_action( 'save_post', $university_taxonomy_class, 'save_post', 10, 1 );
+		$this->loader->add_action( 'save_post', $university_taxonomy_class, 'save_post', 10, 2 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $university_taxonomy_class, 'enqueue_styles', 10, 0 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $university_taxonomy_class, 'enqueue_scripts', 10, 0 );
 
@@ -335,6 +340,7 @@ class Manager {
 		$this->loader->add_action( 'wp_enqueue_scripts', $competitive_work_post_type_class, 'enqueue_scripts', 10, 0 );
 		$this->loader->add_filter( 'the_content', $competitive_work_post_type_class, 'filter_single_content', 10, 1 );
 		$this->loader->add_filter( 'template_include', $competitive_work_post_type_class, 'select_template_include', 10, 1 );
+		$this->loader->add_filter( 'pre_get_posts', $competitive_work_post_type_class, 'set_nopaging', 10, 1 );
 
 		// классы отвечающие за хуки и фильтры пользовательской таксономии Статус работы
 		$work_status_taxonomy_class = new PublicTaxonomyWorkStatus( $this->get_plugin_name(), $this->get_version() );

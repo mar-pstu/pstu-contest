@@ -62,7 +62,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	 * @since    2.0.0
 	 * @var      int          $post_id
 	 */
-	public function save_post( $post_id ) {
+	public function save_post( $post_id, $post ) {
 		if ( ! isset( $_POST[ "{$this->post_type_name}_nonce" ] ) ) return;
 		if ( ! wp_verify_nonce( $_POST[ "{$this->post_type_name}_nonce" ], $this->post_type_name ) ) { wp_nonce_ays(); return; }
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
@@ -283,6 +283,122 @@ class AdminCompetitiveWork extends AdminPartPostType {
 			}
 		}
 		return $query_vars;
+	}
+
+
+
+	/**
+	 * Фильтр, который добавляет вкладку с опциями для текущего типа записи
+	 * на страницу настроектплагина
+	 * @since    2.0.0
+	 * @param    array     $tabs     исходный массив вкладок идентификатор вкладки=>название
+	 * @return   array     $tabs     отфильтрованный массив вкладок идентификатор вкладки=>название
+	 */
+	public function add_settings_tab( $tabs ) {
+		$post_type = get_post_type_object( $this->post_type_name );
+		if ( ! is_null( $post_type ) ) {
+			$tabs[ $this->post_type_name ] = $post_type->labels->name;
+		}
+		return $tabs;
+	}
+
+
+	/**
+	 * Выводит html-код формы ввода настроек для таксономии
+	 * @param    string    $page_slug    идентификатор страницы настроек
+	 */
+	public function render_settings_form( string $page_slug ) {
+		?>
+			<form action="options.php" method="POST">
+				<?php
+					settings_fields( $this->post_type_name );
+					do_settings_sections( $this->post_type_name );
+					submit_button();
+				?>
+			</form>
+		<?php
+	}
+
+
+	/**
+	 * Регистрирует настройки для таксономии
+	 * "Год проведения"
+	 * @since    2.0.0
+	 * @param    string    $page_slug    идентификатор страницы настроек
+	 */
+	public function register_settings( $page_slug ) {
+		register_setting( $this->post_type_name, $this->post_type_name, [ $this, 'sanitize_setting_callback' ] );
+		add_settings_section( 'table', __( 'Таблица', $this->plugin_name ), [ $this, 'render_section_info' ], $this->post_type_name ); 
+		add_settings_field( 'table_style', __( 'Стиль', $this->plugin_name ), [ $this, 'render_setting_field'], $this->post_type_name, 'table', 'table_style' );
+	}
+
+
+	/**
+	 * Описание секции настроек
+	 * @param  [type] $section [description]
+	 */
+	public function render_section_info( $section ) {
+		// справка
+	}
+
+
+
+	/**
+	 * Формирует и вывоит html-код элементов формы настроек плагина
+	 * для таксономии "Год проведения"
+	 * @since    2.0.0
+	 * @param    string    $id       идентификатор опции
+	 */
+	public function render_setting_field( $id ) {
+		$options = get_option( $this->post_type_name );
+		switch ( $id ) {
+			// стиль таблицы постов
+			case 'table_style':
+				$value = ( isset( $options[ $id ] ) && ! empty( $options[ $id ] ) ) ? $options[ $id ] : 'default';
+				$choices = [
+					'default'     => __( 'Стандартный', $this->plugin_name ),
+					'blue'        => 'Blue',
+					'dark'        => 'Dark',
+					'dropbox'     => 'Dropbox',
+					'green'       => 'Green',
+					'grey'        => 'Grey',
+					'ice'         => 'Ice',
+					'materialize' => 'Materialize',
+					'metro-dark'  => 'Metro dark',
+					'blackice'    => 'Black ice',
+					'jui'         => 'Jui',
+				];
+				echo $this->render_dropdown( "{$this->post_type_name}[{$id}]", $choices, [
+					'selected'          => $value,
+					'id'                => '',
+					'show_option_none'  => false,
+					'option_none_value' => false,
+				] );
+				break;
+		}
+	}
+
+
+	/**
+	 * Очистка данных
+	 * @since    2.0.0
+	 * @var      array    $options
+	 */
+	public function sanitize_setting_callback( $options ) {
+		$result = [];
+		foreach ( $options as $name => &$value ) {
+			$new_value = null;
+			switch ( $name ) {
+				case 'table_style':
+					$value = sanitize_key( $value );
+					$new_value = ( in_array( $value, [ 'blue', 'dark', 'dropbox', 'green', 'grey', 'ice', 'materialize', 'metro-dark', 'blackice', 'jui' ] ) ) ? $value : 'default';
+					break;
+			}
+			if ( null != $new_value && ! empty( $new_value ) ) {
+				$result[ $name ] = $new_value;
+			}
+		}
+		return $result;
 	}
 
 

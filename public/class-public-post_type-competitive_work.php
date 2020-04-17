@@ -70,12 +70,32 @@ class PublicCompetitiveWork extends PublicPartPostType {
 
 
 	/**
+	 * Убирает пагинацию при выводе записей
+	 * @param WP_Query $query запрос
+	 */
+	public function set_nopaging( $query ) {
+		if ( $query->is_main_query() && $query->get( 'post_type' ) == $this->post_type_name ) {
+			$query->set( 'nopaging', true );
+			$query->set( 'posts_per_page', -1 );
+			$query->set( 'showposts', -1 );
+		}
+	}
+
+
+	/**
 	 * Регистрирует стили для админки
 	 * @since    2.0.0
 	 */
 	public function enqueue_styles() {
+		$options = get_option( $this->post_type_name, [] );
+		if ( ! is_array( $options ) ) {
+			$options = [];
+		}
+		if ( ! isset( $options[ 'table_style' ] ) || empty( $options[ 'table_style' ] ) ) {
+			$options[ 'table_style' ] = 'default';
+		}
 		parent::enqueue_styles();
-		wp_enqueue_style( 'tablesorter', plugin_dir_url( __FILE__ ) . 'css/theme.blue.css', array(), '2.31.3', 'all' );
+		wp_enqueue_style( 'tablesorter', plugin_dir_url( __FILE__ ) . "css/tablesorter.{$options[ 'table_style' ]}.min.css", array(), '2.31.3', 'all' );
 	}
 
 
@@ -85,7 +105,7 @@ class PublicCompetitiveWork extends PublicPartPostType {
 	 */
 	public function enqueue_scripts() {
 		parent::enqueue_scripts();
-		wp_enqueue_script( 'tablesorter', plugin_dir_url( __FILE__ ) . 'js/jquery.tablesorter.js',  array( 'jquery' ), '2.31.3', false );
+		wp_enqueue_script( 'tablesorter', plugin_dir_url( __FILE__ ) . 'js/jquery.tablesorter.min.js',  array( 'jquery' ), '2.31.3', false );
 		wp_add_inline_script( 'tablesorter', 'jQuery( document ).ready( function() { jQuery( ".tablesorter" ).tablesorter(); } );', 'after' );
 	}
 

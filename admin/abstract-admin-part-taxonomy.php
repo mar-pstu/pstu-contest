@@ -63,7 +63,7 @@ abstract class AdminPartTaxonomy extends AdminPart {
 	 * @since    2.0.0
 	 * @var      int          $post_id
 	 */
-	public function save_post( $post_id ) {
+	public function save_post( $post_id, $post ) {
 		if ( ! isset( $_POST[ "{$this->taxonomy_name}_nonce" ] ) ) return;
 		if ( ! wp_verify_nonce( $_POST[ "{$this->taxonomy_name}_nonce" ], $this->taxonomy_name ) ) { wp_nonce_ays(); return; }
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;

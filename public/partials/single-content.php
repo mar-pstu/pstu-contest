@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
 			<th><?php _e( 'Рецензии', $this->plugin_name ); ?></th>
 			<td>
 				<?php
-					if ( empty( $work_files ) ) {
+					if ( empty( $reviews ) ) {
 						echo '<p>-</p>';
 					} else {
 						echo '<ul>';

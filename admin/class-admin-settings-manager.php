@@ -113,9 +113,9 @@ class AdminSettingsManager extends AdminPart {
 	/**
 	 * Выполняет зарегистрированные действия для этой страницы
 	 */
-	public function run_action() {
-		$action = ( isset( $_POST[ 'action' ] ) ) ? $_POST[ 'action' ] : '';
-		do_action( "{$this->plugin_name}_settings-run_{$action}" );
+	public function run_tab() {
+		$tab = ( isset( $_POST[ 'tab' ] ) ) ? $_POST[ 'tab' ] : '';
+		do_action( "{$this->plugin_name}_settings-run_{$tab}" );
 	}
 
 

@@ -106,7 +106,8 @@ class AdminUpdateTab extends AdminPart {
 				<form method="post">
 					<?php
 						wp_nonce_field( __FILE__, 'update_nonce' );
-						echo $this->render_input( 'action', 'hidden', [ 'value' => 'update_db' ] );
+						echo $this->render_input( 'tab', 'hidden', [ 'value' => $this->tab_name ] );
+						echo $this->render_input( 'action', 'hidden', [ 'value' => 'db_update' ] );
 						submit_button( __( 'Запустить обновление', $this->plugin_name ), 'primary', 'submit', true, null );
 					?>
 				</form>
@@ -119,15 +120,16 @@ class AdminUpdateTab extends AdminPart {
 	/**
 	 * Генерируем html код страницы настроек
 	 */
-	public function run_action() {
-		echo "string";
+	public function run_tab() {
 		if (
-			true
-			// isset( $_POST[ 'action' ] )
-			// && isset( $_POST[ 'update_nonce' ] )
-			// && wp_verify_nonce( $_POST[ 'update_nonce' ], __FILE__ )
+			isset( $_POST[ 'tab' ] )
+			&& $this->get_tab_name() == $_POST[ 'tab' ]
+			&& isset( $_POST[ 'action' ] )
+			&& 'db_update' == $_POST[ 'action' ]
+			&& isset( $_POST[ 'update_nonce' ] )
+			&& wp_verify_nonce( $_POST[ 'update_nonce' ], __FILE__ )
 		) {
-			$this->add_admin_notice( __( 'старт' ), 'default' );
+			$this->update_db();
 		}
 	}
 
@@ -229,6 +231,14 @@ class AdminUpdateTab extends AdminPart {
 				}
 			
 			}
+		}
+		$option = get_option( $this->plugin_name, [] );
+		if ( ! is_array( $option ) ) {
+			$option = [];
+		}
+		if ( ! isset( $options[ 'version' ] ) || empty( $options[ 'version' ] ) ) {
+			$option[ 'version' ] = $this->version;
+			update_option( $this->plugin_name, $option );
 		}
 	}
 
