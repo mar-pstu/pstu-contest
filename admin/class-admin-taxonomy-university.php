@@ -24,6 +24,13 @@ class AdminTaxonomyUniversity extends AdminPartTaxonomy {
 	}
 
 
+	public function select_params_filter( array $args ) {
+		$args[ 'name' ] = "{$this->taxonomy_name}[]";
+		$args[ 'args' ][ 'atts' ][ 'multiple' ] = 'multiple';
+		return $args;
+	}
+
+
 	/**
 	 * Регистрирует стили для админки
 	 * @since    2.0.0

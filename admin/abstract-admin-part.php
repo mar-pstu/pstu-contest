@@ -31,12 +31,17 @@ abstract class AdminPart extends Part {
 			$result_status = 'default';
 		}
 		add_action( 'admin_notices', function () use ( $result_text, $result_status, $dismissible ) {
-			?>
-				<div id="message" class="notice notice-<?php echo $result_status; ?> <?php echo ( $dismissible ) ? 'is-dismissible' : ''; ?>">
-					<p><?php echo $result_text; ?></p>
-				</div>
-			<?php
+			$this->render_admin_notice( $result_text, $result_status, $dismissible );
 		} );
+	}
+
+
+	protected function render_admin_notice( $result_text, $result_status = 'default', $dismissible = true ) {
+		?>
+			<div id="message" class="notice notice-<?php echo $result_status; ?> <?php echo ( $dismissible ) ? 'is-dismissible' : ''; ?>">
+				<p><?php echo $result_text; ?></p>
+			</div>
+		<?php
 	}
 
 

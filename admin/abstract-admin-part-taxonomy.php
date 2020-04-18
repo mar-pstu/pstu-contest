@@ -78,6 +78,7 @@ abstract class AdminPartTaxonomy extends AdminPart {
 		if ( isset( $_POST[ $this->taxonomy_name ] ) ) {
 			$terms = wp_parse_id_list( $_POST[ $this->taxonomy_name ] );
 		}
+		// $this->var_dump( $terms );
 		wp_set_object_terms( $post_id, $terms, $this->taxonomy_name, false );
 	}
 
@@ -90,19 +91,25 @@ abstract class AdminPartTaxonomy extends AdminPart {
 	 */
 	public function render_metabox_content( $post ) {
 		wp_nonce_field( $this->taxonomy_name, "{$this->taxonomy_name}_nonce" );
-		$id = $this->taxonomy_name;
-		$cw_years = get_terms( array(
-			'taxonomy'   => $this->taxonomy_name,
-			'hide_empty' => false,
-			'fields'     => 'id=>name',
-		) );
-		$label = '';
-		if ( is_array( $cw_years ) && ! empty( $cw_years ) ) {
-			$control = $this->render_dropdown( $this->taxonomy_name, $cw_years, array(
-				'class'    => 'form-control',
-				'id'       => $id,
+		extract( apply_filters( "{$this->plugin_name}_{$this->taxonomy_name}_select_params", [
+			'name'  => $this->taxonomy_name,
+			'terms' => get_terms( array(
+				'taxonomy'   => $this->taxonomy_name,
+				'hide_empty' => false,
+				'fields'     => 'id=>name',
+			) ),
+			'args'           => [
 				'selected' => wp_get_object_terms( $post->ID, $this->taxonomy_name, array( 'fields' => 'ids' ) ),
-			) );
+				'atts'     => [
+					'class'    => 'form-control',
+					'id'       => $this->taxonomy_name,
+				],
+			],
+		] ) );
+		if ( is_array( $terms ) && ! empty( $terms ) ) {
+			$id = '';
+			$label = '';
+			$control = $this->render_dropdown( $name, $terms, $args );
 		} else {
 			$control = __( 'Заполните таксономию или обратитесь к администратору сайта.', $this->plugin_name );
 		}

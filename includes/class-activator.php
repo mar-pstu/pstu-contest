@@ -34,7 +34,8 @@ class Activator {
 			$option = [];
 		}
 		if ( ! isset( $options[ 'version' ] ) || empty( $options[ 'version' ] ) ) {
-			$option[ 'version' ] = PSTU_CONTEST_VERSION;
+			// $option[ 'version' ] = PSTU_CONTEST_VERSION;
+			$option[ 'version' ] = '';
 			update_option( PSTU_CONTEST_NAME, $option );
 		}
 	}

@@ -181,6 +181,11 @@ class Manager {
 		$plugin_register_objects = new Init( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_register_objects, 'register_post_types' );
 		$this->loader->add_action( 'init', $plugin_register_objects, 'register_taxonomies' );
+		$update_tab_class = new AdminUpdateTab( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'init', $update_tab_class, 'check_update', 10, 0 );
+		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $update_tab_class, 'add_settings_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $update_tab_class->get_tab_name(), $update_tab_class, 'render_tab', 10, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_settings-run_' . $update_tab_class->get_tab_name(), $update_tab_class, 'run_tab', 10, 0 );
 	}
 
 
@@ -195,13 +200,7 @@ class Manager {
 		$settings_manager_class = new AdminSettingsManager( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'admin_menu', $settings_manager_class, 'add_page' );
 		$this->loader->add_action( 'current_screen', $settings_manager_class, 'run_tab' );
-		$this->loader->add_action( 'admin_init', $settings_manager_class, 'register_settings', 10, 0 );
-
-		// класс обновления плагина
-		$update_tab_class = new AdminUpdateTab( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $update_tab_class, 'add_settings_tab', 10, 1 );
-		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $update_tab_class->get_tab_name(), $update_tab_class, 'render_tab', 10, 1 );
-		$this->loader->add_action( $this->get_plugin_name() . '_settings-run_' . $update_tab_class->get_tab_name(), $update_tab_class, 'run_tab' );
+		$this->loader->add_action( 'admin_init', $settings_manager_class, 'register_settings', 10, 0 );	
 
 		// страница импорта
 		$import_class = new AdminImport( $this->get_plugin_name(), $this->get_version() );
@@ -324,6 +323,7 @@ class Manager {
 		$this->loader->add_action( 'save_post', $university_taxonomy_class, 'save_post', 10, 2 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $university_taxonomy_class, 'enqueue_styles', 10, 0 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $university_taxonomy_class, 'enqueue_scripts', 10, 0 );
+		$this->loader->add_filter( $this->get_plugin_name() . '_' . $university_taxonomy_class->get_taxonomy_name() . '_select_params', $university_taxonomy_class, 'select_params_filter', 10, 1 );
 
 	}
 

@@ -52,7 +52,7 @@ trait Controls {
 
 	function render_dropdown( $name, $choices, $args = array() ) {
 		$args = array_merge( [
-			'selected'          => '',
+			'selected'          => [],
 			'echo'              => false,
 			'show_option_none'  => '-',
 			'option_none_value' => '',
@@ -75,6 +75,7 @@ trait Controls {
 				$output[] = sprintf( '<option value="%1$s" %2$s>%3$s</option>', $value, $selected, $label );
 			}
 		}
+		// $this->var_dump( $args );
 		$html = ( empty( $output ) ) ? '' : sprintf(
 			'<select %1$s>%2$s</select>',
 			$this->render_atts( $args[ 'atts' ] ),
@@ -259,28 +260,61 @@ trait Controls {
 
 
 	public function sanitize_person_data( $value ) {
-		$result = array();
+		$result = [];
 		if ( is_array( $value ) && ! empty( $value ) ) {
-			foreach ( $value as &$author ) {
-				if ( is_array( $author ) && ! empty( $author ) ) {
-					$author = $this->parse_only_allowed_args( [
+			foreach ( $value as &$person ) {
+				if ( is_array( $person ) && ! empty( $person ) ) {
+					$person = $this->parse_only_allowed_args( [
 						'last_name'   => '',
 						'first_name'  => '',
 						'middle_name' => '',
-					], $author, [
+					], $person, [
 						'sanitize_text_field',
 						'sanitize_text_field',
 						'sanitize_text_field',
 					], [
 						'last_name', 'first_name'
 					] );
-					if ( $author && ! empty( $author[ 'last_name' ] ) && ! empty( $author[ 'first_name' ] ) ) {
-						$result[] = $author;
+					if ( $person && ! empty( $person[ 'last_name' ] ) && ! empty( $person[ 'first_name' ] ) ) {
+						$result[] = $person;
 					}
 				}
 			}
 		}
 		return $result;
+	}
+
+
+
+	public function parse_persons_from_string( $value ) {
+		$persons = [];
+		if ( ! is_array( $value ) ) {
+			$value = explode( ",", $value );
+		}
+		foreach ( $value as &$item ) {
+			$item = explode( " ", $item );
+			$item = array_filter( $item, function( $element ) {
+				return ! empty( trim( $element ) );
+			} );
+			if ( ! empty( $item ) ) {
+				$person = [];
+				if ( count( $item ) > 3 ) {
+					$person[ 'middle_name' ] = sanitize_text_field( array_pop( $item ) );
+					$person[ 'first_name' ] = sanitize_text_field( array_pop( $item ) );
+					$person[ 'last_name' ] = sanitize_text_field( trim( implode( " ", $item ) ) );
+				} else {
+					$count = 0;
+					foreach ( [ 'last_name', 'first_name', 'middle_name' ] as $key ) {
+						$person[ $key ] = ( isset( $item[ $count ] ) ) ? sanitize_text_field( $item[ $count ] ) : '';
+						$count++;
+					}
+				}
+				if ( ! empty( $person ) ) {
+					$persons[] = $person;
+				}
+			}
+		}
+		return $persons;
 	}
 
 
