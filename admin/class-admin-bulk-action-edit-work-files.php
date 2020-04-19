@@ -29,11 +29,11 @@ class AdminBulkActionEditWorkFiles extends BulkAction {
 		wp_nonce_field( __FILE__, "bulk_action_{$this->action_name}_nonce", true, true );
 		?>
 			<h3><?php _e( 'Список работ', $this->plugin_name ); ?></h3>
-			<p><?php $this->render_submit_action_button( __( 'Обновить список файлов конкурсных работ', $this->plugin_name ) ); ?></p>
+			<p><?php $this->render_submit_action_button( $this->action_name, __( 'Обновить список файлов конкурсных работ', $this->plugin_name ) ); ?></p>
 			<p class="small">
 				<?php printf( __( 'Количество найденых работ: %s', $this->plugin_name ), count( $competitive_works ) ); ?>
 			</p>
-			<table class="bulk-action-table">
+			<table class="filter-result-table">
 				<thead>
 					<th><?php _e( 'Шифр', $this->plugin_name ); ?></th>
 					<th><?php _e( 'Название работы', $this->plugin_name ); ?></th>

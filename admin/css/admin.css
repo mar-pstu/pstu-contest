@@ -128,59 +128,74 @@
 /**/
 
 
-.bulk-action-table {
+.filter-result-table {
 	width: 100%;
 	border-spacing: 0;
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
 
-.bulk-action-table .check-column {
+.filter-result-table .check-column {
 	width: 5%;
 	text-align: center;
 }
 
-.bulk-action-table .name {
+.filter-result-table .name {
 	text-align: left;
 }
 
-.bulk-action-table .rating {
+.filter-result-table .rating {
 	width: 20%;
 	text-align: center;
 }
 
-.bulk-action-table .cipher {
-	width: 20%;
+.filter-result-table .cipher {
+	width: 10%;
 	text-align: center;
 	font-family: monospace;
 }
 
 
-.bulk-action-table .work-status {
-	width: 20%;
+.filter-result-table .work-status {
+	width: 15%;
 	text-align: center;
 }
 
-.bulk-action-table .university {
-	width: 20%;
-	text-align: center;
-}
-
-.bulk-action-table .work-status .list-inline {
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.bulk-action-table .show-authors-status {
+.filter-result-table .cw-year {
 	width: 10%;
 	text-align: center;
 }
 
-.bulk-action-table th {
+.filter-result-table .date {
+	width: 10%;
+	text-align: center;
+}
+
+.filter-result-table .contest-sections {
+	width: 15%;
+	text-align: center;
+}
+
+.filter-result-table .university {
+	width: 30%;
+	text-align: center;
+}
+
+.filter-result-table .work-status .list-inline {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.filter-result-table .show-authors-status {
+	width: 10%;
+	text-align: center;
+}
+
+.filter-result-table th {
 	padding: .5em;
 }
 
-.bulk-action-table td {
+.filter-result-table td {
 	margin: 0;
 	border-top: 1px solid #aaa;
 	border-left: none;
@@ -190,7 +205,7 @@
 	transition: .2s background-color;
 }
 
-.bulk-action-table tr:hover td {
+.filter-result-table tr:hover td {
 	background-color: rgba( 255, 255, 255, .5 );
 }
 

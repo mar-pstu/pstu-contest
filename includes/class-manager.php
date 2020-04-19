@@ -74,9 +74,10 @@ class Manager {
 
 
 		/**
-		 * Методы для работы с полями формы
+		 * Методы для работы с полями формы и фильтрами
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/trait-controls.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/trait-filter.php';
 
 
 		/**
@@ -128,6 +129,7 @@ class Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-edit-rating.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-edit-cipher.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-university-change.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-cw_year-change.php';
 
 		/**
 		 * Классы, отвечающие за хуки, фильтры админки для пользовательских типов записи плагина
@@ -209,6 +211,7 @@ class Manager {
 		// страница экспорта
 		$export_class = new AdminExport( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'admin_menu', $export_class, 'add_page' );
+		$this->loader->add_action( 'init', $export_class, 'run_action' );
 		
 		// страница-менеджер групповых действий
 		$bulk_action_manager_class = new AdminBulkActionManager( $this->get_plugin_name(), $this->get_version() );
@@ -271,6 +274,12 @@ class Manager {
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_university_change_class->get_action_name(), $bulk_action_university_change_class, 'render_subscreen' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_university_change_class, 'enqueue_styles', 10, 0 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_university_change_class, 'enqueue_scripts', 10, 0 );
+
+		// групповое действие - редактирвание шифров
+		$bulk_action_cw_year_change_class = new AdminBulkActionCWYearChange( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_cw_year_change_class, 'add_action', 5, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_cw_year_change_class->get_action_name(), $bulk_action_cw_year_change_class, 'run_action' );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_cw_year_change_class->get_action_name(), $bulk_action_cw_year_change_class, 'render_subscreen' );
 
 		// админ-часть типа записи "Конкурсная работа"
 		$competitive_work_post_type_class = new AdminCompetitiveWork( $this->get_plugin_name(), $this->get_version() );

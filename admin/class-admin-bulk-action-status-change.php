@@ -40,7 +40,7 @@ class AdminBulkActionStatusChange extends BulkAction {
 					] );
 					if ( is_array( $new_status_terms ) ) {
 						echo $this->render_dropdown( 'new_status', $new_status_terms );
-						$this->render_submit_action_button( __( 'Установить новый статус конкурсных работ', $this->plugin_name ) );
+						$this->render_submit_action_button( $this->action_name, __( 'Установить новый статус конкурсных работ', $this->plugin_name ) );
 					} else {
 						$this->add_admin_notice( __( 'Заполните таксономию статусов.' ), 'error' );
 					}
@@ -50,7 +50,7 @@ class AdminBulkActionStatusChange extends BulkAction {
 				<?php printf( __( 'Количество найденых работ: %s', $this->plugin_name ), count( $competitive_works ) ); ?>
 			</p>
 			<?php $this->render_select_all_button(); ?>
-			<table class="bulk-action-table">
+			<table class="filter-result-table">
 				<thead>
 					<th><?php _e( 'Отметить работу', $this->plugin_name ); ?></th>
 					<th><?php _e( 'Статус работы', $this->plugin_name ); ?></th>

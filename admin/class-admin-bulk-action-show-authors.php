@@ -39,14 +39,14 @@ class AdminBulkActionShowAuthors extends BulkAction {
 							'show' => __( 'Показывать', $this->plugin_name )
 						]
 					);
-					$this->render_submit_action_button( __( 'Установить статус показа автора', $this->plugin_name ) );
+					$this->render_submit_action_button( $this->action_name, __( 'Установить статус показа автора', $this->plugin_name ) );
 				?>
 			</p>
 			<p class="small">
 				<?php printf( __( 'Количество найденых работ: %s', $this->plugin_name ), count( $competitive_works ) ); ?>
 			</p>
 			<?php $this->render_select_all_button(); ?>
-			<table class="bulk-action-table">
+			<table class="filter-result-table">
 				<thead>
 					<th><?php _e( 'Отметить работу', $this->plugin_name ); ?></th>
 					<th><?php _e( 'Статус показа автора работы', $this->plugin_name ); ?></th>
