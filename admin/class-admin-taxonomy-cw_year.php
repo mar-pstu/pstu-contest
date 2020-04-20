@@ -99,4 +99,56 @@ class AdminTaxonomyCWYear extends AdminPartTaxonomy {
 	}
 
 
+	/**
+	 * Добавляем поле для выборки по таксономии
+	 * на страницу списка постов
+	 * @param  string               $post_type  типо поста
+	 * @param  WP_Media_List_Table  $which      расположение дополнительной табличной навигационной разметки
+	 */
+	public function add_search_field_by_taxonomy( $post_type, $which ) {
+		if ( is_object_in_taxonomy( $post_type, $this->taxonomy_name ) ) {
+			$terms = get_terms( array(
+				'taxonomy'   => $this->taxonomy_name,
+				'hide_empty' => false,
+				'fields'     => 'id=>name',
+			) );
+			if ( is_array( $terms ) && ! empty( $terms ) ) {
+				echo $this->render_dropdown( "{$this->taxonomy_name}-filter", $terms, array(
+					'selected' => [ sanitize_text_field( $_GET[ "{$this->taxonomy_name}-filter" ] ) ],
+					'show_option_none' => __( 'Выберите год', $this->plugin_name ),
+					'atts' => [
+						'id'       => "{$this->taxonomy_name}-filter",
+					],
+				) );
+			}
+		}
+	}
+
+
+	/**
+	 * Фильтр, который изменяем параметры запроса и добавляет выборку по таксономии
+	 * @param    array  $query_vars  параметры запроса, которые нужно изменить 
+	 * @return   array  $query_vars  параметры запроса, которые нужно изменить 
+	 */
+	public function search_request_by_taxonomy( $query_vars ) {
+		global $pagenow;
+		global $post_type;
+		if ( 'edit.php' == $pagenow && is_object_in_taxonomy( $post_type, $this->taxonomy_name ) ) {
+			if ( isset( $_GET[ "{$this->taxonomy_name}-filter" ] ) && ! empty( $_GET[ "{$this->taxonomy_name}-filter" ] ) ) {
+				$query_vars[ 'tax_query' ] = [
+					'relation' => 'OR',
+					[
+						'taxonomy' => $this->taxonomy_name,
+						'field'    => 'term_id',
+						'terms'    => wp_parse_id_list( $_GET[ "{$this->taxonomy_name}-filter" ] ),
+						'operator' => 'IN',
+						'include_children' => true,
+					],
+				];
+			}
+		}
+		return $query_vars;
+	}
+
+
 }

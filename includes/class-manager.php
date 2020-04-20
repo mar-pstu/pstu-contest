@@ -304,6 +304,8 @@ class Manager {
 		$this->loader->add_action( $this->get_plugin_name() . '_register_settings', $cw_year_taxonomy_class, 'register_settings', 10, 1 );
 		$this->loader->add_filter( $this->get_plugin_name() . '_settings-tabs', $cw_year_taxonomy_class, 'add_settings_tab', 10, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_settings-form_' . $cw_year_taxonomy_class->get_taxonomy_name(), $cw_year_taxonomy_class, 'render_settings_form', 10, 1 );
+		$this->loader->add_action( 'restrict_manage_posts', $cw_year_taxonomy_class, 'add_search_field_by_taxonomy', 10, 2 );
+		$this->loader->add_filter( 'request', $cw_year_taxonomy_class, 'search_request_by_taxonomy', 10, 1 );
 		
 		// админ-часть таксономии "Статус конкурсной работы" 
 		$work_status_taxonomy_class = new AdminTaxonomyWorkStatus( $this->get_plugin_name(), $this->get_version() );

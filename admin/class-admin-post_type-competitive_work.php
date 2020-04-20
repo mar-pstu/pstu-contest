@@ -198,6 +198,8 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	 * @param    array     $columns  массив идентификаторов и заголовков колонок
 	 */
 	public function add_custom_columns( $columns ) {
+		$columns = array_merge( [ 'authors' => __( 'Авторы', $this->plugin_name ) ], $columns );
+		$columns = array_merge( [ 'rating' => __( 'Рейтинг', $this->plugin_name ) ], $columns );
 		$columns = array_merge( [ 'cipher' => __( 'Шифр', $this->plugin_name ) ], $columns );
 		return $columns;
 	}
@@ -210,10 +212,26 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	 */
 	public function render_custom_columns( $column ) {
 		switch ( $column ) {
+			case 'authors':
+				$meta = get_post_meta( get_the_ID(), $column, true );
+				if ( ( bool ) get_post_meta( get_the_ID(), 'show_authors', true ) ) {
+					echo '<span class="dashicons-before dashicons-visibility show_authors--true">' . __( 'Выдимы', $this->plugin_name ) . '</span>';
+				} else {
+					echo '<span class="dashicons-before dashicons-hidden show_authors--false">' . __( 'Скрыты', $this->plugin_name ) . '</span>';
+				}
+				if ( is_array( $meta ) && ! empty( $meta ) ) {
+					echo '<ul class="' . $column . '">';
+					array_map( function ( $item ) {
+						echo ( is_array( $item ) && ! empty( $item ) ) ? '<li>' . implode( ' ', array_values( $item ) ) . '</li>' : '';
+					} , $meta );
+					echo '</ul>';
+				}
+				break;
+			case 'rating':
 			case 'cipher':
-				$cipher = get_post_meta( get_the_ID(), 'cipher', true );
-				if ( ! empty( trim( $cipher ) ) ) {
-					echo '<span class="cipher">' . $cipher . '</span>';
+				$meta = get_post_meta( get_the_ID(), $column, true );
+				if ( ! empty( trim( $meta ) ) ) {
+					echo '<span class="' . $column . '">' . $meta . '</span>';
 				}
 				break;
 		}
@@ -227,6 +245,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	 */
 	public function add_custom_sortable_columns( $sortable_columns ) {
 		$sortable_columns[ 'cipher' ] = array( 'cipher', false ); // false = asc. desc - по умолчанию
+		$sortable_columns[ 'rating' ] = array( 'rating', false );
 		return $sortable_columns;
 	}
 
@@ -238,8 +257,8 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	 * @param    WP_Query  $object   объект запроса
 	 */
 	public function request_custom_sortable_columns( $object ) {
-		if( 'ciphe' == $object->get( 'orderby' ) ) {
-			$object->set( 'meta_key', 'cipher' );
+		if ( in_array( $object->get( 'orderby' ), [ 'cipher', 'rating' ] ) ) {
+			$object->set( 'meta_key', $object->get( 'orderby' ) );
 			$object->set( 'orderby', 'meta_value_num' );
 		}
 	}

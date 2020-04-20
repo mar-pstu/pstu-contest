@@ -220,4 +220,26 @@ select.new-university {
 
 .wp-list-table .cipher {
 	font-family: monospace;
+	font-weight: bold;
+}
+
+.wp-list-table ul.authors {
+	font-size: 75%;
+}
+
+.wp-list-table ul.authors li {
+	list-style: disc;
+	list-style-position: inside;
+}
+
+.wp-list-table .dashicons-before::before {
+	margin-right: .1em;
+}
+
+.wp-list-table .show_authors--true::before {
+	color: green;
+}
+
+.wp-list-table .show_authors--false::before {
+	color: red;
 }
