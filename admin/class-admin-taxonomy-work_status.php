@@ -52,7 +52,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 					$control = $this->render_dropdown( $id, wp_list_pluck( ( isset( $options[ 'types' ] ) ) ? $options[ 'types' ] : [], 'label', 'slug' ), [ 'selected' => $value ] );
 					break;
 			}
-			include dirname( __FILE__ ) . '/partials/taxonomy-edit-section-field.php';
+			include dirname( __FILE__ ) . '/partials/taxonomy-edit-form-field.php';
 		}
 	}
 
@@ -73,7 +73,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 					$control = $this->render_dropdown( $id, wp_list_pluck( ( isset( $options[ 'types' ] ) ) ? $options[ 'types' ] : [], 'label', 'slug' ) );
 					break;
 			}
-			include dirname( __FILE__ ) . '/partials/taxonomy-add-section-field.php';
+			include dirname( __FILE__ ) . '/partials/taxonomy-add-form-field.php';
 		}
 	}
 
@@ -185,7 +185,7 @@ class AdminTaxonomyWorkStatus extends AdminPartTaxonomy {
 							'value'    => '{{data.value.color}}',
 							'class'    => 'form-control data-picker-control',
 							'id'       => '',
-							'placeholder' => __( 'Цвет текста', $this->plugin_name ),
+							'placeholder' => __( 'Цвет', $this->plugin_name ),
 						] )
 					),
 				] );

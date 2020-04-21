@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
 			<td>
 				<?php
 					if ( null == $work_status ) {
-						echo '<p>' . __( 'Неопределён', $this->plugin_name ) . '</p>';
+						echo '<p>' . __( 'Не определён', $this->plugin_name ) . '</p>';
 					} else {
 						$status_type = get_term_meta( $work_status->term_id, 'status_type', true );
 						$indicator = ( empty( $status_type ) ) ? '' : '<span class="status-type-indicator status-type-indicator--' . $status_type . '"></span> ';

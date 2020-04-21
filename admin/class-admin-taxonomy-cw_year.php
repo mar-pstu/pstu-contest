@@ -114,7 +114,7 @@ class AdminTaxonomyCWYear extends AdminPartTaxonomy {
 			) );
 			if ( is_array( $terms ) && ! empty( $terms ) ) {
 				echo $this->render_dropdown( "{$this->taxonomy_name}-filter", $terms, array(
-					'selected' => [ sanitize_text_field( $_GET[ "{$this->taxonomy_name}-filter" ] ) ],
+					'selected' => ( isset( $_GET[ "{$this->taxonomy_name}-filter" ] ) ) ? [ sanitize_text_field( $_GET[ "{$this->taxonomy_name}-filter" ] ) ] : [],
 					'show_option_none' => __( 'Выберите год', $this->plugin_name ),
 					'atts' => [
 						'id'       => "{$this->taxonomy_name}-filter",

@@ -96,7 +96,7 @@ class AdminUpdateTab extends AdminPart {
 	public function render_tab() {
 		?>
 			<p><?php printf( __( 'Версия плагина: %s', $this->plugin_name ), $this->version ); ?></p>
-			<p><?php printf( __( 'Версия базы данных: %s', $this->plugin_name ), ( empty( $this->options[ 'version' ] ) ) ? __( 'неопределена', $this->plugin_name ) : $this->options[ 'version' ] ); ?></p>
+			<p><?php printf( __( 'Версия базы данных: %s', $this->plugin_name ), ( empty( $this->options[ 'version' ] ) ) ? __( 'не определена', $this->plugin_name ) : $this->options[ 'version' ] ); ?></p>
 		<?
 		if ( $this->version == $this->options[ 'version' ] ) {
 			?>

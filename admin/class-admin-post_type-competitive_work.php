@@ -177,7 +177,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 					] );
 					break;
 			}
-			include dirname( __FILE__ ) . '/partials/post_type-section-field.php';
+			include dirname( __FILE__ ) . '/partials/form-group.php';
 		}
 	}
 
@@ -215,7 +215,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 			case 'authors':
 				$meta = get_post_meta( get_the_ID(), $column, true );
 				if ( ( bool ) get_post_meta( get_the_ID(), 'show_authors', true ) ) {
-					echo '<span class="dashicons-before dashicons-visibility show_authors--true">' . __( 'Выдимы', $this->plugin_name ) . '</span>';
+					echo '<span class="dashicons-before dashicons-visibility show_authors--true">' . __( 'Видимы', $this->plugin_name ) . '</span>';
 				} else {
 					echo '<span class="dashicons-before dashicons-hidden show_authors--false">' . __( 'Скрыты', $this->plugin_name ) . '</span>';
 				}

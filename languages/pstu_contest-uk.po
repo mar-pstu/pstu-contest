@@ -1,0 +1,773 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-04-20 16:41+0300\n"
+"PO-Revision-Date: 2020-04-21 14:25+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/abstract-admin-part-bulk-action.php:105
+#: admin/class-admin-import.php:90
+msgid "Конкурсные работы не найдены."
+msgstr "Конкурсні роботи не знайдені."
+
+#: admin/abstract-admin-part-bulk-action.php:119
+msgid "Выбрать все работы"
+msgstr "Вибрати всі роботи"
+
+#: admin/abstract-admin-part-bulk-action.php:120
+msgid "Снять выделение со всех работ"
+msgstr "Зняти виділення з усіх робіт"
+
+#: admin/abstract-admin-part-taxonomy.php:114
+msgid "Заполните таксономию или обратитесь к администратору сайта."
+msgstr "Заповніть таксономию або зверніться до адміністратора сайту."
+
+#: admin/class-admin-bulk-action-cw_year-change.php:25
+msgid "Изменение года проведения конкурсных работ"
+msgstr "Зміна року проведення конкурсних робіт"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:32
+#: admin/class-admin-bulk-action-edit-authors.php:31
+#: admin/class-admin-bulk-action-edit-cipher.php:32
+#: admin/class-admin-bulk-action-edit-invite-files.php:31
+#: admin/class-admin-bulk-action-edit-rating.php:32
+#: admin/class-admin-bulk-action-edit-reviews.php:32
+#: admin/class-admin-bulk-action-edit-work-files.php:31
+#: admin/class-admin-bulk-action-show-authors.php:32
+#: admin/class-admin-bulk-action-status-change.php:32
+#: admin/class-admin-bulk-action-university-change.php:32
+#: admin/class-admin-export.php:172
+msgid "Список работ"
+msgstr "Cписок робіт"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:34
+msgid "Выбрать новый год проведения"
+msgstr "Вибрати новий рік проведення"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:43
+#: admin/class-admin-bulk-action-status-change.php:43
+msgid "Установить новый статус конкурсных работ"
+msgstr "Встановити новий статус конкурсних робіт"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:45
+#: admin/class-admin-bulk-action-status-change.php:45
+msgid "Заполните таксономию статусов."
+msgstr "Заповніть таксономию статусів."
+
+#: admin/class-admin-bulk-action-cw_year-change.php:50
+#: admin/class-admin-bulk-action-edit-authors.php:34
+#: admin/class-admin-bulk-action-edit-cipher.php:35
+#: admin/class-admin-bulk-action-edit-invite-files.php:34
+#: admin/class-admin-bulk-action-edit-rating.php:35
+#: admin/class-admin-bulk-action-edit-reviews.php:35
+#: admin/class-admin-bulk-action-edit-work-files.php:34
+#: admin/class-admin-bulk-action-show-authors.php:46
+#: admin/class-admin-bulk-action-status-change.php:50
+#: admin/class-admin-bulk-action-university-change.php:54
+#: admin/class-admin-export.php:177
+#, php-format
+msgid "Количество найденых работ: %s"
+msgstr "Кількість знадених робіт: %s"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:55
+#: admin/class-admin-bulk-action-show-authors.php:51
+#: admin/class-admin-bulk-action-status-change.php:55
+#: admin/class-admin-bulk-action-university-change.php:59
+msgid "Отметить работу"
+msgstr "Помітити  роботу"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:56
+#: admin/class-admin-export.php:94 admin/class-admin-export.php:181
+#: includes/class-init.php:137 includes/trait-filter.php:45
+msgid "Год проведения"
+msgstr "Рік проведення"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:57
+#: admin/class-admin-bulk-action-edit-authors.php:38
+#: admin/class-admin-bulk-action-edit-cipher.php:39
+#: admin/class-admin-bulk-action-edit-invite-files.php:38
+#: admin/class-admin-bulk-action-edit-rating.php:39
+#: admin/class-admin-bulk-action-edit-reviews.php:39
+#: admin/class-admin-bulk-action-edit-work-files.php:38
+#: admin/class-admin-bulk-action-show-authors.php:53
+#: admin/class-admin-bulk-action-status-change.php:57
+#: admin/class-admin-bulk-action-university-change.php:61
+#: admin/class-admin-export.php:96 admin/class-admin-export.php:183
+#: admin/class-admin-post_type-competitive_work.php:29
+#: admin/class-admin-post_type-competitive_work.php:203
+#: public/partials/archive-template.php:64
+#: public/partials/single-content.php:16
+msgid "Шифр"
+msgstr "Шифр"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:58
+#: admin/class-admin-bulk-action-edit-authors.php:39
+#: admin/class-admin-bulk-action-edit-cipher.php:40
+#: admin/class-admin-bulk-action-edit-invite-files.php:39
+#: admin/class-admin-bulk-action-edit-rating.php:41
+#: admin/class-admin-bulk-action-edit-reviews.php:40
+#: admin/class-admin-bulk-action-edit-work-files.php:39
+#: admin/class-admin-bulk-action-show-authors.php:54
+#: admin/class-admin-bulk-action-status-change.php:58
+#: admin/class-admin-bulk-action-university-change.php:62
+#: admin/class-admin-export.php:182
+msgid "Название работы"
+msgstr "Назва роботи"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:59
+#: admin/class-admin-export.php:91
+msgid "Дата добавления"
+msgstr "Дата додавання"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:100
+msgid "Неверный год проведения."
+msgstr "Невірний рік проведення."
+
+#: admin/class-admin-bulk-action-cw_year-change.php:103
+#: admin/class-admin-bulk-action-show-authors.php:98
+#: admin/class-admin-bulk-action-status-change.php:101
+#: admin/class-admin-bulk-action-university-change.php:105
+msgid "Выберите конкурсные работы, которые необходими изменить."
+msgstr "Оберіть конкурсні роботи, які необхідно змінити."
+
+#: admin/class-admin-bulk-action-cw_year-change.php:106
+msgid "Выберите новый год проведения конкурсных работ."
+msgstr "Оберіть новий рік проведення конкурсних робіт."
+
+#: admin/class-admin-bulk-action-cw_year-change.php:109
+#: admin/class-admin-bulk-action-edit-authors.php:106
+#: admin/class-admin-bulk-action-edit-cipher.php:84
+#: admin/class-admin-bulk-action-edit-invite-files.php:91
+#: admin/class-admin-bulk-action-edit-rating.php:86
+#: admin/class-admin-bulk-action-edit-reviews.php:92
+#: admin/class-admin-bulk-action-edit-work-files.php:91
+#: admin/class-admin-bulk-action-show-authors.php:104
+#: admin/class-admin-bulk-action-status-change.php:107
+#: admin/class-admin-bulk-action-university-change.php:111
+msgid "Действие не выполнено. Обновите страницу."
+msgstr "Дія не виконана. Оновіть сторінку."
+
+#: admin/class-admin-bulk-action-edit-authors.php:24
+msgid "Редактирование списка авторов конкурсных работ"
+msgstr "Редагування списку авторів конкурсних робіт"
+
+#: admin/class-admin-bulk-action-edit-authors.php:32
+msgid "Обновить список аторов конкурсных работ"
+msgstr "Оновити список авторів конкурсних робіт"
+
+#: admin/class-admin-bulk-action-edit-authors.php:40
+#: admin/class-admin-bulk-action-edit-work-files.php:40
+#: public/partials/single-content.php:74
+msgid "Файлы конкурсной работы"
+msgstr "Файли конкурсної роботи"
+
+#: admin/class-admin-bulk-action-edit-authors.php:57
+#: admin/class-admin-post_type-competitive_work.php:142
+msgid "Фамилия"
+msgstr "Призвіще"
+
+#: admin/class-admin-bulk-action-edit-authors.php:63
+#: admin/class-admin-post_type-competitive_work.php:148
+msgid "Имя"
+msgstr "Ім`я"
+
+#: admin/class-admin-bulk-action-edit-authors.php:69
+#: admin/class-admin-post_type-competitive_work.php:154
+msgid "Отчество"
+msgstr "По батькові"
+
+#: admin/class-admin-bulk-action-edit-authors.php:101
+#: admin/class-admin-bulk-action-edit-cipher.php:79
+#: admin/class-admin-bulk-action-edit-invite-files.php:86
+#: admin/class-admin-bulk-action-edit-rating.php:81
+#: admin/class-admin-bulk-action-edit-reviews.php:87
+#: admin/class-admin-bulk-action-edit-work-files.php:86
+msgid "Действие выполнено."
+msgstr "Дія виконана."
+
+#: admin/class-admin-bulk-action-edit-authors.php:103
+#: admin/class-admin-bulk-action-edit-cipher.php:81
+#: admin/class-admin-bulk-action-edit-invite-files.php:88
+#: admin/class-admin-bulk-action-edit-rating.php:83
+#: admin/class-admin-bulk-action-edit-reviews.php:89
+#: admin/class-admin-bulk-action-edit-work-files.php:88
+msgid "Ошибка. Не выбраны конкурсные работы."
+msgstr "Помилка. Не обрано конкурсні роботи."
+
+#: admin/class-admin-bulk-action-edit-cipher.php:25
+msgid "Редактирование шифров"
+msgstr "Редагування шифрів"
+
+#: admin/class-admin-bulk-action-edit-cipher.php:33
+msgid "Обновить шифр конкурсных работ"
+msgstr "Оновити шифри конкурсних робіт"
+
+#: admin/class-admin-bulk-action-edit-invite-files.php:24
+msgid "Редактирование списка файлов приглашений"
+msgstr "Редагування списку файлів запрошень"
+
+#: admin/class-admin-bulk-action-edit-invite-files.php:32
+msgid "Обновить список приглашений"
+msgstr "Оновити список запрошень"
+
+#: admin/class-admin-bulk-action-edit-invite-files.php:40
+msgid "Файлы приглашений"
+msgstr "Файли запрошень"
+
+#: admin/class-admin-bulk-action-edit-rating.php:25
+msgid "Редактирование рейтинга"
+msgstr "Редагування рейтингу"
+
+#: admin/class-admin-bulk-action-edit-rating.php:33
+msgid "Обновить рейтинг конкурсных работ"
+msgstr "Оновити рейтинг конкурсних робіт"
+
+#: admin/class-admin-bulk-action-edit-rating.php:40
+#: admin/class-admin-export.php:95
+#: admin/class-admin-post_type-competitive_work.php:28
+#: admin/class-admin-post_type-competitive_work.php:202
+#: public/partials/archive-template.php:65
+#: public/partials/single-content.php:10
+msgid "Рейтинг"
+msgstr "Рейтинг"
+
+#: admin/class-admin-bulk-action-edit-reviews.php:25
+msgid "Редактирование списка рецензий"
+msgstr "Редагування списку відгуків"
+
+#: admin/class-admin-bulk-action-edit-reviews.php:33
+msgid "Обновить список отзывов у конкурсных работ"
+msgstr "Оновити список відгуків у конкурсної роботи"
+
+#: admin/class-admin-bulk-action-edit-reviews.php:41
+#: admin/class-admin-export.php:102
+#: admin/class-admin-post_type-competitive_work.php:33
+#: public/partials/single-content.php:90
+msgid "Рецензии"
+msgstr "Відгуки"
+
+#: admin/class-admin-bulk-action-edit-work-files.php:24
+msgid "Редактирование списка файлов конкурсных работ"
+msgstr "Редагування списку файлів конкурсних робіт"
+
+#: admin/class-admin-bulk-action-edit-work-files.php:32
+msgid "Обновить список файлов конкурсных работ"
+msgstr "Оновити списоок файлів конкурсних робіт"
+
+#: admin/class-admin-bulk-action-manager.php:45
+#: admin/class-admin-bulk-action-manager.php:46
+msgid "Групповые действия"
+msgstr "Групові дії"
+
+#: admin/class-admin-bulk-action-manager.php:97
+msgid "Выберите групповое действие"
+msgstr "Оберіть групову дію"
+
+#: admin/class-admin-bulk-action-manager.php:100
+msgid "Не выбрано"
+msgstr "Не обрано"
+
+#: admin/class-admin-bulk-action-show-authors.php:25
+msgid "Установка статуса показа информации об авторе конкурсной работы"
+msgstr "Установка статусу показу інформації про автора конкурсної роботи"
+
+#: admin/class-admin-bulk-action-show-authors.php:34
+#: admin/class-admin-bulk-action-status-change.php:34
+#: admin/class-admin-bulk-action-university-change.php:34
+msgid "Выбрать новый статус"
+msgstr "Оберіть новий статус"
+
+#: admin/class-admin-bulk-action-show-authors.php:38
+msgid "Не показывать"
+msgstr "НЕ показувати"
+
+#: admin/class-admin-bulk-action-show-authors.php:39
+msgid "Показывать"
+msgstr "Показувати"
+
+#: admin/class-admin-bulk-action-show-authors.php:42
+msgid "Установить статус показа автора"
+msgstr "Встановити статус показа автора"
+
+#: admin/class-admin-bulk-action-show-authors.php:52
+msgid "Статус показа автора работы"
+msgstr "Статус показа автора роботи"
+
+#: admin/class-admin-bulk-action-show-authors.php:85
+msgid "Статус показа авторов удалён!"
+msgstr "Статус показу авторів видалено!"
+
+#: admin/class-admin-bulk-action-show-authors.php:91
+msgid "Статус показа авторов добавлен!"
+msgstr "Статус показа авторів додано!"
+
+#: admin/class-admin-bulk-action-show-authors.php:94
+msgid "Выбран неверный статус."
+msgstr "Обрано неправильний статус."
+
+#: admin/class-admin-bulk-action-show-authors.php:101
+msgid "Выберите новый статус показа авторов."
+msgstr "Оберіть новий статус показу авторів."
+
+#: admin/class-admin-bulk-action-status-change.php:25
+msgid "Изменение статуса конкурсных работ"
+msgstr "Зміна статусу конкурсних робіт"
+
+#: admin/class-admin-bulk-action-status-change.php:56
+#: admin/class-admin-export.php:104 admin/class-admin-export.php:185
+#: includes/class-init.php:179 includes/trait-filter.php:46
+msgid "Статус работы"
+msgstr "Статус роботи"
+
+#: admin/class-admin-bulk-action-status-change.php:98
+msgid "Неверный статус конкурсных работ."
+msgstr "Невірний статус конкурсних робіт."
+
+#: admin/class-admin-bulk-action-status-change.php:104
+msgid "Выберите новый статус конкурсных работ."
+msgstr "Виберіть новий статус конкурсних робіт."
+
+#: admin/class-admin-bulk-action-university-change.php:25
+msgid "Изменение университета"
+msgstr "Зміна университету"
+
+#: admin/class-admin-bulk-action-university-change.php:47
+msgid "Установить университет"
+msgstr "Встановити университет"
+
+#: admin/class-admin-bulk-action-university-change.php:49
+msgid "Заполните таксономию \"Университеты\"."
+msgstr "Заповніть таксономию \"Університети\"."
+
+#: admin/class-admin-bulk-action-university-change.php:60
+#: includes/class-init.php:221 public/partials/single-content.php:23
+msgid "Университет"
+msgstr "Університет"
+
+#: admin/class-admin-bulk-action-university-change.php:102
+msgid "Неверный университет."
+msgstr "Невірний університет."
+
+#: admin/class-admin-bulk-action-university-change.php:108
+msgid "Выберите новый университет."
+msgstr "Виберіть новий університет."
+
+#: admin/class-admin-export.php:37
+msgid "Экспорт конкурсных работ"
+msgstr "Експорт конкурсних робіт"
+
+#: admin/class-admin-export.php:38
+msgid "Экспорт"
+msgstr "Експорт"
+
+#: admin/class-admin-export.php:89
+#: admin/class-admin-taxonomy-work_status.php:182
+#: public/partials/archive-template.php:66
+msgid "Название"
+msgstr "Назва"
+
+#: admin/class-admin-export.php:90
+msgid "Описание"
+msgstr "Опис"
+
+#: admin/class-admin-export.php:92
+msgid "Дата изменения"
+msgstr "Дата редагування"
+
+#: admin/class-admin-export.php:93
+msgid "Пользователь"
+msgstr "Користувач"
+
+#: admin/class-admin-export.php:97 includes/class-init.php:220
+#: includes/class-init.php:231
+msgid "Университеты"
+msgstr "Університети"
+
+#: admin/class-admin-export.php:98
+msgid "Секция конференции"
+msgstr "Секція конверенції"
+
+#: admin/class-admin-export.php:99
+msgid "Статус показа авторов"
+msgstr "Статус показа авторів"
+
+#: admin/class-admin-export.php:100
+#: admin/class-admin-post_type-competitive_work.php:32
+#: admin/class-admin-post_type-competitive_work.php:201
+#: public/partials/archive-template.php:68
+#: public/partials/single-content.php:30
+msgid "Авторы"
+msgstr "Автори"
+
+#: admin/class-admin-export.php:101
+msgid "Файлы работ"
+msgstr "Файли робіт"
+
+#: admin/class-admin-export.php:103
+msgid "Приглашения"
+msgstr "Запрошення"
+
+#: admin/class-admin-export.php:148
+msgid "Авторы показываются"
+msgstr "Автори показуються"
+
+#: admin/class-admin-export.php:148 public/partials/single-content.php:50
+msgid "Авторы скрыты"
+msgstr "Автори приховані"
+
+#: admin/class-admin-export.php:150
+msgid "Ошибка"
+msgstr "Помилка"
+
+#: admin/class-admin-export.php:174
+msgid "Начать экспорт"
+msgstr "Почати експорт"
+
+#: admin/class-admin-export.php:184 includes/class-init.php:94
+#: includes/trait-filter.php:47 public/partials/archive-template.php:67
+msgid "Секция"
+msgstr "Секція"
+
+#: admin/class-admin-import.php:27
+msgid "Импорт конкурсных работ"
+msgstr "Імпорт конкурсних робіт"
+
+#: admin/class-admin-import.php:28
+msgid "Импорт"
+msgstr "Імпорт"
+
+#: admin/class-admin-import.php:57
+#, php-format
+msgid "<a href=\"%s\">Скачать</a> шаблон файла импорта"
+msgstr "<a href=\"%s\">Завантажити</a> шаблон файлу імпорт"
+
+#: admin/class-admin-import.php:65
+msgid "Начать импорт"
+msgstr "Почати імпорт"
+
+#: admin/class-admin-import.php:152
+#, php-format
+msgid "Добавлнных работ: %s"
+msgstr "Додано робіт: %s"
+
+#: admin/class-admin-import.php:153
+#, php-format
+msgid "Ошибок: %s"
+msgstr "Помилок: %s"
+
+#: admin/class-admin-import.php:162
+msgid "Попробуйте позже или обратитесь к администратору."
+msgstr "Спробуйте пізніше або зверніться до адміністратору."
+
+#: admin/class-admin-post_type-competitive_work.php:30
+#: includes/class-init.php:50 includes/class-init.php:61
+#: public/partials/archive-template.php:53
+msgid "Конкурсные работы"
+msgstr "Конкурсні роботи"
+
+#: admin/class-admin-post_type-competitive_work.php:31
+msgid "Показывать авторов"
+msgstr "Показувати авторів"
+
+#: admin/class-admin-post_type-competitive_work.php:34
+#: public/partials/single-content.php:107
+msgid "Приглашение к участию в конференции"
+msgstr "Запрошення до участі в конференції"
+
+#: admin/class-admin-post_type-competitive_work.php:48
+msgid "Параметры"
+msgstr "Параметри"
+
+#: admin/class-admin-post_type-competitive_work.php:218
+msgid "Видимы"
+msgstr "Видимі"
+
+#: admin/class-admin-post_type-competitive_work.php:220
+msgid "Скрыты"
+msgstr "Приховані"
+
+#: admin/class-admin-post_type-competitive_work.php:276
+msgid "Поиск по шифру"
+msgstr "Пошук за шифром"
+
+#: admin/class-admin-post_type-competitive_work.php:350
+msgid "Таблица"
+msgstr "Таблиця"
+
+#: admin/class-admin-post_type-competitive_work.php:351
+msgid "Стиль"
+msgstr "Стиль"
+
+#: admin/class-admin-post_type-competitive_work.php:378
+msgid "Стандартный"
+msgstr "Стандартний"
+
+#: admin/class-admin-settings-manager.php:36
+msgid "Настройки плагина \"Конкурс \"Энергетика\""
+msgstr "Налаштування додатку \"Конкурс Енергетика\""
+
+#: admin/class-admin-settings-manager.php:37
+msgid "Настройки"
+msgstr "Налаштування"
+
+#: admin/class-admin-taxonomy-cw_year.php:35
+#: admin/class-admin-taxonomy-cw_year.php:36
+msgid "Текущий год"
+msgstr "Поточний рік"
+
+#: admin/class-admin-taxonomy-cw_year.php:70
+#: admin/class-admin-taxonomy-work_status.php:164
+msgid "Таксономия не заполнена"
+msgstr "Таксономія не заповнена"
+
+#: admin/class-admin-taxonomy-cw_year.php:118
+msgid "Выберите год"
+msgstr "Оберіть рік"
+
+#: admin/class-admin-taxonomy-work_status.php:33
+msgid "Тип статуса"
+msgstr "Тип статуса"
+
+#: admin/class-admin-taxonomy-work_status.php:128
+msgid "Статус по умолчанию"
+msgstr "Статус за замовчуванням"
+
+#: admin/class-admin-taxonomy-work_status.php:131
+msgid "Типы статутов"
+msgstr "Типи статусів"
+
+#: admin/class-admin-taxonomy-work_status.php:176
+msgid "Идентификатор"
+msgstr "Идентифікатор"
+
+#: admin/class-admin-taxonomy-work_status.php:188
+msgid "Цвет"
+msgstr "Колір"
+
+#: admin/class-admin-taxonomy-work_status.php:251
+#: admin/class-admin-taxonomy-work_status.php:254
+msgid "Без статуса"
+msgstr "Без статусу"
+
+#: admin/class-admin-update.php:48
+msgid "Обновление"
+msgstr "Оновлення"
+
+#: admin/class-admin-update.php:61
+msgid ""
+"Невозможно определить версию базы данных. Возможно при установке плагина "
+"произошка ошибка. Если плагин установлен поверх версии 1.0.0, то сделайте "
+"резервную копию и запустите обновление, активируей плагин заново."
+msgstr ""
+"Неможливо визначити версію бази даних. Можливо при встановленні додатка "
+"виникла помилка. Якщо додаток встановлений поверх версії 1.0.0, то зробіть "
+"резервну копію і запустіть оновлення, активуючи плагін заново."
+
+#: admin/class-admin-update.php:63
+msgid ""
+"Установлена устаревшая версия плагина. Сделайте резервную копию и обновитесь."
+msgstr ""
+"Встановлено застаріла версія плагіна. Зробіть резервну копію і оновіться."
+
+#: admin/class-admin-update.php:65
+msgid ""
+"Плагин запущен с устаревшей версией базы данных. Для корректной работы "
+"необходимо обновить базу данных. Сделайте резервную копию и нажмите кнопку "
+"\"Запустить обновление\"."
+msgstr ""
+"Плагін запущений із застарілою версією бази даних. Для коректної роботи "
+"необхідно оновити базу даних. Зробіть резервну копію і натисніть кнопку "
+"\"Запустити оновлення\"."
+
+#: admin/class-admin-update.php:98
+#, php-format
+msgid "Версия плагина: %s"
+msgstr "Версія плагіна: %s"
+
+#: admin/class-admin-update.php:99
+#, php-format
+msgid "Версия базы данных: %s"
+msgstr "Версія бази даних: %s"
+
+#: admin/class-admin-update.php:99
+msgid "не определена"
+msgstr "не визначена"
+
+#: admin/class-admin-update.php:104
+msgid ""
+"Версия плагина совпадает с версией базы данных. Дополнительные действия не "
+"требуются."
+msgstr ""
+"Версія плагіна збігається з версією бази даних. Додаткові дії не потрібні."
+
+#: admin/class-admin-update.php:114
+msgid "Запустить обновление"
+msgstr "Запустити оновлення"
+
+#: includes/class-init.php:51
+msgid "Конкурсная работа"
+msgstr "Конкурсна робота"
+
+#: includes/class-init.php:52
+msgid "Добавить запись"
+msgstr "Додати запис"
+
+#: includes/class-init.php:53
+msgid "Добавить новую конкурсную работу"
+msgstr "Додати нову конкурсну роботу"
+
+#: includes/class-init.php:54 includes/class-init.php:100
+#: includes/class-init.php:143 includes/class-init.php:185
+#: includes/class-init.php:227
+msgid "Редактировать запись"
+msgstr "Редагувати запис"
+
+#: includes/class-init.php:55
+msgid "Новая конкурсная работа"
+msgstr "Нова конкурсна робота"
+
+#: includes/class-init.php:56 includes/class-init.php:97
+#: includes/class-init.php:140 includes/class-init.php:224
+msgid "Смотреть запись"
+msgstr "Дивитися запис"
+
+#: includes/class-init.php:57
+msgid "Искать запись"
+msgstr "Шукати запис"
+
+#: includes/class-init.php:58
+msgid "Не найдено"
+msgstr "Не знайдено"
+
+#: includes/class-init.php:59
+msgid "В корзине записи не найдены"
+msgstr "В кошику записи не знайдені"
+
+#: includes/class-init.php:93 includes/class-init.php:104
+msgid "Секции"
+msgstr "Секції"
+
+#: includes/class-init.php:95 includes/class-init.php:138
+#: includes/class-init.php:222
+msgid "Найти запись"
+msgstr "Знайти запис"
+
+#: includes/class-init.php:96 includes/class-init.php:139
+#: includes/class-init.php:223
+msgid "Смотреть все запиcи"
+msgstr "Дивитися всі записи"
+
+#: includes/class-init.php:98 includes/class-init.php:99
+#: includes/class-init.php:141 includes/class-init.php:142
+#: includes/class-init.php:183 includes/class-init.php:225
+#: includes/class-init.php:226
+msgid "Родительская запись"
+msgstr "Батьківська запис"
+
+#: includes/class-init.php:101 includes/class-init.php:144
+#: includes/class-init.php:186 includes/class-init.php:228
+msgid "Обновить запись"
+msgstr "Оновити запис"
+
+#: includes/class-init.php:102 includes/class-init.php:229
+msgid "Добавить новую секцию"
+msgstr "Додати нову секцію"
+
+#: includes/class-init.php:103 includes/class-init.php:230
+msgid "Новая секция"
+msgstr "Нова секція"
+
+#: includes/class-init.php:136 includes/class-init.php:147
+msgid "Годы проведения"
+msgstr "Роки проведення"
+
+#: includes/class-init.php:145
+msgid "Добавить новый год проведения"
+msgstr "Додати новий рік проведення"
+
+#: includes/class-init.php:146
+msgid "Новый год проведения"
+msgstr "Новий рік проведення"
+
+#: includes/class-init.php:178 includes/class-init.php:189
+msgid "Статусы работ"
+msgstr "Статуси робіт"
+
+#: includes/class-init.php:180
+msgid "Найти статус работы"
+msgstr "Новий статус роботи"
+
+#: includes/class-init.php:181
+msgid "Все записи"
+msgstr "Всі записи"
+
+#: includes/class-init.php:182
+msgid "Просмотр списка записей"
+msgstr "Перегляд списку записів"
+
+#: includes/class-init.php:184
+msgid "Родительская запись:"
+msgstr "Батьківський запис:"
+
+#: includes/class-init.php:187
+msgid "Добавить новую запись"
+msgstr "Додати новий запис"
+
+#: includes/class-init.php:188
+msgid "Добавить статус"
+msgstr "Додати статус"
+
+#: includes/trait-controls.php:124
+msgid "Добавить строку"
+msgstr "Додати рядок"
+
+#: includes/trait-filter.php:42
+msgid "Фильтр"
+msgstr "Фільтр"
+
+#: includes/trait-filter.php:48
+msgid "Рубрика"
+msgstr "Рубрика"
+
+#: includes/trait-filter.php:71
+msgid "Сбросить фильтр"
+msgstr "Скинути фільтр"
+
+#: includes/trait-filter.php:73
+msgid "Применить фильтр"
+msgstr "Ззастосувати фільтр"
+
+#: includes/trait-filter.php:118
+msgid "Выполнить действие"
+msgstr "Виконати дію"
+
+#: includes/trait-filter.php:120
+msgid "Вы уверены?"
+msgstr "Ви впевнені?"
+
+#: public/partials/archive-template.php:69
+#: public/partials/single-content.php:57
+msgid "Статус"
+msgstr "Статус"
+
+#: public/partials/archive-template.php:133
+msgid "Конкурсные работы не найдены"
+msgstr "Конкурсні роботи не знайдені"
+
+#: public/partials/single-content.php:61
+msgid "Не определён"
+msgstr "Не визначений"
+
+#~ msgid "Цвет текста"
+#~ msgstr "Колір"

@@ -54,7 +54,7 @@ class Manager {
 	 */
 	public function __construct() {
 		$this->version = ( defined( 'PSTU_CONTEST_VERSION' ) ) ? PSTU_CONTEST_VERSION : '2.0.0';
-		$this->plugin_name = ( defined( 'PSTU_CONTEST_NAME' ) ) ? PSTU_CONTEST_NAME : 'pstu_contest';
+		$this->plugin_name = ( defined( 'PSTU_CONTEST_NAME' ) ) ? PSTU_CONTEST_NAME : 'pstu-contest';
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->init();

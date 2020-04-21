@@ -63,7 +63,7 @@ trait Filter {
 					} else {
 						$control = __( sprintf( 'Заполните таксономию "%s" или обратитесь к администратору сайта.', $label ), $this->plugin_name );
 					}
-					include $path . '/partials/post_type-section-field.php';
+					include $path . '/partials/form-group.php';
 				}
 			?>
 			<p class="text-right">

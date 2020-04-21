@@ -159,7 +159,7 @@ class AdminImport extends AdminPart {
 			}
 
 		} else {
-			$this->render_admin_notice( __( 'Попробуйте позже или обратитесь к адмнистратору.', $this->plugin_name ), 'warning', true );
+			$this->render_admin_notice( __( 'Попробуйте позже или обратитесь к администратору.', $this->plugin_name ), 'warning', true );
 			$this->render_form();
 		}
 	}

@@ -113,7 +113,7 @@ abstract class AdminPartTaxonomy extends AdminPart {
 		} else {
 			$control = __( 'Заполните таксономию или обратитесь к администратору сайта.', $this->plugin_name );
 		}
-		include dirname( __FILE__ ) . '/partials/post_type-section-field.php';
+		include dirname( __FILE__ ) . '/partials/form-group.php';
 	}
 
 
