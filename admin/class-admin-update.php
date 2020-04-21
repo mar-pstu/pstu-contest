@@ -152,9 +152,7 @@ class AdminUpdateTab extends AdminPart {
 				
 				// шифр
 				$old_cipher = get_post_meta( $competitive_work->ID, '_pstu_competitive_work_cipher', true );
-				if ( empty( $old_cipher ) ) {
-					delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_cipher' );
-				} else {
+				if ( ! empty( $old_cipher ) ) {
 					if ( ( bool ) update_post_meta( $competitive_work->ID, 'cipher', $old_cipher ) ) {
 						delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_cipher' );
 					}
@@ -162,9 +160,7 @@ class AdminUpdateTab extends AdminPart {
 				
 				// рейтинг
 				$old_rating = get_post_meta( $competitive_work->ID, '_pstu_competitive_work_rating', true );
-				if ( empty( $old_rating ) ) {
-					delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_rating' );
-				} else {
+				if ( ! empty( $old_rating ) ) {
 					if ( ( bool ) update_post_meta( $competitive_work->ID, 'rating', $old_rating ) ) {
 						delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_rating' );
 					}
@@ -189,25 +185,27 @@ class AdminUpdateTab extends AdminPart {
 				}
 				$new_authors = [];
 				foreach ( $old_authors as &$old_author ) {
-					$old_author = explode( " ", $old_author );
-					$old_author = array_filter( $old_author, function( $element ) {
-						return ! empty( trim( $element ) );
-					} );
 					if ( ! empty( $old_author ) ) {
-						$new_author = [];
-						if ( count( $old_author ) > 3 ) {
-							$new_author[ 'middle_name' ] = array_pop( $old_author );
-							$new_author[ 'first_name' ] = array_pop( $old_author );
-							$new_author[ 'last_name' ] = trim( implode( " ", $old_author ) );
-						} else {
-							$count = 0;
-							foreach ( [ 'last_name', 'first_name', 'middle_name' ] as $key ) {
-								$author[ $key ] = ( isset( $item[ $count ] ) ) ? $item[ $count ] : '';
-								$count++;
+						$old_author = explode( " ", $old_author );
+						$old_author = array_filter( $old_author, function( $element ) {
+							return ! empty( trim( $element ) );
+						} );
+						if ( is_array( $old_author ) && ! empty( $old_author ) ) {
+							$new_author = [];
+							if ( count( $old_author ) > 3 ) {
+								$new_author[ 'middle_name' ] = array_pop( $old_author );
+								$new_author[ 'first_name' ] = array_pop( $old_author );
+								$new_author[ 'last_name' ] = trim( implode( " ", $old_author ) );
+							} else {
+								$count = 0;
+								foreach ( [ 'last_name', 'first_name', 'middle_name' ] as $key ) {
+									$new_author[ $key ] = ( isset( $old_author[ $count ] ) ) ? $old_author[ $count ] : '';
+									$count++;
+								}
 							}
-						}
-						if ( ! empty( $new_author ) ) {
-							$new_authors[] = $new_author;
+							if ( ! empty( $new_author ) ) {
+								$new_authors[] = $new_author;
+							}
 						}
 					}
 				}
@@ -226,19 +224,15 @@ class AdminUpdateTab extends AdminPart {
 				
 				// рецензии
 				$old_reviews = get_post_meta( $competitive_work->ID, '_pstu_competitive_work_reviews', true );
-				if ( empty( $old_reviews ) ) {
-					delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_reviews' );
-				} else {
-					if ( ( bool ) update_post_meta( $competitive_work->ID, 'reviews', [ $old_reviews ] ) ) {
+				if ( ! empty( $old_reviews ) ) {
+					if ( ( bool ) update_post_meta( $competitive_work->ID, 'reviews', $old_reviews ) ) {
 						delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_reviews' );
 					}
 				}
 				
 				// файлы
 				$old_work_files = get_post_meta( $competitive_work->ID, '_pstu_competitive_work_file', true );
-				if ( empty( $old_work_files ) ) {
-					delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_file' );
-				} else {
+				if ( ! empty( $old_work_files ) ) {
 					if ( ( bool ) update_post_meta( $competitive_work->ID, 'work_files', [ $old_work_files ] ) ) {
 						delete_post_meta( $competitive_work->ID, '_pstu_competitive_work_file' );
 					}
@@ -246,9 +240,7 @@ class AdminUpdateTab extends AdminPart {
 				
 				// приглашения
 				$old_invite_files = get_post_meta( $competitive_work->ID, '_pstu_invite_file', true );
-				if ( empty( $old_invite_files ) ) {
-					delete_post_meta( $competitive_work->ID, '_pstu_invite_file' );
-				} else {
+				if ( ! empty( $old_invite_files ) ) {
 					if ( ( bool ) update_post_meta( $competitive_work->ID, 'invite_files', [ $old_invite_files ] ) ) {
 						delete_post_meta( $competitive_work->ID, '_pstu_invite_file' );
 					}
@@ -267,17 +259,19 @@ class AdminUpdateTab extends AdminPart {
 						if ( ! $old_university_term || is_wp_error( $old_university_term ) ) {
 							$old_university_insert_data = wp_insert_term( $old_university, 'university', [] );
 							if ( ! is_wp_error( $old_university_insert_data ) ) {
-								$new_universities_ids[] = $old_university_insert_data[ 'term_id' ];
+								$new_universities_ids[] = ( int ) $old_university_insert_data[ 'term_id' ];
 							}
 						} else {
-							$new_universities_ids[] = $old_university_term->term_id;
+							$new_universities_ids[] = ( int ) $old_university_term->term_id;
 						}
 					}
 					wp_update_post( wp_slash( [
 						'ID'           => $competitive_work->ID,
 						'post_excerpt' => '',
 					] ) );
-					wp_set_object_terms( $competitive_work->ID, $new_universities_ids, 'university', false );
+					if ( ! empty( $new_universities_ids ) ) {
+						wp_set_object_terms( $competitive_work->ID, $new_universities_ids, 'university', false );
+					}
 				}
 			
 			}

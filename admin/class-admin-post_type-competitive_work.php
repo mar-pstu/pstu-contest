@@ -130,7 +130,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 				case 'show_authors':
 					$args = [ 'id' => $id ];
 					if ( ! empty( $value ) ) $args[ 'checked' ] = 'checked';
-					$control = $this->render_checkbox( $name, $value, '', $args );
+					$control = $this->render_checkbox( $name, 'on', '', $args );
 					break;
 				case 'authors':
 					$control = $this->render_list_of_templates( $name, $value, [

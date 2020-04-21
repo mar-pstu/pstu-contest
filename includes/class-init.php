@@ -107,7 +107,7 @@ class Init extends Part {
 			'public'                => false,
 			'publicly_queryable'    => false,
 			'query_var'             => false,
-			'show_in_nav_menus'     => true,
+			'show_in_nav_menus'     => false,
 			'show_ui'               => true,
 			'show_tagcloud'         => false,
 			'show_in_rest'          => true,
