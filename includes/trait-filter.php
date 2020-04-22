@@ -32,6 +32,27 @@ trait Filter {
 
 
 	/**
+	 * Разбирает запрос фильтра для передачи в WP_Query
+	 * @param  array $request запрос
+	 * @return array          результат
+	 */
+	public function parse_custom_query( array $request ) {
+		$result = [];
+		if ( is_array( $request ) ) {
+			foreach ( $request as $key => &$value ) {
+				$value = sanitize_text_field( $value );
+				if ( ! empty( $value ) ) {
+					$result[ $key ] = $value;
+				}
+			}
+		} else {
+			$result = sanitize_text_field( $request );
+		}
+		return $result;
+	}
+
+
+	/**
 	 * Формирует html код формы фильтра
 	 * @param    string    $path          путь к папке с файлом класса
 	 * @param    array     $tax_query    выборка по таксономиям
@@ -41,6 +62,7 @@ trait Filter {
 		?>
 			<h3><?php _e( 'Фильтр', $this->plugin_name ); ?></h3>
 			<?php
+				do_action( "{$this->plugin_name}_filter_fileds_before", $path, $tax_query );
 				foreach ( [ 
 					'cw_year'         => __( 'Год проведения', $this->plugin_name ),
 					'work_status'     => __( 'Статус работы', $this->plugin_name ),
@@ -65,6 +87,7 @@ trait Filter {
 					}
 					include $path . '/partials/form-group.php';
 				}
+				do_action( "{$this->plugin_name}_filter_fileds_after", $path, $tax_query );
 			?>
 			<p class="text-right">
 				<button class="button" type="reset" onclick="this.form.reset(); window.location.reload();">
@@ -89,6 +112,9 @@ trait Filter {
 			'orderby'     => 'name',
 			'order'       => 'DESC',
 			'post_type'   => 'competitive_work',
+			'meta_query'  => [
+				'relation'  => 'OR',
+			]
 		];
 		if ( ! empty( $tax_query ) ) {
 			$competitive_works_args[ 'tax_query' ] = [ 'relation' => 'AND' ];
@@ -102,7 +128,7 @@ trait Filter {
 				];
 			}
 		}
-		$competitive_works = get_posts( $competitive_works_args );
+		$competitive_works = get_posts( apply_filters( "{$this->plugin_name}_filter_result_args", $competitive_works_args ) );
 		return ( is_array( $competitive_works ) ) ? $competitive_works : [];
 	}
 

@@ -236,12 +236,16 @@ class Manager {
 		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_edit_reviews_class, 'add_action', 5, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_edit_reviews_class->get_action_name(), $bulk_action_edit_reviews_class, 'run_action' );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_edit_reviews_class->get_action_name(), $bulk_action_edit_reviews_class, 'render_subscreen' );
+		$this->loader->add_action( $this->get_plugin_name() . '_filter_fileds_after', $bulk_action_edit_reviews_class, 'render_custom_filter_fields', 10, 2 );
+		$this->loader->add_filter( $this->get_plugin_name() . '_filter_result_args', $bulk_action_edit_reviews_class, 'custom_fields_result_args', 10, 1 );
 
 		// групповое действие - редактирвание списка файлов конкурсных работ
 		$bulk_action_edit_work_files_class = new AdminBulkActionEditWorkFiles( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_edit_work_files_class, 'add_action', 5, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_edit_work_files_class->get_action_name(), $bulk_action_edit_work_files_class, 'run_action' );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_edit_work_files_class->get_action_name(), $bulk_action_edit_work_files_class, 'render_subscreen' );
+		$this->loader->add_action( $this->get_plugin_name() . '_filter_fileds_after', $bulk_action_edit_work_files_class, 'render_custom_filter_fields', 10, 2 );
+		$this->loader->add_filter( $this->get_plugin_name() . '_filter_result_args', $bulk_action_edit_work_files_class, 'custom_fields_result_args', 10, 1 );
 	
 		// групповое действие - редактирвание списка файлов приглашений
 		$bulk_action_edit_invite_files_class = new AdminBulkActionEditInviteFiles( $this->get_plugin_name(), $this->get_version() );
@@ -254,6 +258,8 @@ class Manager {
 		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_edit_authors_class, 'add_action', 5, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_edit_authors_class->get_action_name(), $bulk_action_edit_authors_class, 'run_action' );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_edit_authors_class->get_action_name(), $bulk_action_edit_authors_class, 'render_subscreen' );
+		$this->loader->add_action( $this->get_plugin_name() . '_filter_fileds_after', $bulk_action_edit_authors_class, 'render_custom_filter_fields', 10, 2 );
+		$this->loader->add_filter( $this->get_plugin_name() . '_filter_result_args', $bulk_action_edit_authors_class, 'custom_fields_result_args', 10, 1 );
 
 		// групповое действие - редактирвание рейтингов
 		$bulk_action_edit_rating_class = new AdminBulkActionEditRating( $this->get_plugin_name(), $this->get_version() );

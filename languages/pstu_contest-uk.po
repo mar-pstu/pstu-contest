@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-04-20 16:41+0300\n"
-"PO-Revision-Date: 2020-04-21 14:25+0300\n"
+"POT-Creation-Date: 2020-04-22 14:44+0300\n"
+"PO-Revision-Date: 2020-04-22 14:46+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: uk\n"
@@ -16,16 +16,16 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/abstract-admin-part-bulk-action.php:105
+#: admin/abstract-admin-part-bulk-action.php:126
 #: admin/class-admin-import.php:90
 msgid "Конкурсные работы не найдены."
 msgstr "Конкурсні роботи не знайдені."
 
-#: admin/abstract-admin-part-bulk-action.php:119
+#: admin/abstract-admin-part-bulk-action.php:140
 msgid "Выбрать все работы"
 msgstr "Вибрати всі роботи"
 
-#: admin/abstract-admin-part-bulk-action.php:120
+#: admin/abstract-admin-part-bulk-action.php:141
 msgid "Снять выделение со всех работ"
 msgstr "Зняти виділення з усіх робіт"
 
@@ -38,12 +38,12 @@ msgid "Изменение года проведения конкурсных р�
 msgstr "Зміна року проведення конкурсних робіт"
 
 #: admin/class-admin-bulk-action-cw_year-change.php:32
-#: admin/class-admin-bulk-action-edit-authors.php:31
+#: admin/class-admin-bulk-action-edit-authors.php:61
 #: admin/class-admin-bulk-action-edit-cipher.php:32
-#: admin/class-admin-bulk-action-edit-invite-files.php:31
+#: admin/class-admin-bulk-action-edit-invite-files.php:61
 #: admin/class-admin-bulk-action-edit-rating.php:32
-#: admin/class-admin-bulk-action-edit-reviews.php:32
-#: admin/class-admin-bulk-action-edit-work-files.php:31
+#: admin/class-admin-bulk-action-edit-reviews.php:62
+#: admin/class-admin-bulk-action-edit-work-files.php:61
 #: admin/class-admin-bulk-action-show-authors.php:32
 #: admin/class-admin-bulk-action-status-change.php:32
 #: admin/class-admin-bulk-action-university-change.php:32
@@ -66,12 +66,12 @@ msgid "Заполните таксономию статусов."
 msgstr "Заповніть таксономию статусів."
 
 #: admin/class-admin-bulk-action-cw_year-change.php:50
-#: admin/class-admin-bulk-action-edit-authors.php:34
+#: admin/class-admin-bulk-action-edit-authors.php:64
 #: admin/class-admin-bulk-action-edit-cipher.php:35
-#: admin/class-admin-bulk-action-edit-invite-files.php:34
+#: admin/class-admin-bulk-action-edit-invite-files.php:64
 #: admin/class-admin-bulk-action-edit-rating.php:35
-#: admin/class-admin-bulk-action-edit-reviews.php:35
-#: admin/class-admin-bulk-action-edit-work-files.php:34
+#: admin/class-admin-bulk-action-edit-reviews.php:65
+#: admin/class-admin-bulk-action-edit-work-files.php:64
 #: admin/class-admin-bulk-action-show-authors.php:46
 #: admin/class-admin-bulk-action-status-change.php:50
 #: admin/class-admin-bulk-action-university-change.php:54
@@ -89,17 +89,17 @@ msgstr "Помітити  роботу"
 
 #: admin/class-admin-bulk-action-cw_year-change.php:56
 #: admin/class-admin-export.php:94 admin/class-admin-export.php:181
-#: includes/class-init.php:137 includes/trait-filter.php:45
+#: includes/class-init.php:137 includes/trait-filter.php:67
 msgid "Год проведения"
 msgstr "Рік проведення"
 
 #: admin/class-admin-bulk-action-cw_year-change.php:57
-#: admin/class-admin-bulk-action-edit-authors.php:38
+#: admin/class-admin-bulk-action-edit-authors.php:68
 #: admin/class-admin-bulk-action-edit-cipher.php:39
-#: admin/class-admin-bulk-action-edit-invite-files.php:38
+#: admin/class-admin-bulk-action-edit-invite-files.php:68
 #: admin/class-admin-bulk-action-edit-rating.php:39
-#: admin/class-admin-bulk-action-edit-reviews.php:39
-#: admin/class-admin-bulk-action-edit-work-files.php:38
+#: admin/class-admin-bulk-action-edit-reviews.php:69
+#: admin/class-admin-bulk-action-edit-work-files.php:68
 #: admin/class-admin-bulk-action-show-authors.php:53
 #: admin/class-admin-bulk-action-status-change.php:57
 #: admin/class-admin-bulk-action-university-change.php:61
@@ -112,12 +112,12 @@ msgid "Шифр"
 msgstr "Шифр"
 
 #: admin/class-admin-bulk-action-cw_year-change.php:58
-#: admin/class-admin-bulk-action-edit-authors.php:39
+#: admin/class-admin-bulk-action-edit-authors.php:69
 #: admin/class-admin-bulk-action-edit-cipher.php:40
-#: admin/class-admin-bulk-action-edit-invite-files.php:39
+#: admin/class-admin-bulk-action-edit-invite-files.php:69
 #: admin/class-admin-bulk-action-edit-rating.php:41
-#: admin/class-admin-bulk-action-edit-reviews.php:40
-#: admin/class-admin-bulk-action-edit-work-files.php:39
+#: admin/class-admin-bulk-action-edit-reviews.php:70
+#: admin/class-admin-bulk-action-edit-work-files.php:69
 #: admin/class-admin-bulk-action-show-authors.php:54
 #: admin/class-admin-bulk-action-status-change.php:58
 #: admin/class-admin-bulk-action-university-change.php:62
@@ -146,12 +146,12 @@ msgid "Выберите новый год проведения конкурсн�
 msgstr "Оберіть новий рік проведення конкурсних робіт."
 
 #: admin/class-admin-bulk-action-cw_year-change.php:109
-#: admin/class-admin-bulk-action-edit-authors.php:106
+#: admin/class-admin-bulk-action-edit-authors.php:136
 #: admin/class-admin-bulk-action-edit-cipher.php:84
-#: admin/class-admin-bulk-action-edit-invite-files.php:91
+#: admin/class-admin-bulk-action-edit-invite-files.php:121
 #: admin/class-admin-bulk-action-edit-rating.php:86
-#: admin/class-admin-bulk-action-edit-reviews.php:92
-#: admin/class-admin-bulk-action-edit-work-files.php:91
+#: admin/class-admin-bulk-action-edit-reviews.php:122
+#: admin/class-admin-bulk-action-edit-work-files.php:121
 #: admin/class-admin-bulk-action-show-authors.php:104
 #: admin/class-admin-bulk-action-status-change.php:107
 #: admin/class-admin-bulk-action-university-change.php:111
@@ -162,46 +162,59 @@ msgstr "Дія не виконана. Оновіть сторінку."
 msgid "Редактирование списка авторов конкурсных работ"
 msgstr "Редагування списку авторів конкурсних робіт"
 
-#: admin/class-admin-bulk-action-edit-authors.php:32
+#: admin/class-admin-bulk-action-edit-authors.php:36
+#: admin/class-admin-export.php:100
+#: admin/class-admin-post_type-competitive_work.php:32
+#: admin/class-admin-post_type-competitive_work.php:201
+#: public/partials/archive-template.php:68
+#: public/partials/single-content.php:30
+msgid "Авторы"
+msgstr "Автори"
+
+#: admin/class-admin-bulk-action-edit-authors.php:41
+msgid "выбрать записи без автора"
+msgstr "вибрати записи без автора"
+
+#: admin/class-admin-bulk-action-edit-authors.php:62
 msgid "Обновить список аторов конкурсных работ"
 msgstr "Оновити список авторів конкурсних робіт"
 
-#: admin/class-admin-bulk-action-edit-authors.php:40
-#: admin/class-admin-bulk-action-edit-work-files.php:40
+#: admin/class-admin-bulk-action-edit-authors.php:70
+#: admin/class-admin-bulk-action-edit-work-files.php:70
 #: public/partials/single-content.php:74
 msgid "Файлы конкурсной работы"
 msgstr "Файли конкурсної роботи"
 
-#: admin/class-admin-bulk-action-edit-authors.php:57
+#: admin/class-admin-bulk-action-edit-authors.php:87
 #: admin/class-admin-post_type-competitive_work.php:142
 msgid "Фамилия"
 msgstr "Призвіще"
 
-#: admin/class-admin-bulk-action-edit-authors.php:63
+#: admin/class-admin-bulk-action-edit-authors.php:93
 #: admin/class-admin-post_type-competitive_work.php:148
 msgid "Имя"
 msgstr "Ім`я"
 
-#: admin/class-admin-bulk-action-edit-authors.php:69
+#: admin/class-admin-bulk-action-edit-authors.php:99
 #: admin/class-admin-post_type-competitive_work.php:154
 msgid "Отчество"
 msgstr "По батькові"
 
-#: admin/class-admin-bulk-action-edit-authors.php:101
+#: admin/class-admin-bulk-action-edit-authors.php:131
 #: admin/class-admin-bulk-action-edit-cipher.php:79
-#: admin/class-admin-bulk-action-edit-invite-files.php:86
+#: admin/class-admin-bulk-action-edit-invite-files.php:116
 #: admin/class-admin-bulk-action-edit-rating.php:81
-#: admin/class-admin-bulk-action-edit-reviews.php:87
-#: admin/class-admin-bulk-action-edit-work-files.php:86
+#: admin/class-admin-bulk-action-edit-reviews.php:117
+#: admin/class-admin-bulk-action-edit-work-files.php:116
 msgid "Действие выполнено."
 msgstr "Дія виконана."
 
-#: admin/class-admin-bulk-action-edit-authors.php:103
+#: admin/class-admin-bulk-action-edit-authors.php:133
 #: admin/class-admin-bulk-action-edit-cipher.php:81
-#: admin/class-admin-bulk-action-edit-invite-files.php:88
+#: admin/class-admin-bulk-action-edit-invite-files.php:118
 #: admin/class-admin-bulk-action-edit-rating.php:83
-#: admin/class-admin-bulk-action-edit-reviews.php:89
-#: admin/class-admin-bulk-action-edit-work-files.php:88
+#: admin/class-admin-bulk-action-edit-reviews.php:119
+#: admin/class-admin-bulk-action-edit-work-files.php:118
 msgid "Ошибка. Не выбраны конкурсные работы."
 msgstr "Помилка. Не обрано конкурсні роботи."
 
@@ -217,11 +230,20 @@ msgstr "Оновити шифри конкурсних робіт"
 msgid "Редактирование списка файлов приглашений"
 msgstr "Редагування списку файлів запрошень"
 
-#: admin/class-admin-bulk-action-edit-invite-files.php:32
+#: admin/class-admin-bulk-action-edit-invite-files.php:36
+#: admin/class-admin-export.php:103
+msgid "Приглашения"
+msgstr "Запрошення"
+
+#: admin/class-admin-bulk-action-edit-invite-files.php:41
+msgid "выбрать записи без файлов приглашений"
+msgstr "вибрати записи без файлів запрошень"
+
+#: admin/class-admin-bulk-action-edit-invite-files.php:62
 msgid "Обновить список приглашений"
 msgstr "Оновити список запрошень"
 
-#: admin/class-admin-bulk-action-edit-invite-files.php:40
+#: admin/class-admin-bulk-action-edit-invite-files.php:70
 msgid "Файлы приглашений"
 msgstr "Файли запрошень"
 
@@ -246,22 +268,35 @@ msgstr "Рейтинг"
 msgid "Редактирование списка рецензий"
 msgstr "Редагування списку відгуків"
 
-#: admin/class-admin-bulk-action-edit-reviews.php:33
-msgid "Обновить список отзывов у конкурсных работ"
-msgstr "Оновити список відгуків у конкурсної роботи"
-
-#: admin/class-admin-bulk-action-edit-reviews.php:41
+#: admin/class-admin-bulk-action-edit-reviews.php:37
+#: admin/class-admin-bulk-action-edit-reviews.php:71
 #: admin/class-admin-export.php:102
 #: admin/class-admin-post_type-competitive_work.php:33
 #: public/partials/single-content.php:90
 msgid "Рецензии"
 msgstr "Відгуки"
 
+#: admin/class-admin-bulk-action-edit-reviews.php:42
+msgid "выбрать записи без файлов рецензий"
+msgstr "вибрати записи без файлів рецензій"
+
+#: admin/class-admin-bulk-action-edit-reviews.php:63
+msgid "Обновить список отзывов у конкурсных работ"
+msgstr "Оновити список відгуків у конкурсної роботи"
+
 #: admin/class-admin-bulk-action-edit-work-files.php:24
 msgid "Редактирование списка файлов конкурсных работ"
 msgstr "Редагування списку файлів конкурсних робіт"
 
-#: admin/class-admin-bulk-action-edit-work-files.php:32
+#: admin/class-admin-bulk-action-edit-work-files.php:36
+msgid "Рабочие файлы"
+msgstr "Робочі файли"
+
+#: admin/class-admin-bulk-action-edit-work-files.php:41
+msgid "выбрать записи без рабочих файлов"
+msgstr "вибрати записи без робочих файлів"
+
+#: admin/class-admin-bulk-action-edit-work-files.php:62
 msgid "Обновить список файлов конкурсных работ"
 msgstr "Оновити списоок файлів конкурсних робіт"
 
@@ -326,7 +361,7 @@ msgstr "Зміна статусу конкурсних робіт"
 
 #: admin/class-admin-bulk-action-status-change.php:56
 #: admin/class-admin-export.php:104 admin/class-admin-export.php:185
-#: includes/class-init.php:179 includes/trait-filter.php:46
+#: includes/class-init.php:179 includes/trait-filter.php:68
 msgid "Статус работы"
 msgstr "Статус роботи"
 
@@ -402,21 +437,9 @@ msgstr "Секція конверенції"
 msgid "Статус показа авторов"
 msgstr "Статус показа авторів"
 
-#: admin/class-admin-export.php:100
-#: admin/class-admin-post_type-competitive_work.php:32
-#: admin/class-admin-post_type-competitive_work.php:201
-#: public/partials/archive-template.php:68
-#: public/partials/single-content.php:30
-msgid "Авторы"
-msgstr "Автори"
-
 #: admin/class-admin-export.php:101
 msgid "Файлы работ"
 msgstr "Файли робіт"
-
-#: admin/class-admin-export.php:103
-msgid "Приглашения"
-msgstr "Запрошення"
 
 #: admin/class-admin-export.php:148
 msgid "Авторы показываются"
@@ -435,7 +458,7 @@ msgid "Начать экспорт"
 msgstr "Почати експорт"
 
 #: admin/class-admin-export.php:184 includes/class-init.php:94
-#: includes/trait-filter.php:47 public/partials/archive-template.php:67
+#: includes/trait-filter.php:69 public/partials/archive-template.php:67
 msgid "Секция"
 msgstr "Секція"
 
@@ -732,27 +755,27 @@ msgstr "Додати статус"
 msgid "Добавить строку"
 msgstr "Додати рядок"
 
-#: includes/trait-filter.php:42
+#: includes/trait-filter.php:63
 msgid "Фильтр"
 msgstr "Фільтр"
 
-#: includes/trait-filter.php:48
+#: includes/trait-filter.php:70
 msgid "Рубрика"
 msgstr "Рубрика"
 
-#: includes/trait-filter.php:71
+#: includes/trait-filter.php:94
 msgid "Сбросить фильтр"
 msgstr "Скинути фільтр"
 
-#: includes/trait-filter.php:73
+#: includes/trait-filter.php:96
 msgid "Применить фильтр"
-msgstr "Ззастосувати фільтр"
+msgstr "Застосувати фільтр"
 
-#: includes/trait-filter.php:118
+#: includes/trait-filter.php:144
 msgid "Выполнить действие"
 msgstr "Виконати дію"
 
-#: includes/trait-filter.php:120
+#: includes/trait-filter.php:146
 msgid "Вы уверены?"
 msgstr "Ви впевнені?"
 

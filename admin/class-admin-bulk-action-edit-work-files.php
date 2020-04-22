@@ -25,6 +25,36 @@ class AdminBulkActionEditWorkFiles extends BulkAction {
 	}
 
 
+	public function render_custom_filter_fields( string $path = '', array $tax_query = [] ) {
+		if (
+			isset( $_GET[ 'page' ] )
+			&& "{$this->plugin_name}_bulk_action" == $_GET[ 'page' ]
+			&& isset( $_GET[ 'subscreen' ] )
+			&& $this->action_name == $_GET[ 'subscreen' ]
+		) {
+			$id = '';
+			$label = __( 'Рабочие файлы', $this->plugin_name );
+			$atts = [];
+			if ( isset( $this->custom_query[ 'choose_cw_without_work_files' ] ) && 'on' == $this->custom_query[ 'choose_cw_without_work_files' ] ) {
+				$atts[ 'checked' ] = 'checked';
+			}
+			$control = $this->render_checkbox( "filter[custom_query][choose_cw_without_work_files]", 'on', __( 'выбрать записи без рабочих файлов', $this->plugin_name ), $atts );
+			include $path . '/partials/form-group.php';
+		}
+	}
+
+
+	public function custom_fields_result_args( array $args = [] ) {
+		if ( isset( $this->custom_query[ 'choose_cw_without_work_files' ] ) && 'on' == $this->custom_query[ 'choose_cw_without_work_files' ] ) {
+			$args[ 'meta_query' ][] = [
+				'key'     => 'work_files',
+				'compare' => 'NOT EXISTS',
+			];
+		}
+		return $args;
+	}
+
+
 	protected function render_competitive_works_fields( &$competitive_works ) {
 		wp_nonce_field( __FILE__, "bulk_action_{$this->action_name}_nonce", true, true );
 		?>

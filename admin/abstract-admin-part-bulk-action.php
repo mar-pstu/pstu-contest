@@ -51,6 +51,16 @@ abstract class BulkAction extends AdminPart {
 
 
 	/**
+	 * Произвольные параметры выборки фильтра
+	 *
+	 * @since    2.0.0
+	 * @access   private
+	 * @var      string    $version    Параметры выборки
+	 */
+	protected $custom_query;
+
+
+	/**
 	 * Инициализация класса и установка его свойства.
 	 *
 	 * @since    2.0.0
@@ -60,6 +70,7 @@ abstract class BulkAction extends AdminPart {
 	public function __construct( $plugin_name, $version ) {
 		parent::__construct( $plugin_name, $version );
 		$this->tax_query = ( isset( $_POST[ 'filter' ][ 'tax_query' ] ) ) ? $this->parse_tax_query( $_POST[ 'filter' ][ 'tax_query' ] ): [];
+		$this->custom_query = ( isset( $_POST[ 'filter' ][ 'custom_query' ] ) ) ? $this->parse_custom_query( $_POST[ 'filter' ][ 'custom_query' ] ): [];
 	}
 
 
@@ -87,6 +98,16 @@ abstract class BulkAction extends AdminPart {
 	 */
 	public function run_action() {
 		return;
+	}
+
+
+	/**
+	 * Фильтр аргументов выборки конкурсных работ при применении фильтра
+	 * @param  array  $args [description]
+	 * @return [type]       [description]
+	 */
+	public function custom_fields_result_args( array $args = [] ) {
+		return $args;
 	}
 
 
