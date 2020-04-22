@@ -34,7 +34,7 @@ class PublicTaxonomyCWYear extends PublicPartTaxonomy {
 				$query->set( 'nopaging', true );
 				$query->set( 'posts_per_page', -1 );
 				$query->set( 'showposts', -1 );
-			} else {
+			} elseif ( is_object_in_taxonomy( $query->get( 'post_type' ), $this->taxonomy_name ) ) {
 				$options = get_option( $this->taxonomy_name );
 				if ( isset( $options[ 'current_year' ] ) && ! empty( $options[ 'current_year' ] ) ) {
 					$current_year_slug = get_term_field( 'slug', $options[ 'current_year' ], $this->taxonomy_name, 'db' );

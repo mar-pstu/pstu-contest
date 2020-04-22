@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-04-22 14:44+0300\n"
-"PO-Revision-Date: 2020-04-22 14:46+0300\n"
+"POT-Creation-Date: 2020-04-23 00:27+0300\n"
+"PO-Revision-Date: 2020-04-23 00:27+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: uk\n"
@@ -106,7 +106,7 @@ msgstr "Рік проведення"
 #: admin/class-admin-export.php:96 admin/class-admin-export.php:183
 #: admin/class-admin-post_type-competitive_work.php:29
 #: admin/class-admin-post_type-competitive_work.php:203
-#: public/partials/archive-template.php:64
+#: public/partials/archive-template.php:69
 #: public/partials/single-content.php:16
 msgid "Шифр"
 msgstr "Шифр"
@@ -166,7 +166,7 @@ msgstr "Редагування списку авторів конкурсних 
 #: admin/class-admin-export.php:100
 #: admin/class-admin-post_type-competitive_work.php:32
 #: admin/class-admin-post_type-competitive_work.php:201
-#: public/partials/archive-template.php:68
+#: public/partials/archive-template.php:73
 #: public/partials/single-content.php:30
 msgid "Авторы"
 msgstr "Автори"
@@ -259,7 +259,7 @@ msgstr "Оновити рейтинг конкурсних робіт"
 #: admin/class-admin-export.php:95
 #: admin/class-admin-post_type-competitive_work.php:28
 #: admin/class-admin-post_type-competitive_work.php:202
-#: public/partials/archive-template.php:65
+#: public/partials/archive-template.php:70
 #: public/partials/single-content.php:10
 msgid "Рейтинг"
 msgstr "Рейтинг"
@@ -408,7 +408,7 @@ msgstr "Експорт"
 
 #: admin/class-admin-export.php:89
 #: admin/class-admin-taxonomy-work_status.php:182
-#: public/partials/archive-template.php:66
+#: public/partials/archive-template.php:71
 msgid "Название"
 msgstr "Назва"
 
@@ -458,7 +458,7 @@ msgid "Начать экспорт"
 msgstr "Почати експорт"
 
 #: admin/class-admin-export.php:184 includes/class-init.php:94
-#: includes/trait-filter.php:69 public/partials/archive-template.php:67
+#: includes/trait-filter.php:69 public/partials/archive-template.php:72
 msgid "Секция"
 msgstr "Секція"
 
@@ -495,7 +495,7 @@ msgstr "Спробуйте пізніше або зверніться до ад�
 
 #: admin/class-admin-post_type-competitive_work.php:30
 #: includes/class-init.php:50 includes/class-init.php:61
-#: public/partials/archive-template.php:53
+#: public/partials/archive-template.php:37
 msgid "Конкурсные работы"
 msgstr "Конкурсні роботи"
 
@@ -779,12 +779,12 @@ msgstr "Виконати дію"
 msgid "Вы уверены?"
 msgstr "Ви впевнені?"
 
-#: public/partials/archive-template.php:69
+#: public/partials/archive-template.php:74
 #: public/partials/single-content.php:57
 msgid "Статус"
 msgstr "Статус"
 
-#: public/partials/archive-template.php:133
+#: public/partials/archive-template.php:140
 msgid "Конкурсные работы не найдены"
 msgstr "Конкурсні роботи не знайдені"
 

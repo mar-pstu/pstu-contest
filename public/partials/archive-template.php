@@ -9,51 +9,56 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
 
 get_header();
 
+
 ?>
 
 	<div class="contest-plugin-container">
 
 <?php
 
+$current_cw_year_slug = get_query_var( 'cw_year' );
+$current_cw_year = get_term_by( 'slug', $current_cw_year_slug, 'cw_year', OBJECT, 'raw' );
+$description = '';
+$cw_year_name = '';
+
+if ( $current_cw_year && ! is_wp_error( $current_cw_year ) ) {
+	$description = $current_cw_year->description;
+	$cw_year_name = $current_cw_year->name;
+}
+
+$options = get_option( 'competitive_work', [] );
+if ( ! is_array( $options ) ) {
+	$options = [];
+}
+if ( ! isset( $options[ 'table_style' ] ) || empty( $options[ 'table_style' ] ) ) {
+	$options[ 'table_style' ] = 'default';
+}
+
+echo '<h1>' . __( 'Конкурсные работы', PSTU_CONTEST_NAME ) . ' ' . $cw_year_name . '</h1>';
+
+$cw_years = get_terms( [
+	'taxonomy'    => 'cw_year',
+	'hide_empty'  => false,
+	'orderby'     => 'name', 
+	'order'       => 'DESC',
+] );
+
+if ( is_array( $cw_years ) && ! empty( $cw_years ) ) {
+	echo '<ul class="cw-years-tabs">';
+	foreach ( $cw_years as $cw_year ) {
+		if ( $cw_year->slug == $current_cw_year_slug ) {
+			echo '<li class="current"><b>' . apply_filters( 'single_term_title', $cw_year->name ) . '</b></li>';
+		} else {
+			echo '<li><a href="' . get_term_link( $cw_year, 'cw_year' ) . '">' . $cw_year->name . '</a></li>';
+		}
+	}
+	echo "</ul>";
+
+	echo $description;
+
+}
 
 if ( have_posts() ) {
-
-	$current_cw_year_slug = get_query_var( 'cw_year' );
-
-	$options = get_option( 'competitive_work', [] );
-	if ( ! is_array( $options ) ) {
-		$options = [];
-	}
-	if ( ! isset( $options[ 'table_style' ] ) || empty( $options[ 'table_style' ] ) ) {
-		$options[ 'table_style' ] = 'default';
-	}
-
-	if ( is_post_type_archive() ) {
-
-		$cw_years = get_terms( [
-			'taxonomy'    => 'cw_year',
-			'hide_empty'  => false,
-			'orderby'     => 'name', 
-			'order'       => 'DESC',
-		] );
-		echo '<h1>' . post_type_archive_title( '', false ) . '</h1>';
-		if ( is_array( $cw_years ) && ! empty( $cw_years ) ) {
-			echo '<ul class="cw-years-tabs">';
-			foreach ( $cw_years as $cw_year ) {
-				if ( $cw_year->slug == $current_cw_year_slug ) {
-					echo '<li class="current-cw-years-tab"><b>' . apply_filters( 'single_term_title', $cw_year->name ) . '</b></li>';
-				} else {
-					echo '<li><a href="' . get_term_link( $cw_year, 'cw_year' ) . '">' . $cw_year->name . '</a></li>';
-				}
-			}
-			echo "</ul>";
-		}
-
-	} else {
-		echo '<h1>' . single_term_title( __( 'Конкурсные работы', PSTU_CONTEST_NAME ) . ' ', false ) . '</h1>';
-		echo term_description( $current_cw_year_slug, 'cw_year' );
-	}
-
 
 	?>
 
@@ -125,6 +130,8 @@ if ( have_posts() ) {
 		</table>
 
 	<?php
+
+	the_posts_pagination();
 
 } else {
 	
