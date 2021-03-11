@@ -129,6 +129,7 @@ class Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-edit-rating.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-edit-cipher.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-university-change.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-contest_section-change.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-bulk-action-cw_year-change.php';
 
 		/**
@@ -158,6 +159,7 @@ class Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/abstract-public-part-taxonomy.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-taxonomy-work_status.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-taxonomy-cw_year.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-public-taxonomy-contest_section.php';
 
 		$this->loader = new Loader();
 
@@ -273,13 +275,19 @@ class Manager {
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_edit_cipher_class->get_action_name(), $bulk_action_edit_cipher_class, 'run_action' );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_edit_cipher_class->get_action_name(), $bulk_action_edit_cipher_class, 'render_subscreen' );
 
-		// групповое действие - редактирвание университета
+		// групповое действие - изменение университета
 		$bulk_action_university_change_class = new AdminBulkActionUniversityChange( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_university_change_class, 'add_action', 5, 1 );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_university_change_class->get_action_name(), $bulk_action_university_change_class, 'run_action' );
 		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_university_change_class->get_action_name(), $bulk_action_university_change_class, 'render_subscreen' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_university_change_class, 'enqueue_styles', 10, 0 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $bulk_action_university_change_class, 'enqueue_scripts', 10, 0 );
+
+		// групповое действие - изменение секции работ
+		$bulk_action_contest_section_change_class = new AdminBulkActionContestSectionChange( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( $this->get_plugin_name() . '_bulk_action_list', $bulk_action_contest_section_change_class, 'add_action', 5, 1 );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-run_' . $bulk_action_contest_section_change_class->get_action_name(), $bulk_action_contest_section_change_class, 'run_action' );
+		$this->loader->add_action( $this->get_plugin_name() . '_bulk_action-subscreen_' . $bulk_action_contest_section_change_class->get_action_name(), $bulk_action_contest_section_change_class, 'render_subscreen' );
 
 		// групповое действие - редактирвание шифров
 		$bulk_action_cw_year_change_class = new AdminBulkActionCWYearChange( $this->get_plugin_name(), $this->get_version() );
@@ -368,6 +376,9 @@ class Manager {
 		$cw_year_taxonomy_class = new PublicTaxonomyCWYear( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_filter( 'template_include', $cw_year_taxonomy_class, 'select_template_include', 10, 1 );
 		$this->loader->add_filter( 'pre_get_posts', $cw_year_taxonomy_class, 'set_term_query', 10, 1 );
+
+		// классы отвечающие за хуки и фильтры пользовательской таксономии Год проведения
+		$contest_section_taxonomy_class = new PublicTaxonomyContestSection( $this->get_plugin_name(), $this->get_version() );
 	
 	}
 

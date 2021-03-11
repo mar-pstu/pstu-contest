@@ -1,74 +1,55 @@
-/**
- * Основные стили
- */
+
 
 .contest-plugin-container {
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;
-	margin-left: auto;
+	margin-left: auto
 }
 
 .contest-plugin-container::after {
 	content: '';
 	display: table;
-	clear: both;
+	clear: both
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.contest-plugin-container {
-		width: 750px;
+		width: 750px
 	}
 }
 
-@media (min-width: 992px) {
+@media (min-width:992px) {
 	.contest-plugin-container {
-		width: 970px;
+		width: 970px
 	}
 }
 
-@media (min-width: 1200px) {
+@media (min-width:1200px) {
 	.contest-plugin-container {
-		width: 1170px;
+		width: 1170px
 	}
 }
-
-
-
-
-/**
- * Стили для таксономии "Статус работы"
- */
-
 
 .status-type-indicator {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
-	border-radius: 50%;
+	border-radius: 50%
 }
 
-
-
-/**
- * Стили для типа записи "Конкурсная работа"
- */
 .competitive-work-single-meta-table {
-	width: 100%;
+	width: 100%
 }
 
 .competitive-work-single-meta-table th {
-	font-weight: bold;
-	width: 40%;
+	font-weight: 700;
+	width: 40%
 }
 
-.competitive-work-single-meta-table tr:nth-of-type( odd ) {
-	background-color: rgba( 0, 0, 0, .05 );
+.competitive-work-single-meta-table tr:nth-of-type(odd) {
+	background-color: rgba(0, 0, 0, .05)
 }
-
-
-/**/
-
 
 .cw-years-tabs {
 	border-bottom: 1px solid #ccc;
@@ -76,13 +57,13 @@
 	padding-top: 9px;
 	padding-bottom: 0;
 	list-style-type: none;
-	line-height: inherit;
+	line-height: inherit
 }
 
 .cw-years-tabs::after {
 	content: '';
 	display: table;
-	clear: both;
+	clear: both
 }
 
 .cw-years-tabs li {
@@ -97,17 +78,18 @@
 	background: #e5e5e5;
 	color: #555;
 	text-decoration: none;
-	white-space: nowrap;
+	white-space: nowrap
 }
 
 .cw-years-tabs li.current {
 	border-bottom: 1px solid #f1f1f1;
 	background: #fff;
 	color: #000;
-	font-weight: normal;
+	font-weight: 400
 }
 
 .cw-years-tabs a {
 	text-decoration: none;
-	font-weight: bold;
+	font-weight: 700
 }
+
