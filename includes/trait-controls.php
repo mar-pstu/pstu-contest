@@ -247,10 +247,14 @@ trait Controls {
 	 */
 	public function sanitize_url_list( $value ) {
 		$result = array();
-		if ( is_array( $value ) ) {
-			foreach ( $value as $url ) {
-				if ( ( bool ) preg_match( '~^(?:https?://)?[^.]+\.\S{2,4}$~iu', $url ) ) {
-					$result[] = trim( $url );
+		if ( ! is_array( $value ) ) {
+			$value = [ $value ];
+		}
+		foreach ( $value as $url ) {
+			if ( is_string( $url ) ) {
+				$url = filter_var( $url, FILTER_VALIDATE_URL );
+				if ( ! empty( $url ) ) {
+					$result[] = $url;
 				}
 			}
 		}

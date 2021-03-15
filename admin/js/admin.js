@@ -7,8 +7,7 @@
 			var $container = jQuery( container ),
 				$list = $container.find( '.list' ).empty(),
 				template = wp.template( $container.find( '[id^=tmpl]' ).eq( 0 ).attr( 'id' ).slice( 5 ) ),
-				data = eval(  $container.attr( 'data-list-of-templates' ) + '_data' ),
-				count = data.length;
+				data = eval(  $container.attr( 'data-list-of-templates' ) + '_data' );
 
 			function getRowNumber( element ) {
 				return $list.find( '.list-item' ).index( jQuery( element ).closest( '.list-item' ) );
@@ -19,9 +18,8 @@
 			}
 
 			function add() {
-				count = count + 1;
 				var item = new Object();
-				Object.assign( item, { value: '' }, { i: count } );
+				Object.assign( item, { value: '' }, { i: getListLength() + 1 } );
 				$list.append( template( item ) );
 			}
 
@@ -33,7 +31,7 @@
 			}
 
 			function build() {
-				if ( count == 0 ) {
+				if ( data.length == 0 ) {
 					add();
 				} else {
 					jQuery.each( data, function( index, value ) {

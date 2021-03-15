@@ -18,20 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
 class AdminCompetitiveWork extends AdminPartPostType {
 
 
-	protected $fields;
+	public $fields;
 
 
 	function __construct( $plugin_name, $version ) {
 		parent::__construct( $plugin_name, $version );
 		$this->post_type_name = 'competitive_work';
 		$this->fields = [
-			new Field( 'rating', __( 'Рейтинг', $this->plugin_name ) ),
-			new Field( 'cipher', __( 'Шифр', $this->plugin_name ) ),
-			new Field( 'work_files', __( 'Конкурсные работы', $this->plugin_name ) ),
-			new Field( 'show_authors', __( 'Показывать авторов', $this->plugin_name ) ),
-			new Field( 'authors', __( 'Авторы', $this->plugin_name ) ),
-			new Field( 'reviews', __( 'Рецензии', $this->plugin_name ) ),
-			new Field( 'invite_files', __( 'Приглашение к участию в конференции', $this->plugin_name ) ),
+			'rating'       => __( 'Рейтинг', $this->plugin_name ),
+			'cipher'       => __( 'Шифр', $this->plugin_name ),
+			'work_files'   => __( 'Конкурсные работы', $this->plugin_name ),
+			'show_authors' => __( 'Показывать авторов', $this->plugin_name ),
+			'reviews'      => __( 'Рецензии', $this->plugin_name ),
+			'authors'      => __( 'Авторы', $this->plugin_name ),
+			'invite_files' => __( 'Приглашение к участию в конференции', $this->plugin_name ),
 		];
 	}
 
@@ -73,12 +73,11 @@ class AdminCompetitiveWork extends AdminPartPostType {
 			wp_nonce_ays();
 			return;
 		}
-		foreach ( $this->fields as $field ) {
-			$new_value = ( isset( $_REQUEST[ $field->get_name() ] ) ) ? $this->sanitize_meta_field( $field->get_name(), $_REQUEST[ $field->get_name() ] ) : '';
-			if ( empty( $new_value ) ) {
-				delete_post_meta( $post_id, $field->get_name() );
-			} else {
-				update_post_meta( $post_id, $field->get_name(), $new_value );
+		foreach ( $this->fields as $name => $label ) {
+			$new_value = ( isset( $_POST[ $name ] ) ) ? $this->sanitize_meta_field( $name, $_POST[ $name ] ) : '';
+			delete_post_meta( $post_id, $name );
+			if ( ! empty( $new_value ) ) {
+				update_post_meta( $post_id, $name, $new_value );
 			}
 		}
 	}
@@ -87,11 +86,11 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	/**
 	 * Проверка полученного поля перед сохранением в базу
 	 * @since    2.0.0
-	 * @var      string    $key      Идентификатор поля
+	 * @var      string    $name     Идентификатор поля
 	 * @var      string    $value    Новое значение металополя
 	 */
-	protected function sanitize_meta_field( $key, $value ) {
-		switch ( $key ) {
+	protected function sanitize_meta_field( $name, $value ) {
+		switch ( $name ) {
 			case 'authors':
 				$result = $this->sanitize_person_data( $value );
 				break;
@@ -121,12 +120,10 @@ class AdminCompetitiveWork extends AdminPartPostType {
 	public function render_metabox_content( $post ) {
 		wp_nonce_field( $this->post_type_name, "{$this->post_type_name}_nonce" );
 		wp_enqueue_media();
-		foreach ( $this->fields as $field ) {
-			$label = $field->get_label();
-			$name = $field->get_name();
-			$id = $field->get_name();
-			$value = get_post_meta( $post->ID, $field->get_name(), true );
-			switch ( $field->get_name() ) {
+		foreach ( $this->fields as $name => $label ) {
+			$id = $name;
+			$value = get_post_meta( $post->ID, $name, true );
+			switch ( $name ) {
 				case 'show_authors':
 					$args = [ 'id' => $id ];
 					if ( ! empty( $value ) ) $args[ 'checked' ] = 'checked';
