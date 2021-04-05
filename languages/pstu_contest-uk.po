@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-04-23 00:27+0300\n"
-"PO-Revision-Date: 2020-04-23 00:27+0300\n"
+"POT-Creation-Date: 2021-04-05 14:26+0300\n"
+"PO-Revision-Date: 2021-04-05 14:26+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
@@ -33,10 +33,11 @@ msgstr "Зняти виділення з усіх робіт"
 msgid "Заполните таксономию или обратитесь к администратору сайта."
 msgstr "Заповніть таксономию або зверніться до адміністратора сайту."
 
-#: admin/class-admin-bulk-action-cw_year-change.php:25
-msgid "Изменение года проведения конкурсных работ"
-msgstr "Зміна року проведення конкурсних робіт"
+#: admin/class-admin-bulk-action-contest_section-change.php:25
+msgid "Изменение секции"
+msgstr "Зміна секції"
 
+#: admin/class-admin-bulk-action-contest_section-change.php:32
 #: admin/class-admin-bulk-action-cw_year-change.php:32
 #: admin/class-admin-bulk-action-edit-authors.php:61
 #: admin/class-admin-bulk-action-edit-cipher.php:32
@@ -51,20 +52,19 @@ msgstr "Зміна року проведення конкурсних робіт
 msgid "Список работ"
 msgstr "Cписок робіт"
 
-#: admin/class-admin-bulk-action-cw_year-change.php:34
-msgid "Выбрать новый год проведения"
-msgstr "Вибрати новий рік проведення"
+#: admin/class-admin-bulk-action-contest_section-change.php:34
+msgid "Выбрать новую секцию"
+msgstr "Додати нову секцію"
 
-#: admin/class-admin-bulk-action-cw_year-change.php:43
-#: admin/class-admin-bulk-action-status-change.php:43
-msgid "Установить новый статус конкурсных работ"
-msgstr "Встановити новий статус конкурсних робіт"
+#: admin/class-admin-bulk-action-contest_section-change.php:46
+msgid "Установить секцию"
+msgstr "Встановити секцію"
 
-#: admin/class-admin-bulk-action-cw_year-change.php:45
-#: admin/class-admin-bulk-action-status-change.php:45
-msgid "Заполните таксономию статусов."
-msgstr "Заповніть таксономию статусів."
+#: admin/class-admin-bulk-action-contest_section-change.php:48
+msgid "Заполните таксономию \"Секции\"."
+msgstr "Заповніть таксономию \"Секції\"."
 
+#: admin/class-admin-bulk-action-contest_section-change.php:53
 #: admin/class-admin-bulk-action-cw_year-change.php:50
 #: admin/class-admin-bulk-action-edit-authors.php:64
 #: admin/class-admin-bulk-action-edit-cipher.php:35
@@ -80,6 +80,7 @@ msgstr "Заповніть таксономию статусів."
 msgid "Количество найденых работ: %s"
 msgstr "Кількість знадених робіт: %s"
 
+#: admin/class-admin-bulk-action-contest_section-change.php:58
 #: admin/class-admin-bulk-action-cw_year-change.php:55
 #: admin/class-admin-bulk-action-show-authors.php:51
 #: admin/class-admin-bulk-action-status-change.php:55
@@ -87,12 +88,13 @@ msgstr "Кількість знадених робіт: %s"
 msgid "Отметить работу"
 msgstr "Помітити  роботу"
 
-#: admin/class-admin-bulk-action-cw_year-change.php:56
-#: admin/class-admin-export.php:94 admin/class-admin-export.php:181
-#: includes/class-init.php:137 includes/trait-filter.php:67
-msgid "Год проведения"
-msgstr "Рік проведення"
+#: admin/class-admin-bulk-action-contest_section-change.php:59
+#: admin/class-admin-export.php:184 includes/class-init.php:94
+#: includes/trait-filter.php:69
+msgid "Секция"
+msgstr "Секція"
 
+#: admin/class-admin-bulk-action-contest_section-change.php:60
 #: admin/class-admin-bulk-action-cw_year-change.php:57
 #: admin/class-admin-bulk-action-edit-authors.php:68
 #: admin/class-admin-bulk-action-edit-cipher.php:39
@@ -106,11 +108,12 @@ msgstr "Рік проведення"
 #: admin/class-admin-export.php:96 admin/class-admin-export.php:183
 #: admin/class-admin-post_type-competitive_work.php:29
 #: admin/class-admin-post_type-competitive_work.php:203
-#: public/partials/archive-template.php:69
+#: public/partials/archive-template.php:105
 #: public/partials/single-content.php:16
 msgid "Шифр"
 msgstr "Шифр"
 
+#: admin/class-admin-bulk-action-contest_section-change.php:61
 #: admin/class-admin-bulk-action-cw_year-change.php:58
 #: admin/class-admin-bulk-action-edit-authors.php:69
 #: admin/class-admin-bulk-action-edit-cipher.php:40
@@ -125,15 +128,11 @@ msgstr "Шифр"
 msgid "Название работы"
 msgstr "Назва роботи"
 
-#: admin/class-admin-bulk-action-cw_year-change.php:59
-#: admin/class-admin-export.php:91
-msgid "Дата добавления"
-msgstr "Дата додавання"
+#: admin/class-admin-bulk-action-contest_section-change.php:101
+msgid "Неверная секция."
+msgstr "Невірна секція."
 
-#: admin/class-admin-bulk-action-cw_year-change.php:100
-msgid "Неверный год проведения."
-msgstr "Невірний рік проведення."
-
+#: admin/class-admin-bulk-action-contest_section-change.php:104
 #: admin/class-admin-bulk-action-cw_year-change.php:103
 #: admin/class-admin-bulk-action-show-authors.php:98
 #: admin/class-admin-bulk-action-status-change.php:101
@@ -141,10 +140,11 @@ msgstr "Невірний рік проведення."
 msgid "Выберите конкурсные работы, которые необходими изменить."
 msgstr "Оберіть конкурсні роботи, які необхідно змінити."
 
-#: admin/class-admin-bulk-action-cw_year-change.php:106
-msgid "Выберите новый год проведения конкурсных работ."
-msgstr "Оберіть новий рік проведення конкурсних робіт."
+#: admin/class-admin-bulk-action-contest_section-change.php:107
+msgid "Выберите новую секцию"
+msgstr "Оберіть нову секцію"
 
+#: admin/class-admin-bulk-action-contest_section-change.php:110
 #: admin/class-admin-bulk-action-cw_year-change.php:109
 #: admin/class-admin-bulk-action-edit-authors.php:136
 #: admin/class-admin-bulk-action-edit-cipher.php:84
@@ -158,15 +158,52 @@ msgstr "Оберіть новий рік проведення конкурсни
 msgid "Действие не выполнено. Обновите страницу."
 msgstr "Дія не виконана. Оновіть сторінку."
 
+#: admin/class-admin-bulk-action-cw_year-change.php:25
+msgid "Изменение года проведения конкурсных работ"
+msgstr "Зміна року проведення конкурсних робіт"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:34
+msgid "Выбрать новый год проведения"
+msgstr "Вибрати новий рік проведення"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:43
+#: admin/class-admin-bulk-action-status-change.php:43
+msgid "Установить новый статус конкурсных работ"
+msgstr "Встановити новий статус конкурсних робіт"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:45
+#: admin/class-admin-bulk-action-status-change.php:45
+msgid "Заполните таксономию статусов."
+msgstr "Заповніть таксономию статусів."
+
+#: admin/class-admin-bulk-action-cw_year-change.php:56
+#: admin/class-admin-export.php:94 admin/class-admin-export.php:181
+#: includes/class-init.php:137 includes/trait-filter.php:67
+msgid "Год проведения"
+msgstr "Рік проведення"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:59
+#: admin/class-admin-export.php:91
+msgid "Дата добавления"
+msgstr "Дата додавання"
+
+#: admin/class-admin-bulk-action-cw_year-change.php:100
+msgid "Неверный год проведения."
+msgstr "Невірний рік проведення."
+
+#: admin/class-admin-bulk-action-cw_year-change.php:106
+msgid "Выберите новый год проведения конкурсных работ."
+msgstr "Оберіть новий рік проведення конкурсних робіт."
+
 #: admin/class-admin-bulk-action-edit-authors.php:24
 msgid "Редактирование списка авторов конкурсных работ"
 msgstr "Редагування списку авторів конкурсних робіт"
 
 #: admin/class-admin-bulk-action-edit-authors.php:36
 #: admin/class-admin-export.php:100
-#: admin/class-admin-post_type-competitive_work.php:32
+#: admin/class-admin-post_type-competitive_work.php:33
 #: admin/class-admin-post_type-competitive_work.php:201
-#: public/partials/archive-template.php:73
+#: public/partials/archive-template.php:108
 #: public/partials/single-content.php:30
 msgid "Авторы"
 msgstr "Автори"
@@ -186,17 +223,17 @@ msgid "Файлы конкурсной работы"
 msgstr "Файли конкурсної роботи"
 
 #: admin/class-admin-bulk-action-edit-authors.php:87
-#: admin/class-admin-post_type-competitive_work.php:142
+#: admin/class-admin-post_type-competitive_work.php:141
 msgid "Фамилия"
 msgstr "Призвіще"
 
 #: admin/class-admin-bulk-action-edit-authors.php:93
-#: admin/class-admin-post_type-competitive_work.php:148
+#: admin/class-admin-post_type-competitive_work.php:147
 msgid "Имя"
 msgstr "Ім`я"
 
 #: admin/class-admin-bulk-action-edit-authors.php:99
-#: admin/class-admin-post_type-competitive_work.php:154
+#: admin/class-admin-post_type-competitive_work.php:153
 msgid "Отчество"
 msgstr "По батькові"
 
@@ -259,7 +296,7 @@ msgstr "Оновити рейтинг конкурсних робіт"
 #: admin/class-admin-export.php:95
 #: admin/class-admin-post_type-competitive_work.php:28
 #: admin/class-admin-post_type-competitive_work.php:202
-#: public/partials/archive-template.php:70
+#: public/partials/archive-template.php:106
 #: public/partials/single-content.php:10
 msgid "Рейтинг"
 msgstr "Рейтинг"
@@ -271,7 +308,7 @@ msgstr "Редагування списку відгуків"
 #: admin/class-admin-bulk-action-edit-reviews.php:37
 #: admin/class-admin-bulk-action-edit-reviews.php:71
 #: admin/class-admin-export.php:102
-#: admin/class-admin-post_type-competitive_work.php:33
+#: admin/class-admin-post_type-competitive_work.php:32
 #: public/partials/single-content.php:90
 msgid "Рецензии"
 msgstr "Відгуки"
@@ -408,7 +445,7 @@ msgstr "Експорт"
 
 #: admin/class-admin-export.php:89
 #: admin/class-admin-taxonomy-work_status.php:182
-#: public/partials/archive-template.php:71
+#: public/partials/archive-template.php:107
 msgid "Название"
 msgstr "Назва"
 
@@ -457,11 +494,6 @@ msgstr "Помилка"
 msgid "Начать экспорт"
 msgstr "Почати експорт"
 
-#: admin/class-admin-export.php:184 includes/class-init.php:94
-#: includes/trait-filter.php:69 public/partials/archive-template.php:72
-msgid "Секция"
-msgstr "Секція"
-
 #: admin/class-admin-import.php:27
 msgid "Импорт конкурсных работ"
 msgstr "Імпорт конкурсних робіт"
@@ -495,7 +527,7 @@ msgstr "Спробуйте пізніше або зверніться до ад�
 
 #: admin/class-admin-post_type-competitive_work.php:30
 #: includes/class-init.php:50 includes/class-init.php:61
-#: public/partials/archive-template.php:37
+#: public/partials/archive-template.php:42
 msgid "Конкурсные работы"
 msgstr "Конкурсні роботи"
 
@@ -508,7 +540,12 @@ msgstr "Показувати авторів"
 msgid "Приглашение к участию в конференции"
 msgstr "Запрошення до участі в конференції"
 
-#: admin/class-admin-post_type-competitive_work.php:48
+#: admin/class-admin-post_type-competitive_work.php:35
+#: public/partials/single-content.php:121
+msgid "Награды"
+msgstr "Нагороди"
+
+#: admin/class-admin-post_type-competitive_work.php:49
 msgid "Параметры"
 msgstr "Параметри"
 
@@ -779,18 +816,34 @@ msgstr "Виконати дію"
 msgid "Вы уверены?"
 msgstr "Ви впевнені?"
 
-#: public/partials/archive-template.php:74
+#: public/partials/archive-template.php:91
+#, php-format
+msgid "Секція: «%s»"
+msgstr "Секція «%s»"
+
+#: public/partials/archive-template.php:99
+#, php-format
+msgid "Знайдено робіт / всього: <b>%s / %s</b>"
+msgstr "Знайдено робіт / всього: <b>%s / %s</b>"
+
+#: public/partials/archive-template.php:109
 #: public/partials/single-content.php:57
 msgid "Статус"
 msgstr "Статус"
 
-#: public/partials/archive-template.php:140
-msgid "Конкурсные работы не найдены"
-msgstr "Конкурсні роботи не знайдені"
+#: public/partials/archive-template.php:175
+msgid "Секції на знайдені!"
+msgstr "Секції на знайдені!"
 
 #: public/partials/single-content.php:61
 msgid "Не определён"
 msgstr "Не визначений"
+
+#~ msgid "Награды "
+#~ msgstr "Нагороди "
+
+#~ msgid "Конкурсные работы не найдены"
+#~ msgstr "Конкурсні роботи не знайдені"
 
 #~ msgid "Цвет текста"
 #~ msgstr "Колір"

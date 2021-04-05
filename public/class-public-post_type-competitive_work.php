@@ -31,7 +31,7 @@ class PublicCompetitiveWork extends PublicPartPostType {
 	public function filter_single_content( string $content ) {
 		if ( get_post_type( get_the_ID() ) == $this->post_type_name ) {
 			ob_start();
-			foreach ( [ 'rating', 'cipher', 'work_files', 'show_authors', 'authors', 'reviews', 'invite_files' ] as $meta_key ) {
+			foreach ( [ 'rating', 'cipher', 'work_files', 'show_authors', 'authors', 'reviews', 'invite_files', 'awards_files' ] as $meta_key ) {
 				$$meta_key = get_post_meta( get_the_ID(), $meta_key, true );
 			}
 			$work_status = get_terms( [

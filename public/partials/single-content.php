@@ -116,5 +116,19 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; };
 				</td>
 			</tr>
 		<?php endif; ?>
+		<?php if ( ! empty( $awards_files ) ) : ?>
+			<tr>
+				<th><?php _e( 'Награды', $this->plugin_name ); ?></th>
+				<td>
+					<ul>
+						<?php
+							foreach ( $awards_files as $award_file ) {
+								echo '<li><a href="' . esc_attr( $award_file ) . '">' . basename( $award_file ) . '</a></li>';
+							}
+						?>
+					</ul>
+				</td>
+			</tr>
+		<?php endif; ?>
 	</tbody>
 </table>

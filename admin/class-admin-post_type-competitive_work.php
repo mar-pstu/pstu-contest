@@ -32,6 +32,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 			'reviews'      => __( 'Рецензии', $this->plugin_name ),
 			'authors'      => __( 'Авторы', $this->plugin_name ),
 			'invite_files' => __( 'Приглашение к участию в конференции', $this->plugin_name ),
+			'awards_files' => __( 'Награды', $this->plugin_name ),
 		];
 	}
 
@@ -94,6 +95,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 			case 'authors':
 				$result = $this->sanitize_person_data( $value );
 				break;
+			case 'awards_files':
 			case 'invite_files':
 			case 'reviews':
 			case 'work_files':
@@ -153,6 +155,7 @@ class AdminCompetitiveWork extends AdminPartPostType {
 						)
 					] );
 					break;
+				case 'awards_files':
 				case 'invite_files':
 				case 'reviews':
 				case 'work_files':
